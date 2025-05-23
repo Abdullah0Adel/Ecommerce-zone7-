@@ -221,7 +221,7 @@ useEffect(() => {
               </div>
               
                 <Link to={`/products/${product.documentId}`}>
-                    <button className="weekly-btn btn-lg text-white border-0 rounded-pill text-uppercase ">
+                    <button className=" w-50 btn weekly-btn btn-success  btn-lg text-white border-0 rounded-pill text-uppercase ">
                         Shop Now
                    </button>
                 </Link>

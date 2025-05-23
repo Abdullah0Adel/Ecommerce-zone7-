@@ -15,7 +15,7 @@ export const CartProvider = ({ children }) => {
   const FREE_SHIPPING_THRESHOLD = 1000;
   const hasFreeShipping = totalPrice >= FREE_SHIPPING_THRESHOLD;
 
-  // ✅ Get user ID from localStorage
+  // Get user ID from localStorage
   const getUserId = () => {
     const user = localStorage.getItem('user');
     if (!user) return null;
@@ -29,12 +29,12 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ Get authentication token
+  // Get authentication token
   const getAuthToken = () => {
     return localStorage.getItem('token');
   };
 
-  // ✅ Load cart data from Strapi backend
+  // Load cart data from Strapi backend
   const loadCart = async () => {
     setLoading(true);
 
@@ -72,7 +72,7 @@ export const CartProvider = ({ children }) => {
             image: attributes.image,
             size: attributes.size,
             maxStock: attributes.maxStock,
-          users_permissions_user: attributes.users_permissions_user, // ✅ هنا بقى مربوط صح
+          users_permissions_user: attributes.users_permissions_user, //  هنا بقى مربوط صح
           };
         });
 
@@ -89,7 +89,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
     }
   };
 
-  // ✅ Load cart when component mounts
+  // Load cart when component mounts
   useEffect(() => {
     loadCart();
   }, []);
@@ -98,7 +98,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
 
 
 
-  // ✅ Calculate total price whenever cart items change
+  //  Calculate total price whenever cart items change
   useEffect(() => {
     const total = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
@@ -107,7 +107,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
     setTotalPrice(total);
   }, [cartItems]);
 
-  // ✅ Add item to cart
+  //  Add item to cart
   const addToCart = async (newItem) => {
     try {
       if (!newItem.product_id || !newItem.product_name || !newItem.price) {
@@ -131,7 +131,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
         Authorization: `Bearer ${token}`,
       };
 
-      // ✅ Check if item already exists in the cart
+      //  Check if item already exists in the cart
       const response = await axios.get(`http://localhost:1337/api/carts`, {
         headers,
         params: {
@@ -155,7 +155,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
       const existingItems = response.data.data || [];
 
       if (existingItems.length > 0) {
-        // ✅ Item exists, update the quantity
+        //  Item exists, update the quantity
         const existingItem = existingItems[0];
         const existingId = existingItem.documentId;
         const currentQuantity = existingItem.quantity || 0;
@@ -173,10 +173,10 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
           { headers }
         );
 
-        await loadCart(); // ✅ Reload the cart after update
+        await loadCart(); 
         toast.success(`Updated ${newItem.product_name} quantity to ${newQuantity}`);
       } else {
-        // ✅ Item doesn't exist, create a new entry
+        // Item doesn't exist, create a new entry
         const payload = {
           data: {
             users_permissions_user: userId,
@@ -194,7 +194,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
         }
 
         await axios.post(`http://localhost:1337/api/carts`, payload, { headers });
-        await loadCart(); // ✅ Reload the cart after creation
+        await loadCart(); // Reload the cart after creation
         toast.success(`Added ${newItem.product_name} to your cart`);
       }
     } catch (error) {
@@ -205,7 +205,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
 
 
 
-  // ✅ Update Cart Item
+  // Update Cart Item
 const updateCartItem = async (cartItemId, updates) => {
   try {
     if (!cartItemId) {
@@ -234,7 +234,7 @@ const updateCartItem = async (cartItemId, updates) => {
     );
 
     if (response.data) {
-      // ✅ Update the state with the new data
+      // Update the state with the new data
       const updatedCart = cartItems.map(item =>
         item.cartItemId === cartItemId ? { ...item, ...updates } : item
       );
@@ -249,7 +249,7 @@ const updateCartItem = async (cartItemId, updates) => {
 };
 
 
-  // ✅ Remove item from cart
+  // Remove item from cart
   const removeFromCart = async (cartItemId) => {
     try {
       if (!cartItemId) return;
@@ -267,7 +267,7 @@ const updateCartItem = async (cartItemId, updates) => {
     }
   };
 
-  // ✅ Clear entire cart
+  // Clear entire cart
   const clearCart = async () => {
     try {
       for (const item of cartItems) {
@@ -275,6 +275,7 @@ const updateCartItem = async (cartItemId, updates) => {
           await removeFromCart(item.cartItemId);
         }
       }
+      await loadCart(); // Reload the cart after clearing
       toast.success('Cart cleared');
     } catch (error) {
       console.error('Error clearing cart:', error);
@@ -287,7 +288,7 @@ const updateCartItem = async (cartItemId, updates) => {
   value={{
     cartItems,
     addToCart,
-    updateCartItem, // This is here
+    updateCartItem, 
     removeFromCart,
     clearCart,
     totalPrice,

@@ -106,10 +106,8 @@ const YourOrder = () => {
           <ul>
             <li>You haven't placed any orders yet</li>
             <li>User authentication issue - try logging out and back in</li>
-            <li>API connection problem</li>
           </ul>
-          <p><strong>User ID:</strong> {userId || "Not found"}</p>
-          <p><strong>Authentication:</strong> {getUserToken() ? "Token exists" : "No token found"}</p>
+          <p><strong>Authentication:</strong> {getUserToken() ? "loged in" : "you have to login"}</p>
         </div>
       </div>
     );
@@ -190,7 +188,7 @@ const YourOrder = () => {
               <hr />
               <div className="d-flex justify-content-between fw-bold">
                 <span>Total:</span>
-                <span>EGP {totalPrice}</span>
+                <span>EGP {order.grandTotal}</span>
               </div>
             </div>
           </div>

@@ -63,8 +63,8 @@
     }
 }
 .custom-pagination {
-    background-color: transparent;   /* ✅ Transparent background */
-    color: #004c45;                  /* ✅ Text color */
+    background-color: transparent;   /*  Transparent background */
+    color: #004c45;                  /*  Text color */
     border: 2px solid transparent;   /* Transparent border initially */
     border-radius: 8px;               /* Smooth rounded edges */
     transition: all 0.3s ease;
@@ -79,7 +79,7 @@
 
 .custom-pagination:focus {
   outline: none;
-  border-color: #004c45;            /* ✅ Focus outline */
+  border-color: #004c45;            /*  Focus outline */
   box-shadow: 0 0 0 2px #004c4522;   /* Soft shadow in color */
 }
 

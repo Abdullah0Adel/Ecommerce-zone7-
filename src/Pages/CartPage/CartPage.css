@@ -83,3 +83,25 @@
       position: static;
     }
   }
+
+  .proceed-btn{
+                background-color: #333333 !important;
+          border-color: #333333 !important;
+          border-radius: 25px !important;
+          font-size: 14px ;
+          padding: 14px 16px !important;
+          font-weight: 500 !important;
+          transition: all 0.5s ease !important;
+          color: white !important;
+          text-decoration: none!important;
+
+  }
+  .proceed-btn:hover{
+                background-color: #004C45 !important;
+          border-color: #004C45 !important;
+          box-shadow: 0 5px 10px #333333b9 ;
+          color: white !important;
+  }
+  .pament-icons img{
+    width: auto;
+  }

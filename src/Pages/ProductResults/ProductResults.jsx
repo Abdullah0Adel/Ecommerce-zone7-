@@ -170,20 +170,6 @@ const handleWishlistToggle = async () => {
           />
 
           <div className="overlay-buttons d-flex justify-content-center align-items-end gap-5 position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 opacity-0 transition-opacity">
-
-            <button 
-              className="wishlist-btn btn-sm mb-2"
-              onClick={handleWishlistToggle}
-              disabled={wishlistLoading}
-            >
-                    {wishlistLoading ? (
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    ) : isInWishlist(product.id) ? (
-                      <Icon icon="line-md:heart-filled" width="24" height="24" style={{ color: '#e91e63' }} />
-                    ) : (
-                      <Icon icon="line-md:heart" width="24" height="24" />
-                    )}
-            </button>
           </div>
         </div>
 

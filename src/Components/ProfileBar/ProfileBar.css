@@ -18,3 +18,12 @@
     
     color: #004c45;
 }
+.profileBar ul li{
+    padding: 15px 0;
+    border-bottom:solid 1px #ececec;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+.profileBar ul li:hover{
+    padding-left: 15px;
+}

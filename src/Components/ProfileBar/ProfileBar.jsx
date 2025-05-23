@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './ProfileBar.css'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie';
-import Logout from '../../Pages/Logout/Logout';
 
 
 export default function ProfileBar() {
@@ -33,16 +32,13 @@ export default function ProfileBar() {
         {token &&(
             <>
             <li>
-              <Link className='prof-links text-decoration-none text-dark fw-bold'>{userData.username}</Link>
-            </li>
-            <li>
-            <Logout/>
+              <Link to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>{userData.username}</Link>
             </li>
             </>
         )}
 
         <li>
-            <Link to={'/checkout'} className='prof-links text-decoration-none text-dark fw-bold'>Wishlist</Link>
+            <Link to={'/wishlist'} className='prof-links text-decoration-none text-dark fw-bold'>Wishlist</Link>
         </li>
         <li>
             <Link to={'/checkout'} className='prof-links text-decoration-none text-dark fw-bold'>Check out</Link>

@@ -115,7 +115,7 @@ export default function SingleProducts() {
   //         price: product.product_price,
   //         quantity: quantity,
   //         size: selectedSize?.size || '',
-  //         image: product.thumbnail.url, // ✅ Correct media relation
+  //         image: product.thumbnail.url, //  Correct media relation
   //       }
   //     };
   
@@ -301,7 +301,18 @@ const handleWishlistToggle = async () => {
             <h3 className="productName mb-3 fw-bold">{product.product_name}</h3>
             
             <div className="d-flex align-items-start mb-3 gap-3">
-              <div className="me-3">{product.product_rating}</div>
+          <div className="product-rating mb-2">
+              <div className="d-flex align-items-center mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Icon
+                    key={i}
+                    icon={i < Math.floor(product.product_rating) ? "mdi:star" : "mdi:star-outline"}
+                    className="text-warning me-1"
+                  />
+                ))}
+                <span>({product.product_rating})</span>
+              </div>
+          </div>
               <p className='viewAllReviews fw-bold'>VIEW ALL REVIEWS</p>
             </div>
             

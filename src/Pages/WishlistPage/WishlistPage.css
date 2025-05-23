@@ -42,7 +42,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
   
@@ -68,3 +67,43 @@
       margin-bottom: 1rem;
     }
   }
+  .view-details{
+    border: solid 1px #004C45 !important;
+    font-weight: 500 ;
+    transition: all 0.5s ease ;
+  }
+  .view-details:hover{
+    background-color: #333333 !important;
+    border-color: #424242 !important;
+    box-shadow: 0 5px 15px #333333b9 ;
+    color: white !important;
+  }
+  .delete-btn:hover{
+    box-shadow: 0 5px 15px #e35656b9 ;
+  }
+  .clear-wishlist-btn:hover{
+        box-shadow: 0 5px 15px #e35656b9 ;
+  }
+  .clear-all-btn:hover{
+            box-shadow: 0 5px 10px #e35656b9 ;
+
+  }
+  .cancle-clear-all-btn:hover{
+            box-shadow: 0 5px 10px #333333b9 ;
+  }
+.continue-shooping{
+            background-color: #004C45 !important;
+          border-color: #004C45 !important;
+          border-radius: 25px !important;
+          font-size: 14px ;
+          padding: 14px 16px !important;
+          font-weight: 500 !important;
+          transition: all 0.5s ease !important;
+          color: white !important;
+          text-decoration: none!important;
+}
+.continue-shooping:hover{
+            background-color: #333333 !important;
+          transform: translateY(-3px) !important;
+          box-shadow: 0 5px 15px #333333b9 !important;
+}

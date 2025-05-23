@@ -6,11 +6,11 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 const Footer = () => {
   return (
-    <footer className="footerImg text-white" style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/soccer-grass.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <footer className="footerImg text-white pb-5" style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/soccer-grass.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <Container fluid className="px-4 py-5">
         <Row className="mb-5">
           {/* Logo and About */}
-          <Col lg={4} md={12} className="mb-4 mb-lg-0">
+          <Col lg={6} md={12} className="mb-4 mb-lg-0">
             <div className="d-flex align-items-center mb-3">
               <img src="/images/Zone7-logoFooter.png" alt="Zone7 Logo" className='footer-logo'/>
             </div>
@@ -60,22 +60,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          {/* Gram Gallery */}
-          <Col lg={3} md={12}>
-            <h5 className="mb-4 fw-bold">Gram gallery</h5>
-            <Row className="g-2">
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <Col xs={4} key={item}>
-                  <img 
-                    src={`/images/cannabis-gallery-${item}.jpg`} 
-                    alt={`Cannabis Gallery ${item}`} 
-                    className="img-fluid rounded" 
-                    style={{ objectFit: 'cover', height: '80px', width: '100%' }}
-                  />
-                </Col>
-              ))}
-            </Row>
-          </Col>
+
         </Row>
 
         <hr className="my-4" />
@@ -83,19 +68,6 @@ const Footer = () => {
         <Row className="align-items-center">
           <Col md={6} className="text-center text-md-start">
             <small>Copyright © 2024 Vinovathemes. All rights reserved.</small>
-          </Col>
-          <Col md={6} className="text-center text-md-end mt-3 mt-md-0">
-            <div className="d-flex justify-content-md-end justify-content-center gap-2">
-              {['apple-pay', 'discover', 'mastercard', 'paypal', 'visa'].map((payment) => (
-                <img 
-                  key={payment} 
-                  src={`/images/${payment}.png`} 
-                  alt={payment} 
-                  height="24" 
-                  className="d-inline-block" 
-                />
-              ))}
-            </div>
           </Col>
         </Row>
       </Container>

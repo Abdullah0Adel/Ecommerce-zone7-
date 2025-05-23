@@ -123,7 +123,7 @@ function SearchBar({ onSearch }) {
         <div 
           className="search-results-dropdown position-absolute w-100 bg-white shadow-lg rounded-bottom z-index-9"
           style={{ 
-            maxHeight: '25vh', 
+            maxHeight: '50vh', 
             overflowY: 'auto',
             zIndex: 1000,
             border: '1px solid #dee2e6'
@@ -192,18 +192,6 @@ function SearchBar({ onSearch }) {
         </div>
       )}
       
-      <div className="search_trend w-100 mt-3">
-        <div className="search_trend_content">
-          <p className="search_trend_title">Hot Searches :</p>
-          <ul className="search_trend_list d-flex gap-3 justify-content-start align-items-center">
-            <li><button onClick={() => {setSearchTerm("CBD Oil"); handleSearchSubmit({preventDefault: () => {}})}}>CBD Oil</button></li>
-            <li><button onClick={() => {setSearchTerm("Capsules"); handleSearchSubmit({preventDefault: () => {}})}}>Capsules</button></li>
-            <li><button onClick={() => {setSearchTerm("Hemp-Oil"); handleSearchSubmit({preventDefault: () => {}})}}>Hemp-Oil</button></li>
-            <li><button onClick={() => {setSearchTerm("E-Liquid"); handleSearchSubmit({preventDefault: () => {}})}}>E-Liquid</button></li>
-            <li><button onClick={() => {setSearchTerm("Cookie"); handleSearchSubmit({preventDefault: () => {}})}}>Cookie</button></li>
-          </ul>
-        </div>
-      </div>
     </div>
   )
 }

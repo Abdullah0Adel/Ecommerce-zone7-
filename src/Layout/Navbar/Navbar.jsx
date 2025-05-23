@@ -6,12 +6,24 @@ import { motion } from "framer-motion";
 import ProfileBar from "../../Components/ProfileBar/ProfileBar";
 import CartBar from "../../Components/CartBar/CartBar";
 import SearchBar from "../../Components/SearchBar/SearchBar";
+import { useWishlist } from '../../context/WishlistContext';
+import { useCart } from '../../context/CartContext'; // Import cart context
 
 export default function Navbar() {
   const [isHover, toggleHover] = React.useState(false);
   const toggleHoverMenu = () => {
     toggleHover(!isHover);
   };
+  const { 
+    cartItems, 
+  } = useCart();
+  const cartCount = cartItems.length;
+
+    const {
+      wishlistItems,
+    } = useWishlist();
+  const wishlistCount = wishlistItems.length; 
+
   const subMenuAnimate = {
     enter: {
       opacity: 1,
@@ -140,13 +152,11 @@ export default function Navbar() {
 
           <div className="d-flex flex-column">    
             <ul className="toggle_list">
-              <li><Link className="toggle_link" to={'/'}>Home</Link></li>
-              <li><Link className="toggle_link" to={'/shop'}>Shop</Link></li>
-              <li><Link className="toggle_link" to={'/aboutus'}>About Us</Link></li>
-              <li><Link className="toggle_link" to={'/contactus'}>Contact Us</Link></li>
-              <li><Link className="toggle_link" to={'/FAQs'}>FAQs</Link></li>
-              <li><Link className="toggle_link" to={'/storedirection'}>Store Direction</Link></li>
-              <li><Link className="toggle_link" to={'/storelocation'}>Store Location</Link></li>
+              <li className=""><Link className="toggle_link" to={'/'}>Home</Link></li>
+              <li className=""><Link className="toggle_link" to={'/shop'}>Shop</Link></li>
+              <li className=""><Link className="toggle_link" to={'/aboutus'}>About Us</Link></li>
+              <li className=""><Link className="toggle_link" to={'/contactus'}>Contact Us</Link></li>
+
             </ul>
           </div>
         </div>
@@ -169,41 +179,32 @@ export default function Navbar() {
               <li className='nav_item text-center'><Link className='nav_link' to={'/'}>Home</Link></li>
               <li className='nav_item text-center'><Link className='nav_link' to={'/shop'}>Shop</Link></li>
               <li className='nav_item text-center'><Link className='nav_link' to={'/aboutus'}>About Us</Link></li>
-              <li className='nav_item text-center'>
-                <div className="flex-item">
-                  <motion.div
-                    className="menu-item"
-                    onHoverStart={toggleHoverMenu}
-                    onHoverEnd={toggleHoverMenu}
-                  >
-                    <div href="/">Menu Item</div>
-                    <motion.div
-                      className="sub-menu"
-                      initial="exit"
-                      animate={isHover ? "enter" : "exit"}
-                      variants={subMenuAnimate}
-                    >
-                      <div className="sub-menu-background" />
-                      <div className="sub-menu-container d-flex flex-column align-items-start gap-3">
-                        <Link className="sub-menu-item" to={'contactus'}>Contact Us</Link>
-                        <Link to={'/FAQs'} className="sub-menu-item">FAQs</Link>
-                        <Link to={'/storedirection'} className="sub-menu-item">Store Direction</Link>
-                        <Link to={'/storelocation'} className="sub-menu-item">Store Location</Link>
-                        <Link to={''} className="sub-menu-item"></Link>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                </div>
-              </li>
+              <li className='nav_item text-center'><Link className='nav_link' to={'/contactus'}>Contact Us</Link></li>
             </ul>
 
             {/* Icons */}
             <ul className='nav_menu nav_menu_icons col-4 m-0 d-flex gap-4 justify-content-end'>
               <li onClick={handleSearchBar}><Icon className="searchIcon" icon="ic:sharp-search" width="24" height="24" fontSize={30} /></li> 
               <li onClick={handleProfileBar}><Icon icon="line-md:account" width="24" height="24" /></li>
-              <Link to={'/wishlist'} className="text-dark" ><li><Icon icon="solar:heart-linear" width="24" height="24" /></li></Link>
+              <Link to={'/wishlist'} className="text-dark" >
+              <li>
+                <Icon icon="solar:heart-linear" width="24" height="24" />
+                  {wishlistCount > 0 && (
+                  <span className="position-absolute bg-danger wishlist_count">
+                    {wishlistCount > 99 ? '99+' : wishlistCount}
+                  </span>
+            )}
+              </li>
+              </Link>
               <Link to={"/cartpage"} className="text-dark">
-              <li><Icon icon="solar:cart-large-2-broken" width="24" height="24" /></li>
+                <li>
+                  <Icon icon="solar:cart-large-2-broken" width="24" height="24" />
+                  {cartCount > 0 && (
+                  <span className="position-absolute  bg-danger cart-count">
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                  )}
+                </li>
               </Link>
             </ul>
           </nav>
@@ -222,8 +223,15 @@ export default function Navbar() {
             <div className="col-6 d-flex justify-content-center align-items-center m-auto">
               <Link to={'/'}><img className='canabuzz_mobileView' src="./images/Zone7-logoNav.png" alt="Logo" /></Link>
             </div>
-            <div onClick={handleCartBar} className="col-3 d-flex align-items-center justify-content-end">
+            <div className="col-3 d-flex align-items-center justify-content-end">
+              <Link to={"/cartpage"} className="text-dark">
               <Icon icon="la:shopping-bag" width="25" height="25" />
+                  {cartCount > 0 && (
+                  <span className="position-absolute  bg-danger cart-count-mobile">
+                    {cartCount > 99 ? '99+' : cartCount}
+                  </span>
+                  )}
+              </Link>
             </div>
           </div>
         </div>
@@ -249,7 +257,7 @@ export default function Navbar() {
             <Icon icon="solar:heart-linear" width="24" height="24" />
             <p>Wishlist</p>
           </Link>
-          <Link className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
+          <Link onClick={handleProfileBar} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
             <Icon icon="line-md:account" width="24" height="24" />
             <p>Account</p>
           </Link>

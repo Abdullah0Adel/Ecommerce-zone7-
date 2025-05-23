@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useWishlist } from '../../context/WishlistContext';
-import { useCart } from '../../context/CartContext';
-import { toast } from 'react-toastify';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import './WishlistPage.css';
 
 export default function WishlistPage() {
-  const { addToCart } = useCart();
   const [deletingItems, setDeletingItems] = useState({});
 
   const {
@@ -18,38 +15,7 @@ export default function WishlistPage() {
     isInWishlist
   } = useWishlist();
 
-  // Handle adding product to cart
-  const handleAddToCart = (product) => {
-    // If no sizes provided or empty, redirect to product page
-    if (!product.sizes || product.sizes.length === 0) {
-      toast.info("Please view product details to select size");
-      return;
-    }
-    
-    // Find first size with stock available
-    const availableSize = product.sizes.find(size => size.stock > 0);
-    
-    if (!availableSize) {
-      toast.error("Sorry, this product is out of stock");
-      return;
-    }
-    
-    const cartItems = {
-      id: product.id,
-      documentId: product.documentId,
-      name: product.name,
-      price: product.hasDiscount 
-        ? product.price - (product.price * product.discountValue) / 100
-        : product.price,
-      quantity: 1,
-      size: availableSize,
-      image: product.image,
-      maxStock: availableSize.stock
-    };
-    
-    addToCart(cartItems);
-    toast.success(`Added ${product.name} to cart!`);
-  };
+
 
   // Handle removing a product from wishlist
   const handleRemoveFromWishlist = async (productId) => {
@@ -87,14 +53,14 @@ export default function WishlistPage() {
           <Icon icon="mdi:heart-off-outline" width={64} height={64} className="mb-3 text-muted" />
           <h3>Your wishlist is empty</h3>
           <p className="text-muted">Add items you love to your wishlist. Review them anytime and easily move them to the cart.</p>
-          <Link to="/shop" className="btn btn-primary mt-3">Continue Shopping</Link>
+          <Link to="/shop" className="btn continue-shooping mt-3">Continue Shopping</Link>
         </div>
       ) : (
         <>
           <div className="text-end mb-3">
             {!showConfirmClear ? (
               <button 
-                className="btn btn-outline-danger btn-sm"
+                className="btn btn-outline-danger clear-wishlist-btn btn-sm"
                 onClick={() => setShowConfirmClear(true)}
               >
                 <Icon icon="mdi:trash-can-outline" className="me-1" /> Clear Wishlist
@@ -103,7 +69,7 @@ export default function WishlistPage() {
               <div className="alert alert-warning p-2 d-inline-flex align-items-center">
                 <span>Are you sure?</span>
                 <button 
-                  className="btn btn-sm btn-danger ms-2" 
+                  className="btn btn-sm btn-danger clear-all-btn ms-2" 
                   onClick={handleClearWishlist}
                   disabled={clearingAll}
                 >
@@ -114,7 +80,7 @@ export default function WishlistPage() {
                   )}
                 </button>
                 <button 
-                  className="btn btn-sm btn-secondary ms-2" 
+                  className="btn btn-sm btn-secondary cancle-clear-all-btn ms-2" 
                   onClick={() => setShowConfirmClear(false)}
                   disabled={clearingAll}
                 >
@@ -128,8 +94,8 @@ export default function WishlistPage() {
             {wishlistItems.map((product) => {
               // Calculate final price if there's a discount
               const finalPrice = product.hasDiscount 
-                ? product.price - (product.price * product.discountValue) / 100
-                : product.price;
+                ? product.product_price - (product.product_price * product.discountValue) / 100
+                : product.product_price;
                 
               return (
                 <div key={product.wishlistItemId} className="col-12 col-md-6 col-lg-4 mb-4">
@@ -191,40 +157,22 @@ export default function WishlistPage() {
                           </div>
                         </div>
                       )}
+              
                       
-                      {/* Price */}
-                      {product.hasDiscount ? (
-                        <div className='d-flex gap-2'>
-                          <p style={{ textDecoration: 'line-through', color: 'gray' }}>
-                            EGP {product.price}
-                          </p>
-                          <p style={{ color: 'green', fontWeight: 'bold' }}>
-                            EGP {finalPrice.toFixed(2)}
-                          </p>
-                        </div>
-                      ) : (
-                        <p className="text-black fw-bold">EGP {product.price}</p>
-                      )}
-                      
+
+
                       <div className="mt-auto">
                         <div className="d-grid gap-2">
                           <div className="d-flex gap-2">
                             <Link 
-                              to={`/products/${product.documentId || product.id}`}
-                              className="btn btn-outline-dark flex-grow-1"
+                              to={`/products/${product.product_documentId}`}
+                              className="  view-details btn flex-grow-1"
                             >
                               View Details
                             </Link>
-                            <button 
-                              className="btn btn-primary flex-grow-1"
-                              onClick={() => handleAddToCart(product)}
-                            >
-                              <Icon icon="mdi:cart-plus" className="me-1" />
-                              Add to Cart
-                            </button>
                           </div>
                           <button 
-                            className="btn btn-outline-danger"
+                            className="btn btn-outline-danger delete-btn"
                             onClick={() => handleRemoveFromWishlist(product.id)}
                             disabled={deletingItems[product.id]}
                           >

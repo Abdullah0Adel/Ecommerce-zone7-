@@ -7,7 +7,7 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 export default function ContactUs(children) {
   return (
     <>
-    <div className='container-contact'>
+    <div className='container-contact mb-5'>
 
 
     <div className="custom-breadcrumbs">

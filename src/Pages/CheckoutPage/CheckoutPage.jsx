@@ -4,7 +4,7 @@ import axios from "axios";
 import { useCart } from "../../context/CartContext"; // Import useCart from your context
 import './CheckoutPage.css'
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const egyptCities = [
   "Cairo", "Giza", "Alexandria", "Aswan", "Luxor",
@@ -26,7 +26,7 @@ const CheckoutPage = () => {
   // Use the context's clearCart function directly
   const { clearCart } = useCart();
 
-  // ✅ Get user data
+  //  Get user data
   const getUserId = () => {
     const user = localStorage.getItem("user");
     if (!user) return null;
@@ -52,7 +52,7 @@ const CheckoutPage = () => {
   const userId = getUserId();
   const userToken = getUserToken();
 
-  // ✅ Submit order function
+  //  Submit order function
   const handleCheckout = async () => {
     if (!phoneNumber || !shippingAddress) {
       alert("Please fill in all required fields");
@@ -63,7 +63,7 @@ const CheckoutPage = () => {
     
     // Simulate API call
     setTimeout(() => {
-      alert("Order placed successfully!");
+      toast.success("Order placed successfully!");
       setIsProcessing(false);
       // Would navigate or clear cart here in real implementation
     }, 1500);
@@ -98,16 +98,16 @@ const CheckoutPage = () => {
       });
 
       if (response.ok) {
-        // ✅ Clear cart using the context's clearCart function after successful order
+        //  Clear cart using the context's clearCart function after successful order
         await clearCart();
         
-        alert("Order Placed Successfully!");
-        // ✅ Navigate to order confirmation page
-        navigate("/order-confirmation");
+        toast.success("Order Placed Successfully!");
+        //  Navigate to order confirmation page
+        navigate("/your-order");
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);
-        alert("Failed to place order. Please try again.");
+        toast.error("Failed to place order. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);

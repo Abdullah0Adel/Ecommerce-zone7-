@@ -79,40 +79,14 @@ export default function NewArrivals() {
 
 
                   <div className="overlay-buttons d-flex justify-content-center align-items-end gap-5 position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 opacity-0 transition-opacity">
-                  <button 
-                  className="cart-btn mb-2"
-                  // onClick={handleQuickAddToCart}
-                  // disabled={loading}  
-                  >
-                    {loading ? (
-                      <span className="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                    ) : (
-                      <Icon icon="solar:cart-large-2-broken" width="24" height="24" />
-                    )}
-                  </button>
-                  <button
-                  className="wishlist-btn btn-sm mb-2"
-                  // onClick={handleWishlistToggle}
-                  // disabled={wishlistLoading}
-                  
-                  >
-                  <Icon icon="solar:heart-linear" width="24" height="24" />
-                  {/* {wishlistLoading ? (
-                    <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                  ) : isInWishlist(id) ? (
-                    <Icon icon="solar:heart-bold" width="24" height="24" style={{ color: '#e91e63' }} />
-                  ) : (
-                    <Icon icon="solar:heart-linear" width="24" height="24" />
-                  )} */}
-                  </button>
                   </div>
 
                 </div>
                   <div className="card-body d-flex flex-column align-items-center">
                     <Link
                       to={`/products/${product.documentId}`}
-                      // onMouseEnter={(e) => (e.target.style.color = '#006158')}
-                      // onMouseLeave={(e) => (e.target.style.color = 'black')}
+                      onMouseEnter={(e) => (e.target.style.color = '#006158')}
+                      onMouseLeave={(e) => (e.target.style.color = 'black')}
                       className="link-product text-decoration-none text-black"
                     >
                       <h5 className="card-title text-center">{product.product_name}</h5>
@@ -128,6 +102,21 @@ export default function NewArrivals() {
                         ))}
                         <span>({product.product_rating})</span>
                       </div>
+
+                    {product.hasDiscount ? (
+                      <div className='d-flex gap-2'>
+                        <p style={{ textDecoration: 'line-through', color: 'gray' }}>
+                          EGP {product.product_price}
+                        </p>
+                        <p style={{ color: 'green', fontWeight: 'bold' }}>
+                          EGP {(product.product_price - (product.product_price * product.discount_value / 100)).toFixed(2)}
+                        </p>
+                      </div>
+                    ) : (
+                      <p style={{ color: 'black', fontWeight: 'bold' }}>
+                        EGP {product.product_price}
+                      </p>
+                    )}
                     
                   </div>
               </div>

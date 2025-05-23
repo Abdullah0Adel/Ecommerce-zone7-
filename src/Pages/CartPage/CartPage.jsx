@@ -41,7 +41,8 @@ const handleQuantityChange = (item, newQuantity) => {
   };
 
   // Calculate grand total
-  const grandTotal = totalPrice + shippingCost;
+const actualShippingCost = hasFreeShipping ? 0 : shippingCost;
+const grandTotal = totalPrice + actualShippingCost;
 
   // Calculate how much more needed for free shipping
   const amountForFreeShipping = 1000 - totalPrice;
@@ -55,7 +56,7 @@ const handleQuantityChange = (item, newQuantity) => {
           <Icon icon="mdi:cart-off" width="64" height="64" className="text-muted mb-3" />
           <h3>Your cart is empty</h3>
           <p className="mb-4">Looks like you haven't added any items to your cart yet.</p>
-          <Link to="/shop" className="btn btn-primary">
+          <Link to="/shop" className="btn btn-primary continue-shooping">
             Continue Shopping
           </Link>
         </div>
@@ -161,8 +162,8 @@ const handleQuantityChange = (item, newQuantity) => {
               ))}
             </div>
             
-            <div className="continue-shopping mt-4">
-              <Link to="/shop" className="btn btn-outline-primary">
+            <div className=" mt-4">
+              <Link to="/shop" className="btn btn-outline-primary continue-shooping">
                 <Icon icon="mdi:arrow-left" className="me-2" />
                 Continue Shopping
               </Link>
@@ -200,17 +201,25 @@ const handleQuantityChange = (item, newQuantity) => {
                 )}
               </div>
               
-              <button className="btn btn-primary w-100 py-2" onClick={handleProceedToCheckout}>
+              <button className="btn btn-primary proceed-btn w-100 py-2" onClick={handleProceedToCheckout}>
                 Proceed to Checkout
               </button>
               
               <div className="payment-methods mt-4">
                 <p className="text-center mb-2">We Accept</p>
-                <div className="d-flex justify-content-center gap-2">
+                <div className="d-flex flex-lg-row flex-column align-items-center justify-content-center gap-2 pament-icons">
+                  <span>
                   <img src="/images/instapay.png" alt="Instapay" height="30" />
+                  </span>
+                  <span>
                   <img src="/images/vodafon cash.png" alt="Vodafone Cash" height="30" />
+                  </span>
+                  <span>
                   <img src="/images/visa.png" alt="Visa" height="30" />
+                  </span>
+                  <span>
                   <img src="/images/mastercard.png" alt="Mastercard" height="30" />
+                  </span>
                 </div>
               </div>
             </div>

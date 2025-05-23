@@ -149,8 +149,7 @@ export default function Shop() {
       subcategories: []
     },
     {
-      name: 'Shose',
-      count: 10,
+      name: 'shose',
       subcategories: [
         { name: 'Running Shoes', count: 6 },
         { name: 'Soccer Boots', count: 4 }
@@ -325,7 +324,6 @@ export default function Shop() {
                         {category.name}
                       </label>
                     </div>
-                    <span className="text-muted">({category.count})</span>
                   </div>
                   
                   {/* Show subcategories with animation */}
@@ -350,7 +348,6 @@ export default function Shop() {
                               {subcat.name}
                             </label>
                           </div>
-                          <span className="text-muted">({subcat.count})</span>
                         </div>
                       ))}
                     </div>
@@ -533,7 +530,6 @@ export default function Shop() {
                               {category.name}
                             </label>
                           </div>
-                          <span className="text-muted">({category.count})</span>
                         </div>
                         
                         {/* Show subcategories with animation */}
@@ -558,7 +554,6 @@ export default function Shop() {
                                     {subcat.name}
                                   </label>
                                 </div>
-                                <span className="text-muted">({subcat.count})</span>
                               </div>
                             ))}
                           </div>

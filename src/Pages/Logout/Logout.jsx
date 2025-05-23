@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
+import './Logout.css'
 
 export default function Logout() {
   const navigate = useNavigate(); 
@@ -19,8 +20,8 @@ export default function Logout() {
   }
 
   return (
-    <div>
-      <button onClick={handleLogoutClick} className="btn btn-outline-danger">Logout</button>
+    <div className='d-flex justify-content-center align-items-center flex-column'>
+      <button onClick={handleLogoutClick} className=" w-50 btn btn-success logout-btn ">Logout</button>
     </div>
   )
 }

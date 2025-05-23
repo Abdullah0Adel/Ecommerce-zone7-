@@ -59,7 +59,7 @@ const InfoSection = () => {
           </Link>
         </div>
         <div className="">
-        <video width="600" loop autoPlay muted className='info-image'>
+        <video width="600" loop autoPlay muted className='info-video'>
           <source src="/images/nike-ad.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>        

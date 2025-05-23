@@ -30,7 +30,7 @@ export default function Login() {
         const { data } = await axios.post(url, user);
   
         Cookies.set('token', data.jwt, { expires: 7 }); // Optional if you use cookies
-        localStorage.setItem('token', data.jwt);        // ✅ Correct way
+        localStorage.setItem('token', data.jwt);        //  Correct way
         localStorage.setItem('user', JSON.stringify(data.user));
   
         toast.success('Welcome!');
@@ -48,8 +48,8 @@ export default function Login() {
   return (
     <div>
       <div className="reg-container ">
-        <div className="register row  d-flex justify-content-between align-items-center">
-            <form action="" className='form col-4 d-flex flex-column justify-content-center align-items-center gap-4'>
+        <div className="login-container register row  d-flex justify-content-between align-items-center ">
+            <form action="" className='form col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center gap-4'>
               <div className='d-flex flex-column justify-content-center align-items-center'>
               <h1 className='fw-bold'>Login</h1>
               <p className='text-secondary'>Login to your account</p>
@@ -77,12 +77,12 @@ export default function Login() {
                 required/>
               </div>
 
-              <button className='submit w-100 fw-bold' onClick={handleLogin}>Login</button>
+              <button className='submit w-100 fw-bold continue-shooping' onClick={handleLogin}>Login</button>
 
               <p>Don't have account?<Link to={'/register'}>Create Account</Link></p>
             </form>
 
-          <img src="/images/Zone7.png" alt="" className='img-background col-8'/>
+          <img src="/images/Zone7.png" alt="" className='img-background col-8  d-none d-lg-block '/>
         </div>
       </div>
     </div>

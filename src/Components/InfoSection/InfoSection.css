@@ -83,14 +83,14 @@
   background-color: #004C45;
 }
 
-.info-image {
+.info-video {
   flex: 1;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
 }
 
-.info-image img {
+.info-video img {
   width: 100%;
   height: auto;
   display: block;
@@ -109,8 +109,17 @@
     order: 2;
   }
   
-  .info-image {
+  .info-video {
     order: 1;
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 650px) {
+  
+  .info-video {
+
+    width: 100%;
+    height: auto;
   }
 }

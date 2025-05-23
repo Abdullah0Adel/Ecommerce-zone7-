@@ -150,20 +150,16 @@ const handleWishlistToggle = async () => {
 
           {/* Rating display */}
           <div className="product-rating mb-2">
-            {rating && (
-              <div className="d-flex align-items-center">
-                <div className="rating-stars me-1">
-                  {Array(5).fill().map((_, i) => (
-                    <Icon 
-                      key={i} 
-                      icon={i < Math.floor(rating) ? "mdi:star" : "mdi:star-outline"} 
-                      className="text-warning"
-                    />
-                  ))}
-                </div>
-                <small>({rating})</small>
+              <div className="d-flex align-items-center mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <Icon
+                    key={i}
+                    icon={i < Math.floor(rating) ? "mdi:star" : "mdi:star-outline"}
+                    className="text-warning me-1"
+                  />
+                ))}
+                <span>({rating})</span>
               </div>
-            )}
           </div>
 
           {hasDiscount ? (

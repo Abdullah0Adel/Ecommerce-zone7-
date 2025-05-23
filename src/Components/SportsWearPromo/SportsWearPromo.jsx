@@ -62,7 +62,7 @@ export default function SportsWearPromo() {
         
         <div className="button-container">
           <Link to={"/shop"}>
-          <button className="shop-now-button">
+          <button className=" shop-now-button btn-lg text-white border-0 rounded-pill text-uppercase ">
             Shop Now
           </button>
           </Link>

@@ -62,8 +62,8 @@ export default function Register() {
   return (
     <div>
       <div className="reg-container ">
-        <div className="register  d-flex justify-content-between align-items-center">
-            <form className='form d-flex flex-column justify-content-center align-items-center gap-4'>
+        <div className="register row d-flex justify-content-between align-items-center">
+            <form className='form col-12 col-lg-4 d-flex flex-column justify-content-center align-items-center gap-4'>
               <h1>Create Account</h1>
               <div className="reg-name d-flex flex-column justify-content-between align-items-start gap-2 w-100">
                 <label htmlFor="">Your Name</label>
@@ -113,12 +113,12 @@ export default function Register() {
                 required/>
               </div>
 
-              <button className='submit w-100 fw-bold' onClick={signUp}>Submit</button>
+              <button className='submit w-100 fw-bold continue-shooping' onClick={signUp}>Submit</button>
 
               <p>You have an account?<Link to={'/login'}>Login</Link></p>
             </form>
 
-          <img src="/images/Zone7.png" alt="" className='img-background'/>
+          <img src="/images/Zone7.png" alt="" className=' img-background col-8 d-none d-lg-block '/>
         </div>
       </div>
     </div>

@@ -7,10 +7,6 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter(x => x);
   
-  // Hide breadcrumbs if:
-  // 1. We're on the home page (no path segments)
-  // 2. We're on a single product page (assuming URL pattern is /products/[productId])
-  //    or any page that should be considered a "single item" page
   const isSingleProductPage = 
     (pathnames[0] === 'products' && pathnames.length === 2) || 
     (pathnames[0] === 'product' && pathnames.length === 2);

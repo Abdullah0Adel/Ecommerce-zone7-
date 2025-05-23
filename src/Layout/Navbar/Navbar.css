@@ -156,7 +156,6 @@
     width: 40px;
     height: 40px;
     border-radius: 50%; /* Makes it circular */
-    overflow: hidden;
     cursor: pointer;
     :hover{
         color: #004c45;
@@ -339,6 +338,12 @@
 }
 .toggle_list li{
     padding: 15px 0;
+    border-bottom:solid 1px #ececec;
+    transition: 0.3s ease-in-out;
+}
+.toggle_list li:hover{
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    padding-left: 15px;
 }
 .toggle_link{
     text-decoration: none;
@@ -422,5 +427,59 @@ body {
 @media screen and (max-width: 800px) {
     body {
       padding-top: 60px; /* Match the height of mobile navbar */
+    }
+}
+.wishlist_count{
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 5px;
+    font-size: 8px;
+}
+        .wishlist_count,
+        .cart-count {
+          position: absolute;
+          top: -2px;
+          right: -3px;
+          background: #e91e63;
+          color: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 0.7rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: pulse 2s infinite;
+        }
+        .cart-count-mobile {
+          position: absolute;
+          top: 13px;
+          right: 13px;
+          background: #e91e63;
+          color: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          font-size: 0.7rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: pulse 2s infinite;
+
+        }
+
+        @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
+
+
+@media screen and (max-width: 500px) {
+    .toggle_click{
+        width: 300px;
     }
 }
