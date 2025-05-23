@@ -1,0 +1,15 @@
+.error-page{
+    height: 100vh;
+}
+.error-404{
+    font-size: 110px;
+    font-weight: bolder;
+}
+.error-btn button{
+    background-color: #333333;
+    transition: 0.5s;
+    border: none;
+}
+.error-btn button:hover{
+    background-color: #004c45;
+}

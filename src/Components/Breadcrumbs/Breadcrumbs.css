@@ -1,0 +1,23 @@
+/* Breadcrumbs.css */
+.breadcrumbs {
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .breadcrumbs a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .breadcrumbs a:hover {
+    text-decoration: underline;
+  }
+  
+  .breadcrumbs .separator {
+    margin: 0 5px;
+  }
+  
+  .breadcrumbs .current-page {
+    color: #555;
+  }

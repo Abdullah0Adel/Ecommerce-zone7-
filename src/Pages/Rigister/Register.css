@@ -1,0 +1,29 @@
+.reg-container{
+    padding: 70px 100px 70px 100px;
+    height: 100vh;
+}
+img{
+    width: 65%;
+    background-position: center;
+    background-size: cover;
+}
+.register{
+    width: 100%;
+    height: 100%;
+}
+.form{
+    width: 35%;
+}
+.input{
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 16px;
+    border: solid gray 1px;
+}
+.reg-name,.reg-email,.reg-password,.reg-confirmPass label{
+    font-weight: 700;
+}
+.submit{
+    border-radius: 20px;
+    padding: 10px 16px ;
+}

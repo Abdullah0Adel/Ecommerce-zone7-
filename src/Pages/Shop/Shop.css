@@ -1,0 +1,129 @@
+.custom-checkbox{
+    accent-color: black !important;
+}
+.global-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.674);
+    backdrop-filter: blur(5px);
+    z-index: 9000; /* High enough to be above navbar but below sidebars/modal content */
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* When any menu/overlay is open */
+.overlay_appear {
+    opacity: 1;
+    visibility: visible;
+}
+.filters-toggle{
+    width: 340px;
+    position: fixed;
+    top: 0;
+    left: -340px;
+    background-color: white;
+    opacity: 0;
+    transition: 0.5s ease-in-out;
+}
+.filter-toggle-active{
+    left: 0;
+    opacity: 1;
+}
+.product-showed{
+    font-size: 14px;
+    display: inline-block;
+}
+.filter-btn{
+    display: none;
+}
+.filter-toggle-btn{
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ddd; 
+    border-radius: '5px';
+    transition: all 0.5s ease-in-out;
+}
+.filter-toggle-btn:hover{
+    background-color: #004c45;
+    color: white;
+}
+.container-custom{
+    margin: 0 20px;
+}
+.filter-header{
+    background: transparent;
+}
+@media screen and (max-width: 1050px) {
+    .filter-btn{
+        display: block;
+    }
+}
+.custom-pagination {
+    background-color: transparent;   /* ✅ Transparent background */
+    color: #004c45;                  /* ✅ Text color */
+    border: 2px solid transparent;   /* Transparent border initially */
+    border-radius: 8px;               /* Smooth rounded edges */
+    transition: all 0.3s ease;
+    margin: 0 4px;
+    padding: 10px 15px;
+}
+
+.custom-pagination:hover {
+  color: #004c45;
+  background-color: rgba(0, 76, 69, 0.1); /* Slight hover background */
+}
+
+.custom-pagination:focus {
+  outline: none;
+  border-color: #004c45;            /* ✅ Focus outline */
+  box-shadow: 0 0 0 2px #004c4522;   /* Soft shadow in color */
+}
+
+.page-item.active .custom-pagination {
+  color: white;
+  background-color: #004c45;         /* Active button solid color */
+  border-color: #004c45;
+}
+.arrow-btn{
+  border: solid #004c442a 0.5px;
+  padding: 5px;
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(2px, 2px); }
+    50% { transform: translate(-2px, -2px); }
+    75% { transform: translate(2px, -2px); }
+    100% { transform: translate(0, 0); }
+  }
+  
+  .hover-shake:hover {
+    animation: shake 0.4s ease-in-out;
+  }
+  
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background-color: #2f58542e;
+    border-radius: 50%;
+  }
+
+.feature-text{
+    font-size: 12px;
+} 
+.feature-title{
+    font-size: 15px;
+}
+.features-section{
+    padding: 70px 0;
+    margin-top: 50px;
+    background-color: #f2f2f2;
+}
+.introduction{
+    font-size: 14px;
+}

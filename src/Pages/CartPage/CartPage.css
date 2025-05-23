@@ -1,0 +1,85 @@
+/* CartPage.css */
+
+.cart-page {
+    min-height: 60vh;
+  }
+  
+  .cart-item {
+    background-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .cart-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cart-quantity .quantity-input {
+    width: 40px;
+    text-align: center;
+  }
+  
+  .cart-summary {
+    background-color: #f8f9fa;
+    position: sticky;
+    top: 20px;
+  }
+  
+  .shipping-progress .progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+  }
+  
+  .shipping-progress .progress-bar {
+    border-radius: 4px;
+    transition: width 0.3s ease;
+  }
+  
+  .empty-cart {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .cart-quantity {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    width: fit-content;
+  }
+  
+  .cart-quantity .quantity-btn {
+    background: none;
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cart-quantity .quantity-btn:disabled {
+    color: #adb5bd;
+    cursor: not-allowed;
+  }
+  
+  .cart-quantity .quantity-input {
+    border: none;
+    background: none;
+    text-align: center;
+    width: 40px;
+    font-size: 14px;
+  }
+  
+  @media (max-width: 768px) {
+    .cart-item {
+      padding: 1rem !important;
+    }
+    
+    .cart-summary {
+      position: static;
+    }
+  }

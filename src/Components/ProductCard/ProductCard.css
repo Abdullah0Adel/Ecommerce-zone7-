@@ -1,0 +1,64 @@
+.decorate-none{
+    text-decoration: none;
+    color: black;
+}
+.img-hover-effect {
+    transition: transform 0.4s ease;
+}
+.card:hover .img-hover-effect {
+  transform: scale(1.05);
+}
+.overlay-buttons {
+  transition: opacity 0.5s ease;
+}
+.card:hover .overlay-buttons {
+  opacity: 1 !important;
+}
+.rating-stars {
+  font-size: 0.9rem;
+}
+.wishlist-btn{
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  transition: 0.5s;
+}
+.wishlist-btn:hover{
+  background-color: #004c45;
+  color: white;
+}
+.cart-btn{
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  transition: 0.5s;
+}
+.cart-btn:hover{
+  background-color: #004c45;
+  color: white;
+}
+.discount{
+  position: absolute;
+  z-index: 1;
+  background-color: #DC143C;
+  /* padding: 10px 10px; */
+  width: 40px;
+  height: 40px;
+  top: 10px;
+  left: 10px;
+}
+.quick-view{
+  font-size: 14px;
+}
+.quick-view-btn{
+  background-color: transparent;
+  border: none;
+  display: block;
+}
+@media screen and (max-width: 770px) {
+  .quick-view{
+    display: none !important;
+  }
+}

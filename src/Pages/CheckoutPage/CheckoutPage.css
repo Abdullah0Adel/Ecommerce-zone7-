@@ -1,0 +1,33 @@
+.alert-empty{
+    background-color: #F5F5F5;
+}
+.product-img{
+    width: 75px;
+    border: solid #004C45 5px;
+}
+.img-content{
+    position: relative;
+}
+.quantity{
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    background-color: #004C45;
+    color: white;
+}
+.input-group{
+    border: solid #004c4481 1px;
+}
+.form-check-input{
+    width: 25px  !important;
+    height: 30px !important;
+}
+.card-header{
+    background-color: #004C45 !important;
+}
+.features-bg{
+    background-color: #004c4457;
+}

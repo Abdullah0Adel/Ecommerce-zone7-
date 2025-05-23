@@ -1,0 +1,426 @@
+*::before{
+    margin: 0;
+    box-sizing: border-box;
+}
+.canabuzz{
+    width: 150px;
+}
+.nav{
+    height: 10vh;
+}
+.nav_menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.nav_link{
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    padding: 20px 0;
+}
+.nav_item{
+    font-weight: 500;
+    padding: 20px 0;
+    width: 100%;
+    :hover{
+        color: #004c45;
+    }
+}
+/* .logo-div{
+    padding: 10px 15px;
+} */
+.container-nav{
+    margin: 0 20px;
+    font-family: 'jost';
+    position: relative;
+}
+
+.App {
+    font-family: sans-serif;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container-menu {
+    margin-top: 50px;
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.menu-item-2 {
+    width: 400px;
+    perspective: 2000px;
+}
+
+.sub-menu {
+    position: absolute;
+    top: 74px;
+    padding: 15px;
+    background-color: white;
+    width: 200px;
+    transform-origin: 50% -30px;
+    z-index: 50; /* Add z-index to make sure dropdown displays above content */
+}
+
+.sub-menu-background {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin: 0 0;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* .sub-menu-container {
+    
+} */
+
+.sub-menu-item {
+    margin-bottom: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+}
+.toggle {
+    cursor: pointer;
+    display: none;
+}
+.toggle_click {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+    background-color: white;
+    transition: 0.7s ease-in-out;
+    z-index: 10000;
+    opacity: 0;
+    overflow: hidden;
+}
+.toggle__active {
+    left: 0;
+    opacity: 1;
+}
+
+/* Fix for navbar positioning */
+.navbar-root-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Global overlay for all popups */
+.global-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.674);
+    backdrop-filter: blur(5px);
+    z-index: 9000; /* High enough to be above navbar but below sidebars/modal content */
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+/* When any menu/overlay is open */
+.overlay_appear {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+/* Mobile Menu */
+@media screen and (max-width: 1150px) {
+    .toggle {
+        display: block;
+    }
+    .nav_item {
+        display: none;
+    }
+}
+
+.nav_menu_icons li {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Makes it circular */
+    overflow: hidden;
+    cursor: pointer;
+    :hover{
+        color: #004c45;
+    }
+}
+
+/* Background popup effect */
+.nav_menu_icons li::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1); /* Background color */
+    border-radius: 50%;
+    transform: scale(0); /* Start small */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* Expand effect on hover */
+.nav_menu_icons li:hover::after {
+    transform: scale(1);
+}
+
+/* Ensure the icon is on top */
+.nav_menu_icons li svg {
+    position: relative;
+}
+
+
+.search_bar{
+    width: 100%;
+    position: fixed;
+    top: -100%;
+    z-index: 10000; /* Higher than overlay but lower than profile/cart bars */
+    transition: 0.7s ease-out;
+    opacity: 0;
+}
+.search_bar_active{
+    top: 0;
+    opacity: 1;
+}
+.search__canvas{
+    padding: 40px 20px 20px 20px;
+    
+}
+.search_header{
+    position: relative;
+}
+.search_input{
+    border: solid #e4e1d5 1px;
+    border-radius: 25px;
+    height: 50px;
+    padding-left: 20px;
+    padding-right: 75px;
+    transition: border-color .3s linear;
+    width: 100%;
+}
+
+.div{
+    color: #a8a8a8;
+    font-size: 10px;
+    font-weight: 500;
+    left: 20px;
+    pointer-events: none;
+    position: absolute;
+    text-transform: uppercase;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search_button{
+    background-color: #333333;
+    border: none;
+    border-radius: 100%;
+    color: white;
+    cursor: pointer;
+    height: 42px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.2s;
+    width: 42px;
+    z-index: 9;
+}
+.search_button:hover{
+    background-color: #004c45;
+}
+.search_trend{
+    box-shadow: 5px 10px 10px #0000001a;
+    padding-bottom: 40px;
+    padding-top: 20px;
+    position: absolute;
+    top: 100%;
+    z-index: 11;
+    background-color: white;
+}
+.search_trend_content{
+    margin: auto;
+    /* max-width: 1650px; */
+    padding: 0 15px;
+}
+.search_trend_list{
+    list-style-type: none;
+    padding-left: 0;
+}
+@media screen and (max-width: 520px) {
+    .search_trend{
+        display: none;
+    }    
+}
+.search_trend_list li button{
+    background-color: black;
+    font-size: 11px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+.search_trend_list li button:hover{
+    background-color: #004c45;
+}
+.search_trend_title{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.toggle_search{
+    height: 60px;
+    padding: 0 20px 0 0;
+    background-color: #ebebeb;
+    border-bottom: #e4e1d5;
+}
+.search_toggle_btn{
+    width: 20px;
+    background: transparent;
+    border: none;
+}
+.search_toggle_input{
+    background: transparent;
+    padding-left: 20px;
+    border: none;
+    height: 100%;
+    outline: none;
+}
+.container_nav_mobile{
+    display: none;
+    height: 60px;
+    width: 100%;
+    background-color: white;
+}
+
+.nav_mobile{
+    padding: 0 20px;
+}
+.canabuzz_mobileView{
+    width: 100px;
+}
+.container_nav_bottom{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100%;
+    display: none;
+    z-index: 1000; /* Ensure it's above most content but below overlays */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+.bottom_link{
+    color: black;
+    text-decoration: none;
+    padding: 10px 0 0 0 ;
+}
+.bottom_link p{
+    font-size: 10px;
+    color: gray;
+}
+.toggle_list{
+    list-style: none;
+    padding: 0 20px;
+}
+.toggle_list li{
+    padding: 15px 0;
+}
+.toggle_link{
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+}
+@media screen and (max-width: 800px) {
+    .container-nav{
+        display: none;
+    }
+    .container_nav_mobile{
+        display: block;
+    }
+    .container_nav_bottom{
+        display: block;
+    }
+}
+
+
+/* Profile Bar */
+.profile_bar_component{
+    position: fixed;
+    right: -340px; /* Start offscreen */
+    top: 0;
+    width: 340px;
+    height: 100vh;
+    background-color: white;
+    z-index: 11000; /* Higher than overlay and other elements */
+    opacity: 1; /* Always fully opaque, just positioned offscreen */
+    transition: right 0.5s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+.profile_bar_component_active{
+    right: 0; /* Move onscreen */
+}
+
+.cart_bar{
+    position: fixed;
+    top: 0;
+    right: -340px; /* Start offscreen */
+    width: 340px;
+    height: 100vh;
+    background-color: white;
+    z-index: 11000; /* Higher than overlay and other elements */
+    opacity: 1; /* Always fully opaque, just positioned offscreen */
+    transition: right 0.5s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+}
+.cart_bar_active{
+    right: 0; /* Move onscreen */
+}
+
+/* Improved navbar scroll behavior */
+.navbar-scroll-container {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it's above normal content but below overlays */
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* When navbar is visible */
+.navbar-visible {
+    transform: translateY(0);
+}
+
+/* When navbar should be hidden */
+.navbar-hidden {
+    transform: translateY(-100%);
+}
+
+/* Add some padding to the body to prevent content from going under navbar */
+body {
+    padding-top: 10vh; /* Adjust this to match your navbar height */
+}
+
+@media screen and (max-width: 800px) {
+    body {
+      padding-top: 60px; /* Match the height of mobile navbar */
+    }
+}

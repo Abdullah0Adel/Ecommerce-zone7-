@@ -1,0 +1,46 @@
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.custom-tabs .nav-link {
+  color: #333333;
+  position: relative;
+  font-weight: 900;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+  color: #006158 !important;
+}
+
+.custom-tabs .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 4px;
+  left: 0;
+  bottom: 0;
+  background-color: #333333;
+  transition: width 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover::after {
+  width: 100%;
+}
+
+.custom-tabs .nav-link.active {
+  color: #007bff;
+}
+
+.custom-tabs .nav-link.active::after {
+  width: 100%;
+}

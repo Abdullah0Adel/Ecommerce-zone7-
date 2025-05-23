@@ -1,0 +1,20 @@
+.profileBar{
+    width: 340px;
+    padding: 60px 0;
+    background-color: white;
+    height: 100vh;
+    position: fixed;
+}
+.profileBar ul{
+    list-style-type: none;
+    width: 100%;
+}
+
+.prof-links{
+    padding-bottom: 5px;
+    width: 100%;
+}
+.prof-links:hover{
+    
+    color: #004c45;
+}

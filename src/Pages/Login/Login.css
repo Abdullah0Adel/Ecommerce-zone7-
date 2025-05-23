@@ -1,0 +1,42 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: "Barlow";
+}
+.login-container{
+    height: 90vh;
+}
+.title p{
+    color: #797979;
+    font-size: 18px;
+}
+.form{
+    height: 100%;
+}
+input{
+    border:solid #00000033 1px;
+    border-radius: 20px;
+    padding: 10px 16px 10px 16px;
+}
+.btn{
+    padding: 10px 16px 10px 16px;
+    background-color: #007F5F;
+    border-radius: 12px;
+    color: white;
+}
+img{
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+.cahnge-log-reg{
+    font-size: 14px;
+}
+.cahnge-log-reg a{
+    text-decoration: none;
+    color: #007F5F;
+    font-weight: bold;
+}

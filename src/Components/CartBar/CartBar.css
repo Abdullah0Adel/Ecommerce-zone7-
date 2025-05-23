@@ -1,0 +1,10 @@
+.cartBara-content{
+    width: 340px;
+    height: 100vh;
+    position: fixed;
+    background: white;
+}
+.cart-head{
+    height: 50px;
+    padding: 10px 20px;
+}

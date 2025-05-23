@@ -1,0 +1,58 @@
+.overflow-hidden {
+    overflow: hidden !important;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #051f20; /* optional background */
+  border-radius: 50%;  /* optional: make them round */
+  color: white !important;         /* arrow color */
+  padding: 25px;
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: 0.5s !important;
+}
+
+/* Optional hover effect */
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: #006158;
+  color: white;
+}
+.swiper-button-prev::after{
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+.swiper-button-next::after{
+  font-size: 18px !important;
+  font-weight: bold !important;
+}
+.swiper-pagination-bullet{
+  background-color: #004c4468 !important;
+}
+.swiper-pagination-bullet-active{
+    background-color: #004c45 !important;
+
+}
+.close-btn{
+    background-color: #f1f1f1;
+    border: none;
+    transition: 0.5s;
+    padding:  10px 10px;
+    box-shadow: 0 20px 25px -5px #01010132,
+}
+.close-btn:hover{
+    background-color: black;
+    color: white;
+}
+.btn-addToCart{
+    background-color: #f1f1f1;
+    transition: 0.5s;
+    padding: 10px;
+    border: none;
+    color: black;
+}
+.btn-addToCart:hover{
+    background-color: #004c45;
+    color: white;
+}
