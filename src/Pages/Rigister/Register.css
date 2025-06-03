@@ -1,29 +1,339 @@
-.reg-container{
-    padding: 70px 100px 70px 100px;
-    height: 100vh;
+/* Register.css - Modern Sports-Themed Register Styles */
+
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
-img{
-    width: 65%;
-    background-position: center;
-    background-size: cover;
+
+.register-form-container {
+  max-width: 480px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 35px 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
-.register{
-    width: 100%;
-    height: 100%;
+
+.register-logo {
+  max-width: 120px;
+  height: auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
-.form{
-    width: 35%;
+
+.register-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #2E8B57, #20B2AA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
 }
-.input{
-    width: 100%;
-    border-radius: 20px;
-    padding: 10px 16px;
-    border: solid gray 1px;
+
+.register-subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 0;
 }
-.reg-name,.reg-email,.reg-password,.reg-confirmPass label{
-    font-weight: 700;
+
+.register-form {
+  margin-top: 25px;
 }
-.submit{
-    border-radius: 20px;
-    padding: 10px 16px ;
+
+.form-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.form-control:focus {
+  border-color: #2E8B57;
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.15);
+  background: rgba(255, 255, 255, 1);
+}
+
+.input-group-text {
+  border: 2px solid #e5e7eb;
+  border-right: none;
+  color: #6b7280;
+  border-radius: 12px 0 0 12px;
+  padding: 12px 14px;
+}
+
+.input-group .form-control {
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: #2E8B57;
+  background: rgba(255, 255, 255, 1);
+}
+
+.btn-outline-secondary {
+  border: 2px solid #e5e7eb;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  color: #6b7280;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.register-btn {
+  background: linear-gradient(135deg, #2E8B57, #20B2AA);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46, 139, 87, 0.4);
+  background: linear-gradient(135deg, #228B50, #1BA2A0);
+}
+
+.register-btn:active {
+  transform: translateY(0);
+}
+
+.register-btn:disabled {
+  opacity: 0.7;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.form-check-input:checked {
+  background-color: #2E8B57;
+  border-color: #2E8B57;
+}
+
+.form-check-input:focus {
+  border-color: #2E8B57;
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.15);
+}
+
+.form-check-label {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.form-check-label a {
+  color: #2E8B57;
+  font-weight: 500;
+}
+
+.form-check-label a:hover {
+  color: #20B2AA;
+}
+
+.login-link {
+  color: #6b7280;
+  margin-bottom: 0;
+}
+
+.login-link a {
+  color: #2E8B57;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  color: #20B2AA;
+}
+
+.invalid-feedback {
+  font-size: 0.875rem;
+  margin-top: 5px;
+}
+
+/* Left Side Hero Section */
+.sports-hero {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 139, 87, 0.9),
+    rgba(32, 178, 170, 0.9)
+  ),
+  url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="sport-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="1000" height="1000" fill="url(%23sport-pattern)"/></svg>');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.sports-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.hero-features {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.feature-item i {
+  font-size: 1.5rem;
+  width: 30px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .register-form-container {
+    margin: 20px;
+    padding: 30px 25px;
+  }
+  
+  .register-title {
+    font-size: 1.8rem;
+  }
+  
+  .register-logo {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .register-form-container {
+    margin: 10px;
+    padding: 25px 20px;
+  }
+  
+  .form-control,
+  .input-group-text,
+  .btn-outline-secondary {
+    padding: 10px 12px;
+  }
+  
+  .register-btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.register-form-container {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.hero-content {
+  animation: slideInLeft 0.8s ease-out 0.2s both;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+
+.strength-weak {
+  color: #ef4444;
+}
+
+.strength-medium {
+  color: #f59e0b;
+}
+
+.strength-strong {
+  color: #10b981;
+}
+
+/* Focus states for better accessibility */
+.form-control:focus,
+.form-check-input:focus,
+.btn:focus {
+  outline: none;
+}
+
+/* Smooth transitions for all interactive elements */
+.form-control,
+.btn,
+.form-check-input,
+a {
+  transition: all 0.3s ease;
 }

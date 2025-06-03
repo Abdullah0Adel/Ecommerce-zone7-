@@ -1,30 +1,72 @@
-.order-status-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.status-item {
-  position: relative;
-  text-align: center;
-  flex: 1;
-  color: gray;
-  font-size: 14px;
-}
-
-.status-item.active {
-  color: green;
-  font-weight: bold;
-}
-
-.divider {
-  height: 2px;
-  background-color: gray;
-  flex: 1;
-  margin: 0 5px;
-}
-
-.status-item.active + .divider {
-  background-color: green;
-}
+    .gradient-bg {
+      background: linear-gradient(135deg, #00a494 0%, #003832 100%);
+    }
+    .progress-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+    }
+    .progress-circle.completed {
+      background: linear-gradient(135deg, #48bb78, #38a169);
+      color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .progress-circle.pending {
+      background-color: #e2e8f0;
+      color: #718096;
+    }
+    .progress-line {
+      height: 4px;
+      border-radius: 2px;
+      flex: 1;
+      margin: 0 1rem;
+      transition: all 0.3s ease;
+    }
+    .progress-line.completed {
+      background: linear-gradient(90deg, #48bb78, #38a169);
+    }
+    .progress-line.pending {
+      background-color: #e2e8f0;
+    }
+    .item-card {
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+    }
+    .item-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .spinner-border-custom {
+      width: 4rem;
+      height: 4rem;
+      border-width: 0.25em;
+    }
+    .product-image {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+    .product-image-placeholder {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.6s ease-out;
+    }

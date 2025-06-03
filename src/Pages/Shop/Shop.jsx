@@ -6,19 +6,43 @@ import ProductCard from '../../Components/ProductCard/ProductCard';
 import { useShopContext } from '../../context/ShopContext'; // Import the context hook
 import './Shop.css'
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [openFilterToggle, setOpenFilterToggle] = useState(false);
-  // const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(9);
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+
+    const [containerRef, isInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
+    const [freeShippingRef, freeShippingisInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
+    const [returnPolicyRef, returnPolicyisInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
+    const [paymenSecuredRef, paymenSecuredisInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
+    const [moneyBackRef, moneyBackisInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
+
   
-  // Get state and functions from ShopContext instead of local state
+  // Get state and functions from ShopContext (removed subcategory-related items)
   const {
     selectedCategories,
-    selectedSubcategories,
     inStockOnly,
     priceRange,
     currentPage,
@@ -27,7 +51,6 @@ export default function Shop() {
     resetFilter,
     toggleSection,
     handleCategoryChange,
-    handleSubcategoryChange,
     paginate,
     resetPagination,
     setPriceRange,
@@ -58,6 +81,7 @@ export default function Shop() {
     getProducts();
   },[])
 
+  // Fetch Categories from API
   useEffect(() => {
     const getCategories = () => {
       try{
@@ -70,18 +94,43 @@ export default function Shop() {
           },
         })
         .then((response) => {
-          console.log(response.data.data);
+          console.log('Categories:', response.data.data);
           setCategories(response.data.data);
         });
         
       }
       catch(error){
-        console.log(error)
+        console.log('Error fetching categories:', error)
       }
     }
     getCategories();
   }, []);
 
+  // Process category data (simplified without subcategories)
+  useEffect(() => {
+    if (categories.length > 0 && products.length > 0) {
+      const processedCategoryData = categories.map(category => {
+        // Count products for this category
+        const categoryProductCount = products.filter(product => 
+          product.categories && 
+          product.categories.some(cat => 
+            cat.category_name && cat.category_name.toLowerCase() === category.category_name.toLowerCase()
+          )
+        ).length;
+
+        return {
+          id: category.id,
+          name: category.category_name,
+          count: categoryProductCount
+        };
+      });
+
+      setCategoryData(processedCategoryData);
+      console.log('Processed Category Data:', processedCategoryData);
+    }
+  }, [categories, products]);
+
+  // Simplified filtering logic without subcategories
   useEffect(() => {
     let filtered = [...products];
 
@@ -91,16 +140,6 @@ export default function Shop() {
           p.categories &&
           p.categories.some(
             (cat) => selectedCategories.includes(cat.category_name.toLowerCase())
-          )
-      );
-    }
-
-    if (selectedSubcategories.length > 0) {
-      filtered = filtered.filter(
-        (p) =>
-          p.sub_categories &&
-          p.sub_categories.some((sub) =>
-            selectedSubcategories.includes(sub.title.toLowerCase())
           )
       );
     }
@@ -118,49 +157,13 @@ export default function Shop() {
     setFilteredProducts(filtered);
     resetPagination(1)
   }, 
-  [selectedCategories, selectedSubcategories, inStockOnly, priceRange, products]);
+  [selectedCategories, inStockOnly, priceRange, products]);
 
   // Calculate pagination variables
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-
-  // Categories data structure
-  const categoryData = [
-    {
-      name: 'Football Jerseys',
-      count: 12,
-      subcategories: [
-        { name: 'Player Edition', count: products.length},
-        { name: 'Fan Edition', count: 4 },
-        { name: 'Winter Collection', count: 2 },
-        { name: 'Retro Version', count: 1 }
-      ]
-    },
-    {
-      name: 'Shirts',
-      count: 8,
-      subcategories: []
-    },
-    {
-      name: 'Pants',
-      count: 6,
-      subcategories: []
-    },
-    {
-      name: 'shose',
-      subcategories: [
-        { name: 'Running Shoes', count: 6 },
-        { name: 'Soccer Boots', count: 4 }
-      ]
-    },
-    {
-      name: 'Jackets',
-      count: 5,
-      subcategories: []
-    }
-  ];
 
   // Fixed handlerFilterToggle function to properly toggle the filter
   const handlerFilterToggle = () => {
@@ -183,12 +186,6 @@ export default function Shop() {
     display: 'inline-block',
   });
 
-
-
-
-
-
-
   return (
     <div>
       <div className="breadcrumbs-img">
@@ -204,9 +201,18 @@ export default function Shop() {
         }}
         className={`global-overlay ${openFilterToggle ? "overlay_appear" : ""}`}
       ></div>
-      
 
-      
+
+
+
+
+
+
+
+
+
+
+
       {/* Mobile Filters - with smooth animation */}
       <div className={`filters-toggle ${openFilterToggle ? "filters-toggle-active" : ""}`} 
            style={{
@@ -220,210 +226,6 @@ export default function Shop() {
              transition: 'opacity 0.7s ease-in-out, left 0.3s ease-in-out'
            }}>
         {/* Price Filter */}
-        <div className="filter-section mb-3">
-          <div 
-            className="filter-header d-flex justify-content-between align-items-center p-2"
-            onClick={() => toggleSection('price')}
-            style={{ cursor: 'pointer', borderRadius: '4px', }}
-          >
-            <h6 className="m-0 fw-bold">PRICE</h6>
-            <div className="d-flex align-items-center">
-              <span 
-                className="reset-text me-2" 
-                onClick={(e) => { e.stopPropagation(); resetFilter('price'); }}
-                style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
-              >
-                RESET
-              </span>
-              <span style={chevronStyle(expandedSections.price)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
-            </div>
-          </div>
-          
-          <div style={filterContentStyle(expandedSections.price)}>
-            <div className="filter-body p-2">
-              <div className="price-range">
-                <input
-                  type="range"
-                  min={0}
-                  max={5000}
-                  step={100}
-                  value={priceRange[1]}
-                  onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                  className="form-range"
-                />
-                <div className="d-flex justify-content-between">
-                  <div className="position-relative" style={{ flex: 1 }}>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={priceRange[0].toFixed(2)} 
-                      onChange={(e) => {
-                        const val = parseFloat(e.target.value);
-                        if (!isNaN(val) && val >= 0) {
-                          setPriceRange([val, priceRange[1]]);
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="mx-2 d-flex align-items-center">—</div>
-                  <div className="position-relative" style={{ flex: 1 }}>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      value={priceRange[1].toFixed(2)} 
-                      onChange={(e) => {
-                        const val = parseFloat(e.target.value);
-                        if (!isNaN(val) && val >= priceRange[0]) {
-                          setPriceRange([priceRange[0], val]);
-                        }
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr className='mb-3' />
-
-        {/* Category Filter */}
-        <div className="filter-section mb-3">
-          <div 
-            className="filter-header d-flex justify-content-between align-items-center p-2"
-            onClick={() => toggleSection('categories')}
-            style={{ cursor: 'pointer', borderRadius: '4px', }}
-          >
-            <h6 className="m-0 fw-bold">CATEGORY</h6>
-            <div className="d-flex align-items-center">
-              <span 
-                className="reset-text me-2" 
-                onClick={(e) => { e.stopPropagation(); resetFilter('categories'); }}
-                style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
-              >
-                RESET
-              </span>
-              <span style={chevronStyle(expandedSections.categories)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
-            </div>
-          </div>
-          
-          <div style={filterContentStyle(expandedSections.categories)}>
-            <div className="filter-body p-2">
-              {categoryData.map((category) => (
-                <div key={category.name} className="mb-2">
-                  <div className="form-check d-flex justify-content-between">
-                    <div className='d-flex justify-content-between align-items-center'>
-                      <input
-                        className="form-check-dark rounded custom-checkbox"
-                        type="checkbox"
-                        id={`cat-${category.name}`}
-                        style={{height:"20px", width:"40px" }}
-                        checked={selectedCategories.includes(category.name.toLowerCase())}
-                        onChange={() => handleCategoryChange(category.name)}
-                      />
-                      <label className="form-check-label" htmlFor={`cat-${category.name}`}>
-                        {category.name}
-                      </label>
-                    </div>
-                  </div>
-                  
-                  {/* Show subcategories with animation */}
-                  {selectedCategories.includes(category.name.toLowerCase()) && category.subcategories.length > 0 && (
-                    <div className="ps-4 mt-2" style={{
-                      maxHeight: '200px',
-                      opacity: 1,
-                      transition: 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out',
-                    }}>
-                      {category.subcategories.map((subcat) => (
-                        <div key={subcat.name} className="form-check d-flex justify-content-between mb-1">
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <input
-                              className="form-check-dark rounded custom-checkbox"
-                              type="checkbox"
-                              id={`subcat-${subcat.name}`}
-                              style={{height:"20px", width:"40px" }}
-                              checked={selectedSubcategories.includes(subcat.name.toLowerCase())}
-                              onChange={() => handleSubcategoryChange(subcat.name)}
-                            />
-                            <label className="form-check-label" htmlFor={`subcat-${subcat.name}`}>
-                              {subcat.name}
-                            </label>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <hr className='mb-3' />
-
-        {/* Stock Filter */}
-        <div className="filter-section mb-3">
-          <div 
-            className="filter-header d-flex justify-content-between align-items-center p-2"
-            onClick={() => toggleSection('stock')}
-            style={{ cursor: 'pointer', borderRadius: '4px', }}
-          >
-            <h6 className="m-0 fw-bold">AVAILABILITY</h6>
-            <div className="d-flex align-items-center">
-              <span 
-                className="reset-text me-2" 
-                onClick={(e) => { e.stopPropagation(); resetFilter('stock'); }}
-                style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
-              >
-                RESET
-              </span>
-              <span style={chevronStyle(expandedSections.stock)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
-            </div>
-          </div>
-          
-          <div style={filterContentStyle(expandedSections.stock)}>
-            <div className="filter-body p-2">
-              <div className="form-check d-flex justify-content-between align-items-center">
-                <div className='d-flex justify-content-between align-items-center'>
-                  <input
-                    className="form-check-dark rounded custom-checkbox"
-                    style={{height:"20px", width:"40px" }}                          
-                    type="checkbox"
-                    checked={inStockOnly}
-                    onChange={() => setInStockOnly(!inStockOnly)}
-                    id="stockCheck"
-                  />
-                  <label className="form-check-label" htmlFor="stockCheck">
-                    In Stock Only
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Clear All Filters Button */}
-        <button
-          className="btn btn-outline-secondary w-100 mt-3"
-          onClick={resetAllFilters}
-        >
-          Clear All Filters
-        </button>
-      </div>
-
-
-
-
-
-
-
-
-
-
-      <div className=" container-custom mt-5 mb-5 pb-5">
-        <div className="shop-content row g-5">
-
-          <div className="shop-left d-lg-block d-none col-3">
-            {/* Desktop filter sidebar with same animations */}
             <div className="filters">
               {/* Price Filter */}
               <div className="filter-section mb-3">
@@ -492,7 +294,7 @@ export default function Shop() {
               </div>
               <hr className='mb-3' />
 
-              {/* Category Filter */}
+              {/* Category Filter - Simplified without subcategories */}
               <div className="filter-section mb-3">
                 <div 
                   className="filter-header d-flex justify-content-between align-items-center p-2"
@@ -515,49 +317,208 @@ export default function Shop() {
                 <div style={filterContentStyle(expandedSections.categories)}>
                   <div className="filter-body p-2">
                     {categoryData.map((category) => (
-                      <div key={category.name} className="mb-2">
-                        <div className="form-check d-flex justify-content-between">
-                          <div className='d-flex justify-content-between align-items-center'>
-                            <input
-                              className="form-check-dark rounded custom-checkbox"
-                              type="checkbox"
-                              id={`desktop-cat-${category.name}`}
-                              style={{height:"20px", width:"40px" }}
-                              checked={selectedCategories.includes(category.name.toLowerCase())}
-                              onChange={() => handleCategoryChange(category.name)}
-                            />
-                            <label className="form-check-label" htmlFor={`desktop-cat-${category.name}`}>
-                              {category.name}
-                            </label>
-                          </div>
+                      <div key={category.id} className="mb-2">
+                        <div className="form-check d-flex align-items-center">
+                          <input
+                            className="form-check-dark rounded custom-checkbox"
+                            type="checkbox"
+                            id={`desktop-cat-${category.id}`}
+                            style={{height:"20px", width:"40px" }}
+                            checked={selectedCategories.includes(category.name.toLowerCase())}
+                            onChange={() => handleCategoryChange(category.name)}
+                          />
+                          <label className="form-check-label ms-2" htmlFor={`desktop-cat-${category.id}`}>
+                            {category.name} ({category.count})
+                          </label>
                         </div>
-                        
-                        {/* Show subcategories with animation */}
-                        {selectedCategories.includes(category.name.toLowerCase()) && category.subcategories.length > 0 && (
-                          <div className="ps-4 mt-2" style={{
-                            maxHeight: '200px',
-                            opacity: 1,
-                            transition: 'max-height 0.7s ease-in-out, opacity 0.3s ease-in-out',
-                          }}>
-                            {category.subcategories.map((subcat) => (
-                              <div key={subcat.name} className="form-check d-flex justify-content-between mb-1">
-                                <div className='d-flex justify-content-between align-items-center'>
-                                  <input
-                                    className="form-check-dark rounded custom-checkbox"
-                                    type="checkbox"
-                                    id={`desktop-subcat-${subcat.name}`}
-                                    style={{height:"20px", width:"40px" }}
-                                    checked={selectedSubcategories.includes(subcat.name.toLowerCase())}
-                                    onChange={() => handleSubcategoryChange(subcat.name)}
-                                  />
-                                  <label className="form-check-label" htmlFor={`desktop-subcat-${subcat.name}`}>
-                                    {subcat.name}
-                                  </label>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <hr className='mb-3' />
+
+              {/* Stock Filter */}
+              <div className="filter-section mb-3">
+                <div 
+                  className="filter-header d-flex justify-content-between align-items-center p-2"
+                  onClick={() => toggleSection('stock')}
+                  style={{ cursor: 'pointer', borderRadius: '4px', }}
+                >
+                  <h6 className="m-0 fw-bold">AVAILABILITY</h6>
+                  <div className="d-flex align-items-center">
+                    <span 
+                      className="reset-text me-2" 
+                      onClick={(e) => { e.stopPropagation(); resetFilter('stock'); }}
+                      style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
+                    >
+                      RESET
+                    </span>
+                    <span style={chevronStyle(expandedSections.stock)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
+                  </div>
+                </div>
+                
+                <div style={filterContentStyle(expandedSections.stock)}>
+                  <div className="filter-body p-2">
+                    <div className="form-check d-flex justify-content-between align-items-center">
+                      <div className='d-flex justify-content-between align-items-center'>
+                        <input
+                          className="form-check-dark rounded custom-checkbox"
+                          style={{height:"20px", width:"40px" }}                          
+                          type="checkbox"
+                          checked={inStockOnly}
+                          onChange={() => setInStockOnly(!inStockOnly)}
+                          id="desktop-stockCheck"
+                        />
+                        <label className="form-check-label" htmlFor="desktop-stockCheck">
+                          In Stock Only
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Clear All Filters Button */}
+              <button
+                className="btn btn-outline-secondary w-100 mt-3"
+                onClick={resetAllFilters}
+              >
+                Clear All Filters
+              </button>
+            </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      <div className=" container-custom mt-5 mb-5 pb-5">
+        <div className="shop-content row g-5">
+
+          <div className="shop-left d-lg-block d-none col-3">
+            {/* Desktop filter sidebar */}
+            <div className="filters">
+              {/* Price Filter */}
+              <div className="filter-section mb-3">
+                <div 
+                  className="filter-header d-flex justify-content-between align-items-center p-2"
+                  onClick={() => toggleSection('price')}
+                  style={{ cursor: 'pointer', borderRadius: '4px', }}
+                >
+                  <h6 className="m-0 fw-bold">PRICE</h6>
+                  <div className="d-flex align-items-center">
+                    <span 
+                      className="reset-text me-2" 
+                      onClick={(e) => { e.stopPropagation(); resetFilter('price'); }}
+                      style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
+                    >
+                      RESET
+                    </span>
+                    <span style={chevronStyle(expandedSections.price)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
+                  </div>
+                </div>
+                
+                <div style={filterContentStyle(expandedSections.price)}>
+                  <div className="filter-body p-2">
+                    <div className="price-range">
+                      <input
+                        type="range"
+                        min={0}
+                        max={5000}
+                        step={100}
+                        value={priceRange[1]}
+                        onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                        className="form-range"
+                      />
+                      <div className="d-flex justify-content-between">
+                        <div className="position-relative" style={{ flex: 1 }}>
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            value={priceRange[0].toFixed(2)} 
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value);
+                              if (!isNaN(val) && val >= 0) {
+                                setPriceRange([val, priceRange[1]]);
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="mx-2 d-flex align-items-center">—</div>
+                        <div className="position-relative" style={{ flex: 1 }}>
+                          <input 
+                            type="text" 
+                            className="form-control" 
+                            value={priceRange[1].toFixed(2)} 
+                            onChange={(e) => {
+                              const val = parseFloat(e.target.value);
+                              if (!isNaN(val) && val >= priceRange[0]) {
+                                setPriceRange([priceRange[0], val]);
+                              }
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr className='mb-3' />
+
+              {/* Category Filter - Simplified without subcategories */}
+              <div className="filter-section mb-3">
+                <div 
+                  className="filter-header d-flex justify-content-between align-items-center p-2"
+                  onClick={() => toggleSection('categories')}
+                  style={{ cursor: 'pointer', borderRadius: '4px', }}
+                >
+                  <h6 className="m-0 fw-bold">CATEGORY</h6>
+                  <div className="d-flex align-items-center">
+                    <span 
+                      className="reset-text me-2" 
+                      onClick={(e) => { e.stopPropagation(); resetFilter('categories'); }}
+                      style={{ fontSize: '12px', color: '#6c757d', cursor: 'pointer' }}
+                    >
+                      RESET
+                    </span>
+                    <span style={chevronStyle(expandedSections.categories)}><Icon icon="solar:alt-arrow-down-line-duotone" width="24" height="24" /></span>
+                  </div>
+                </div>
+                
+                <div style={filterContentStyle(expandedSections.categories)}>
+                  <div className="filter-body p-2">
+                    {categoryData.map((category) => (
+                      <div key={category.id} className="mb-2">
+                        <div className="form-check d-flex align-items-center">
+                          <input
+                            className="form-check-dark rounded custom-checkbox"
+                            type="checkbox"
+                            id={`desktop-cat-${category.id}`}
+                            style={{height:"20px", width:"40px" }}
+                            checked={selectedCategories.includes(category.name.toLowerCase())}
+                            onChange={() => handleCategoryChange(category.name)}
+                          />
+                          <label className="form-check-label ms-2" htmlFor={`desktop-cat-${category.id}`}>
+                            {category.name} ({category.count})
+                          </label>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -631,9 +592,6 @@ export default function Shop() {
             <h5 className='product-showed pb-1'>Showing <span className='text-success'>{filteredProducts.length}</span> product(s)</h5>
             </div>
 
-
-
-
             <div className="container">
               <div className="row m-0 p-0">
                 {currentProducts.map((product) => (
@@ -700,50 +658,79 @@ export default function Shop() {
         </div>
       </div>
 
+<motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+className="features-section container-fluid px-3">
+  <div className="row g-3">
 
-      <div data-aos="fade-up" data-aos-duration="3000" className="features-section">
-      <div className="featuers row px-1 g-3">
-        <div className="feature-card col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3">
-          <div className=" w-25">
-          <Icon className='feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center' icon="game-icons:truck" width="22" height="22" />
-          </div>
-          <div className="d-flex flex-column gap-2 w-75">
-          <p className="feature-title mb-0 fw-bold">Free Shipping</p>
-          <p className="feature-text text-secondary mb-0">Delivering Value, Delivering Savings: Free Shipping on Every Order, Every Time</p>
-          </div>
-        </div>
-
-        <div className="feature-card col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3">
-          <div className="w-25">
-          <Icon className='feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center' icon="hugeicons:delivery-return-01" width="22" height="22" />
-          </div>
-          <div className="d-flex flex-column gap-2 w-75">
-          <p className="feature-title mb-0 fw-bold">Return Policy</p>
-          <p className="feature-text text-secondary mb-0">Shop with Confidence: Our Customer-Centric Return Policy Ensures</p>
-          </div>
-        </div>
-
-        <div className="feature-card col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3">
-          <div className="w-25">
-          <Icon className='feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center' icon="streamline:payment-10" width="22" height="22" />
-          </div>
-          <div className="d-flex flex-column gap-2 w-75">
-          <p className="feature-title mb-0 fw-bold">Payment Secured</p>
-          <p className="feature-text text-secondary mb-0">Trustworthy Payment Solutions: Robust Protocols to Ensure Your Transactions</p>
-          </div>
-        </div>
-
-        <div className="feature-card col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3">
-          <div className="w-25">
-          <Icon className='feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center' icon="mdi:recurring-payment" width="22" height="22" />
-          </div>
-          <div className="d-flex flex-column gap-2 w-75">
-          <p className="feature-title mb-0 fw-bold">Money Back Guarantee</p>
-          <p className="feature-text text-secondary mb-0">We Stand by Our Promise: Our Money Back Guarantee Ensures Your...</p>
-          </div>
-        </div>
+    <motion.div
+      ref={freeShippingRef}
+      initial={{ opacity: 0, x: 100 }}
+      animate={freeShippingisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1, delay: 0.2 }}
+    className="col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3"
+    >
+      <div className="w-25">
+        <Icon className="feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center" icon="game-icons:truck" width="22" height="22" />
       </div>
+      <div className="d-flex flex-column gap-2 w-75">
+        <p className="feature-title mb-0 fw-bold">Free Shipping</p>
+        <p className="feature-text text-secondary mb-0">Delivering Value, Delivering Savings: Free Shipping on Every Order, Every Time</p>
       </div>
+    </motion.div>
+
+    <motion.div
+      ref={returnPolicyRef}
+      initial={{ opacity: 0, x: 100 }} 
+      animate={returnPolicyisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1, delay: 0.4  }}
+    className="col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3"
+    >
+      <div className="w-25">
+        <Icon className="feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center" icon="hugeicons:delivery-return-01" width="22" height="22" />
+      </div>
+      <div className="d-flex flex-column gap-2 w-75">
+        <p className="feature-title mb-0 fw-bold">Return Policy</p>
+        <p className="feature-text text-secondary mb-0">Shop with Confidence: Our Customer-Centric Return Policy Ensures</p>
+      </div>
+    </motion.div>
+
+    <motion.div
+      ref={paymenSecuredRef}
+      initial={{ opacity: 0, x: 100 }}
+      animate={paymenSecuredisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1, delay: 0.5  }}
+    className="col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3"
+    >
+      <div className="w-25">
+        <Icon className="feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center" icon="streamline:payment-10" width="22" height="22" />
+      </div>
+      <div className="d-flex flex-column gap-2 w-75">
+        <p className="feature-title mb-0 fw-bold">Payment Secured</p>
+        <p className="feature-text text-secondary mb-0">Trustworthy Payment Solutions: Robust Protocols to Ensure Your Transactions</p>
+      </div>
+    </motion.div>
+
+    <motion.div
+      ref={moneyBackRef}
+      initial={{ opacity: 0, x: 100 }}
+      animate={moneyBackisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1, delay: 0.6  }}
+    className="col-12 col-md-6 col-lg-3 d-flex justify-content-between align-items-center gap-3"
+    >
+      <div className="w-25">
+        <Icon className="feature-icon hover-shake rounded-circle d-flex justify-content-center align-items-center" icon="mdi:recurring-payment" width="22" height="22" />
+      </div>
+      <div className="d-flex flex-column gap-2 w-75">
+        <p className="feature-title mb-0 fw-bold">Money Back Guarantee</p>
+        <p className="feature-text text-secondary mb-0">We Stand by Our Promise: Our Money Back Guarantee Ensures Your...</p>
+      </div>
+    </motion.div>
+  </div>
+</motion.div>
       
     </div>
   )

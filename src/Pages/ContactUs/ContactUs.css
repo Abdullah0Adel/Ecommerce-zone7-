@@ -42,7 +42,7 @@ iframe{
     color: white;
     padding: 10px 40px;
     transition: 0.5s;
-
+    border: none;
 }
 .submit-contact:hover{
     background-color: #004c45;

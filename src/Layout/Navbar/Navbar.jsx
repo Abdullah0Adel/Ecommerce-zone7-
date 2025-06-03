@@ -8,6 +8,7 @@ import CartBar from "../../Components/CartBar/CartBar";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext'; // Import cart context
+import ToggleSearch from "../../Components/ToggleSearch/ToggleSearch";
 
 export default function Navbar() {
   const [isHover, toggleHover] = React.useState(false);
@@ -131,31 +132,42 @@ export default function Navbar() {
 
       {/* Start Profile Bar */}
       <div className={`profile_bar_component ${isProfileOpen ? "profile_bar_component_active" : ""} `}>
-        <ProfileBar />
+        <ProfileBar closeProfileBar={() => {setProfileOpen(false)}} />
       </div>
       {/* End Profile Bar */}
 
       {/* Search Bar */}
       <div className={`search_bar ${isSearchOpen ? "search_bar_active" : ""} bg-white`}>
-        <SearchBar/>  
+        <SearchBar closeSearchBar={() => {setSearchOpen(false)}}/>  
       </div>
 
       {/* Sidebar Menu */}
       <div className={`toggle_click ${isMenuOpen ? "toggle__active" : ""}`}>
         <div className="toggle_menu">
-          <div className="toggle_search d-flex justify-content-between align-items-center">
-            <input type="search" placeholder="Enter Your Keyword" className="search_toggle_input w-100" />
-            <button className="search_toggle_btn w-25 h-100">
-              <Icon className="searchIcon w-20" icon="ic:sharp-search" width="24" height="24" fontSize={30} />
-            </button>
-          </div>
+          <ToggleSearch  closeSearchToggle={() => {setIsMenuOpen(false)}} />
 
           <div className="d-flex flex-column">    
             <ul className="toggle_list">
-              <li className=""><Link className="toggle_link" to={'/'}>Home</Link></li>
-              <li className=""><Link className="toggle_link" to={'/shop'}>Shop</Link></li>
-              <li className=""><Link className="toggle_link" to={'/aboutus'}>About Us</Link></li>
-              <li className=""><Link className="toggle_link" to={'/contactus'}>Contact Us</Link></li>
+              <Link
+              onClick={()=>{
+                setIsMenuOpen(false);
+              } }
+               className="toggle_link" to={'/'}><li className="">Home</li></Link>
+              <Link
+              onClick={()=>{
+                setIsMenuOpen(false);
+              } }
+              className="toggle_link" to={'/shop'}><li className="">Shop</li></Link>
+              <Link 
+              onClick={()=>{
+                setIsMenuOpen(false);
+              } }
+              className="toggle_link" to={'/aboutus'}><li className="">About Us</li></Link>
+              <Link 
+              onClick={()=>{
+                setIsMenuOpen(false);
+              } }
+              className="toggle_link" to={'/contactus'}><li className="">Contact Us</li></Link>
 
             </ul>
           </div>
@@ -254,7 +266,14 @@ export default function Navbar() {
             <p>Shopping</p>
           </Link>
           <Link to={'/wishlist'} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
+          <div className="position-relative pt-1 pe-1">
             <Icon icon="solar:heart-linear" width="24" height="24" />
+            {wishlistCount > 0 && (
+              <span className="position-absolute bg-danger wishlist_count ">
+                {wishlistCount > 99 ? '99+' : wishlistCount}
+              </span>
+            )}
+          </div>
             <p>Wishlist</p>
           </Link>
           <Link onClick={handleProfileBar} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">

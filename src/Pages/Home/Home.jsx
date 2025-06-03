@@ -7,6 +7,7 @@ import SportsWearPromo from '../../Components/SportsWearPromo/SportsWearPromo'
 import SpecialtySection from '../../Components/SpecialtySection/SpecialtySection'
 import InfoSection from '../../Components/InfoSection/InfoSection'
 import Testimonials from '../../Components/Testimonials/Testimonials'
+import Newsletter from '../../Components/NewsletterSignup/Newsletter'
 
 
 export default function Home() {
@@ -38,6 +39,10 @@ export default function Home() {
 
     <div>
       <Testimonials/>
+    </div>
+
+    <div>
+      <Newsletter />
     </div>
     </>
   )

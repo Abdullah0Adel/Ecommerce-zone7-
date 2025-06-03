@@ -283,24 +283,7 @@
     font-weight: 700;
 }
 
-.toggle_search{
-    height: 60px;
-    padding: 0 20px 0 0;
-    background-color: #ebebeb;
-    border-bottom: #e4e1d5;
-}
-.search_toggle_btn{
-    width: 20px;
-    background: transparent;
-    border: none;
-}
-.search_toggle_input{
-    background: transparent;
-    padding-left: 20px;
-    border: none;
-    height: 100%;
-    outline: none;
-}
+
 .container_nav_mobile{
     display: none;
     height: 60px;
@@ -334,16 +317,16 @@
 }
 .toggle_list{
     list-style: none;
-    padding: 0 20px;
+    padding: 0;
 }
 .toggle_list li{
-    padding: 15px 0;
+    padding: 15px 20px;
     border-bottom:solid 1px #ececec;
     transition: 0.3s ease-in-out;
 }
 .toggle_list li:hover{
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
-    padding-left: 15px;
+    padding-left: 30px;
 }
 .toggle_link{
     text-decoration: none;

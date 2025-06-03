@@ -6,13 +6,20 @@ import { toast } from 'react-toastify';
 import './ProductCard.css';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import QuickView from '../QuickView/QuickView';
-import Aos from 'aos';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+
 
 export default function ProductCard({id,funId, img, category, thumbnail, productName, rating, productPrice, hasDiscount, discountValue, sizes}) {
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist(); // Use wishlist context
   const [isLoading, setIsLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
+  const [isQuickViewOpen, setQuickViewOpen] = useState(false);
+    const [containerRef, isInView] = useInView({
+      triggerOnce: true,
+      threshold: 0.1,
+    });
 
   const finalPrice = hasDiscount
     ? productPrice - (productPrice * discountValue) / 100
@@ -96,18 +103,16 @@ const handleWishlistToggle = async () => {
     setWishlistLoading(false);
   }
 };
-  const [isQuickViewOpen, setQuickViewOpen] = useState(false);
 
-  useEffect(() => {
-    Aos.init({
-      duration: 1000,
-      once: true,
-      offset: 100
-    });
-  }, []);
 
   return (
-    <div data-aos="fade-up" data-aos-duration="3000" className="col-6 col-md-4 col-lg-4 mb-4">
+    <div className="col-6 col-md-4 col-lg-4 mb-4">
+    <motion.div
+      ref={containerRef}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5 }}
+    >
       <div className="card h-100 border-0 position-relative overflow-hidden">
         <div className="rounded-3 position-relative overflow-hidden">
           {hasDiscount && (
@@ -187,6 +192,7 @@ const handleWishlistToggle = async () => {
           )}
         </div>
       </div>
+      </motion.div>
     </div>
   );
 }

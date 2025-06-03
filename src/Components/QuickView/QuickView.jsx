@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
 import { Icon } from '@iconify/react';
 import DOMPurify from 'dompurify';
-import { marked } from 'marked';
 import { useCart } from '../../context/CartContext';
 import './QuickView.css'
 
@@ -23,15 +22,15 @@ export default function QuickView({ productId, onClose }) {
   const { addToCart } = useCart();
 
 
-  // useEffect(() => {
-  //   // Disable scroll on mount
-  //   document.body.classList.add('overflow-hidden');
+  useEffect(() => {
+    // Disable scroll on mount
+    document.body.classList.add('overflow-hidden');
   
-  //   // Enable scroll when component unmounts
-  //   return () => {
-  //     document.body.classList.remove('overflow-hidden');
-  //   };
-  // }, []);
+    // Enable scroll when component unmounts
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, []);
   
 
   useEffect(() => {
@@ -75,19 +74,34 @@ export default function QuickView({ productId, onClose }) {
   };
 
   const handleAddToCart = () => {
-    if (!selectedSize || selectedSize.stock <= 0) return;
-
-    const cartItem = {
-      id: product.documentId || product.id,
-      name: product.product_name,
-      price: finalPrice,
-      quantity,
-      size: selectedSize,
-      image: product.image?.[0]?.url
-        ? `http://localhost:1337${product.image[0].url}`
-        : '',
-      maxStock: selectedSize.stock,
+    if (!selectedSize || selectedSize.stock <= 0) {
+      toast.error("Please select an available size");
+      return;
     };
+
+    const finalPrice = product.hasDiscount
+      ? product.product_price - (product.product_price * product.discount_value) / 100
+      : product.product_price;
+
+
+  const imageId = product.image && product.image.length > 0 
+    ? product.image[0].id  // Use the image ID rather than the URL
+    : null;
+
+  const cartItem = {
+    product_id: product.id,
+    product_name: product.product_name,
+    price: finalPrice,
+    quantity: quantity,
+    size: selectedSize.size,
+    // Instead of storing the URL, store the image ID for API calls
+    imageId: imageId,
+    // Keep a display URL for local use
+    imageUrl: product.image && product.image.length > 0 
+      ? `http://localhost:1337${product.image[0].url}` 
+      : '',
+    maxStock: selectedSize.stock,
+  };
 
     addToCart(cartItem);
     onClose();

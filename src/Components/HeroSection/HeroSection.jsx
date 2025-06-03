@@ -18,7 +18,7 @@ const HeroSection = () => {
   const slides = [
     {
       id: 1,
-      image: "/public/images/stadium.jpg",
+      image: "/images/stadium.jpg",
       title: "Gear Up for Greatness",
       subtitle: "Own the moment—on the pitch or in the stands",
       description: "Evokes the grand experience of the game, whether you're playing or watching.",
@@ -27,7 +27,7 @@ const HeroSection = () => {
     },
     {
       id: 2,
-      image: "/public/images/running.jpg",
+      image: "/images/running.jpg",
       title: "Every Step Counts",
       subtitle: "Engineered to move with you—no matter the pace.",
       description: "Motivational and personalized, perfect for fitness wear or running gear promotions.",
@@ -36,7 +36,7 @@ const HeroSection = () => {
     },
     {
       id: 3,
-      image: "/public/images/ad.jpg",
+      image: "/images/ad.jpg",
       title: "Power. Pride. Performance",
       subtitle: "Unleash your inner champion with elite gear worn by the best.",
       description: "Conveys elite, professional-level quality and aspiration by showing famous footballers.",

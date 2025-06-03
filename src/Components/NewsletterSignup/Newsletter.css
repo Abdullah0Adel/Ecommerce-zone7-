@@ -1,0 +1,7 @@
+.newsletter-bg{
+    max-width: 100%;
+    height: 50vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/images/soccer-grass.jpg");
+    background-size: cover;
+    background-position: center;
+}

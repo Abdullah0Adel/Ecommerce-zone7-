@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 const Footer = () => {
   return (
-    <footer className="footerImg text-white pb-5" style={{ backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/images/soccer-grass.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <footer className="footerImg text-white pb-5">
       <Container fluid className="px-4 py-5">
         <Row className="mb-5">
           {/* Logo and About */}

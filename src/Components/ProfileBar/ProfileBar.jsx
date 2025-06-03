@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 
-export default function ProfileBar() {
+export default function ProfileBar( closeProfileBar ) {
   const [userData, setUserData] = useState({})
     const token = Cookies.get("token");
     useEffect(() => {
@@ -14,38 +14,59 @@ export default function ProfileBar() {
       }
     }, [])
 
+    const handleCloseProfileBar = () => {
+      if(closeProfileBar){
+        closeProfileBar();
+      }
+    }
   return (
     <div className='profileBar'>
       <ul className='d-flex flex-column justify-content-between align-items-start gap-5'>
         {!token && (
         <>
 
-        <li>
-            <Link className='prof-links text-decoration-none text-dark fw-bold' to={"/login"}>Login</Link>
-        </li>
-        <li>
-            <Link className='prof-links text-decoration-none text-dark fw-bold' to={"/register"}>Register</Link>
-        </li>
+
+        <Link className='prof-links text-decoration-none text-dark fw-bold' to={"/login"}>
+          <li>
+              Login
+          </li>
+        </Link>
+
+        <Link className='prof-links text-decoration-none text-dark fw-bold' to={"/register"}>
+          <li>
+              Register
+          </li>
+        </Link>
         </>
         )
         }
         {token &&(
             <>
-            <li>
-              <Link to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>{userData.username}</Link>
-            </li>
+            <Link  onClick={handleCloseProfileBar} to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>
+              <li>
+                {userData.username}
+              </li>
+            </Link>
             </>
         )}
 
-        <li>
-            <Link to={'/wishlist'} className='prof-links text-decoration-none text-dark fw-bold'>Wishlist</Link>
-        </li>
-        <li>
-            <Link to={'/checkout'} className='prof-links text-decoration-none text-dark fw-bold'>Check out</Link>
-        </li>
-        <li>
-            <Link to={'/your-order'} className='prof-links text-decoration-none text-dark fw-bold'>Your Order</Link>
-        </li>
+        <Link  onClick={handleCloseProfileBar} to={'/wishlist'} className='prof-links text-decoration-none text-dark fw-bold'>
+          <li>
+              Wishlist
+          </li>
+        </Link>
+
+        <Link  onClick={handleCloseProfileBar} to={'/checkout'} className='prof-links text-decoration-none text-dark fw-bold'>
+            <li>
+                Check out
+            </li>
+        </Link>
+
+        <Link  onClick={handleCloseProfileBar} to={'/your-order'} className='prof-links text-decoration-none text-dark fw-bold'>
+          <li>
+              Your Order
+          </li>
+        </Link>
       </ul>
     </div>
   )

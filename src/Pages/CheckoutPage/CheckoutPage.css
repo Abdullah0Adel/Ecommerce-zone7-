@@ -31,3 +31,9 @@
 .features-bg{
     background-color: #004c4457;
 }
+input[type="radio"].custom-radio:checked{
+  background-color: #004C45; /* Bootstrap red */
+  border-color: #004C45;
+  outline: #004C45;
+}
+    

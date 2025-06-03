@@ -1,0 +1,18 @@
+.toggle_search{
+    height: 60px;
+    padding: 0 20px 0 0;
+    background-color: #ebebeb;
+    border-bottom: #e4e1d5;
+}
+.search_toggle_btn{
+    width: 20px;
+    background: transparent;
+    border: none;
+}
+.search_toggle_input{
+    background: transparent;
+    padding-left: 20px;
+    border: none;
+    height: 100%;
+    outline: none;
+}

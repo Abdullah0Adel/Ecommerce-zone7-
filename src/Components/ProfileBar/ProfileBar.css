@@ -8,6 +8,7 @@
 .profileBar ul{
     list-style-type: none;
     width: 100%;
+    padding: 0;
 }
 
 .prof-links{
@@ -19,11 +20,12 @@
     color: #004c45;
 }
 .profileBar ul li{
-    padding: 15px 0;
+    padding: 15px 20px;
     border-bottom:solid 1px #ececec;
     transition: 0.3s ease-in-out;
     width: 100%;
 }
 .profileBar ul li:hover{
-    padding-left: 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    padding-left: 40px;
 }

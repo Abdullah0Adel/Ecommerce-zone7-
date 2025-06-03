@@ -1,5 +1,13 @@
 import { useState } from 'react';
 import './Descriptions.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/pagination';
+import { FreeMode, Pagination } from 'swiper/modules';
+
+
 
 const Descriptions = () => {
   const [activeTab, setActiveTab] = useState('description');
@@ -14,8 +22,20 @@ const Descriptions = () => {
   return (
     <div className="container-fluid mt-5">
       <ul className="nav nav-tabs custom-tabs d-lfex gap-3">
+              <Swiper
+        slidesPerView={2}
+        freeMode={true}
+        modules={[FreeMode]}
+        breakpoints={{
+          688: { slidesPerView: 3 },
+          768: { slidesPerView: 4 },
+          1024: { slidesPerView: 4 },
+        }}
+          className={`mySwiper w-100`}
+        >
         {tabs.map((tab) => (
-          <li className="nav-item d-flex align-items-end" key={tab.id}>
+          <SwiperSlide key={tab.id} >
+          <li className="nav-item d-flex  align-items-end" key={tab.id}>
             <button
               className={`nav-link ${activeTab === tab.id ? 'active' : ''} hover-underline border-0`}
               onClick={() => setActiveTab(tab.id)}
@@ -23,7 +43,9 @@ const Descriptions = () => {
               {tab.label}
             </button>
           </li>
+          </SwiperSlide>
         ))}
+        </Swiper>
       </ul>
 
       <div className="tab-content p-4">

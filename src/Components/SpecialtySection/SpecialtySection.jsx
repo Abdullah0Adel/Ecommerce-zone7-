@@ -63,7 +63,7 @@ const SpecialtySection = () => {
         </div>
         
         <div className={`center-image ${isVisible ? 'animate-center' : ''}`}>
-          <img src="/images/adidas-soccer-boots.png" alt="Sports apparel" className="product-image" />
+          <img src="/images/adidas-soccer-boots.png" alt="Sports apparel" className="product-image h-100" />
         </div>
         
         <div className="right-column">

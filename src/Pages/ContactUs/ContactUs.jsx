@@ -3,8 +3,20 @@ import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs'
 import './ContactUs.css'
 import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react/dist/iconify.js'
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+
 
 export default function ContactUs(children) {
+  const [messageRef, messageisInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+  const [socialRef, socialisInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
   return (
     <>
     <div className='container-contact mb-5'>
@@ -26,7 +38,12 @@ export default function ContactUs(children) {
 
     <div className='container-fluid get-in-touch d-flex flex-column flex-lg-row align-items-center justify-content-between gap-5'>
 
-      <div className='w-75'>
+      <motion.div
+      ref={messageRef}
+      initial={{ opacity: 0, x: -70 }}
+      animate={messageisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1 }}
+      className='w-75'>
         <h3 className='fw-bold'>GET IN TOUCH</h3>
         <p className=''>Please enter the details of your requesst. A member of our support staff will respond as soon as possible.</p>
         <div className='d-flex gap-3 mb-3'>
@@ -38,9 +55,14 @@ export default function ContactUs(children) {
       <div className="mb-3">
         <textarea placeholder="MESSAGE" rows="5" className="w-100 contact-input"></textarea>
       </div>
-      </div>
+      </motion.div>
 
-      <div className='d-flex flex-column gap-3'>
+      <motion.div
+      ref={socialRef}
+      initial={{ opacity: 0, x: 70 }}
+      animate={socialisInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 1 }}
+      className='d-flex flex-column gap-3'>
         <p><span className='fw-bold'>Address:</span> 123 Suspendis matti, Visaosang Building VST District, NY Accums, North American</p>
         <p><span className='fw-bold'>Email:</span> support@domain.com</p>
         <p><span className='fw-bold'>Call Us:</span> (012)-345-67890</p>
@@ -59,7 +81,7 @@ export default function ContactUs(children) {
           <Icon icon="ri:twitter-fill" width="20" height="20" />
           </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
     <div className="container-fluid">
     <button className="submit-contact rounded-pill">Submit</button>

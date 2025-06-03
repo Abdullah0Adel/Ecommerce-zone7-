@@ -15,7 +15,7 @@ import DOMPurify from 'dompurify';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 import { useCart } from '../../context/CartContext';
-import { useWishlist } from '../../context/WishlistContext'; // Import wishlist context
+import { useWishlist } from '../../context/WishlistContext';
 import RelatedProducts from '../../Components/RelatedProducts/RelatedProducts';
 import Descriptions from '../../Components/Descriptions/Descriptions';
 import CustReviews from '../../Components/CustReviews/CustReviews';
@@ -34,6 +34,19 @@ export default function SingleProducts() {
   // Get cart and wishlist functions
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+
+  // Reset component state when ID changes
+  useEffect(() => {
+    // Reset all states when navigating to a new product
+    setProduct(null);
+    setLoading(true);
+    setError(null);
+    setQuantity(1);
+    setSelectedSize(null);
+    setThumbsSwiper(null);
+    setWishlistLoading(false);
+    setSingleCategory('');
+  }, [id]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -66,7 +79,6 @@ export default function SingleProducts() {
         setError('Failed to load product. Please try again later.');
         setLoading(false);
       }
-      
     };
 
     if (id) {
@@ -74,11 +86,16 @@ export default function SingleProducts() {
     }
   }, [id]);
 
-
-
+  // Clean up Swiper instances on unmount
+  useEffect(() => {
+    return () => {
+      if (thumbsSwiper && thumbsSwiper.destroy) {
+        thumbsSwiper.destroy(true, true);
+      }
+    };
+  }, [thumbsSwiper]);
 
   const incrementQuantity = () => {
-    // Limit quantity to available stock if size is selected
     if (selectedSize && quantity < selectedSize.stock) {
       setQuantity(quantity + 1);
     } else if (!selectedSize) {
@@ -94,147 +111,81 @@ export default function SingleProducts() {
 
   const handleSizeSelect = (size) => {
     setSelectedSize(size);
-    // Reset quantity if it's more than the available stock
     if (quantity > size.stock) {
       setQuantity(1);
     }
   };
 
-  // const handleAddToCart = async () => {
-  //   const url = 'http://localhost:1337/api/carts';
-  //   try {
-  //     const token = localStorage.getItem('token');
-  //     const user = JSON.parse(localStorage.getItem('user'));
-  //     const userId = user.id;
-  
-  //     const payload = {
-  //       data: {
-  //         users_permissions_user: userId,
-  //         product_id: product.id,
-  //         name: product.product_name,
-  //         price: product.product_price,
-  //         quantity: quantity,
-  //         size: selectedSize?.size || '',
-  //         image: product.thumbnail.url, //  Correct media relation
-  //       }
-  //     };
-  
-  //     const res = await axios.post(url, payload, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  
-  //     console.log("Added to cart:", res.data);
-  //     toast.success(`Added to Cart Successfully :)`)
-  //   } catch (err) {
-  //     console.error("Error adding to cart", err.response?.data || err.message);
-  //   }
-  // };
-    
-// Modified handleAddToCart function in SingleProducts.jsx
-const handleAddToCart = () => {
-  if (!selectedSize || selectedSize.stock <= 0) {
-    toast.error("Please select an available size");
-    return;
-  }
-  const finalPrice = product.hasDiscount
-    ? product.product_price - (product.product_price * product.discount_value) / 100
-    : product.product_price;
+  const handleAddToCart = () => {
+    if (!selectedSize || selectedSize.stock <= 0) {
+      toast.error("Please select an available size");
+      return;
+    }
+    const finalPrice = product.hasDiscount
+      ? product.product_price - (product.product_price * product.discount_value) / 100
+      : product.product_price;
 
-  // Get the image ID instead of the URL path
-  const imageId = product.image && product.image.length > 0 
-    ? product.image[0].id  // Use the image ID rather than the URL
-    : null;
+    const imageId = product.image && product.image.length > 0 
+      ? product.image[0].id
+      : null;
 
-  const cartItem = {
-    product_id: product.id,
-    product_name: product.product_name,
-    price: finalPrice,
-    quantity: quantity,
-    size: selectedSize.size,
-    // Instead of storing the URL, store the image ID for API calls
-    imageId: imageId,
-    // Keep a display URL for local use
-    imageUrl: product.image && product.image.length > 0 
-      ? `http://localhost:1337${product.image[0].url}` 
-      : '',
-    maxStock: selectedSize.stock,
+    const cartItem = {
+      product_id: product.id,
+      product_name: product.product_name,
+      price: finalPrice,
+      quantity: quantity,
+      size: selectedSize.size,
+      imageId: imageId,
+      imageUrl: product.image && product.image.length > 0 
+        ? `http://localhost:1337${product.image[0].url}` 
+        : '',
+      maxStock: selectedSize.stock,
+    };
+
+    addToCart(cartItem);
+    toast.success(`Added ${product.product_name} to cart!`);
   };
 
-  // Save to localStorage for local cart management
-  // let existingCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  // const existingIndex = existingCart.findIndex(
-  //   (item) => item.product_id === cartItem.product_id && item.size === cartItem.size
-  // );
-
-  // if (existingIndex >= 0) {
-  //   // If item with same ID and size exists, increase quantity
-  //   const existingItem = existingCart[existingIndex];
-  //   const newQuantity = existingItem.quantity + cartItem.quantity;
-
-  //   existingCart[existingIndex] = {
-  //     ...existingItem,
-  //     quantity: newQuantity > cartItem.maxStock ? cartItem.maxStock : newQuantity,
-  //   };
-  // } else {
-  //   existingCart.push(cartItem);
-  // }
-
-  // localStorage.setItem("cart", JSON.stringify(existingCart));
-
-  // Call the context function to update the server-side cart
-  addToCart(cartItem);
-
-  toast.success(`Added ${product.product_name} to cart!`);
-};
-  // Toggle wishlist functionality
-// Updated handleWishlistToggle function for SingleProducts.jsx
-
-const handleWishlistToggle = async () => {
-  if (!product) return;
-  
-  setWishlistLoading(true);
-  
-  const productInWishlist = isInWishlist(product.id);
-  
-  try {
-    if (productInWishlist) {
-      await removeFromWishlist(product.id);
-    } else {
-      // Prepare image object correctly
-      const imageUrl = product.image && product.image.length > 0 
-        ? product.image[0].url 
-        : '';
-        
-      const imageId = product.image && product.image.length > 0 
-        ? product.image[0].id
-        : null;
-        
-      const wishlistItem = {
-        id: product.id,
-    product_documentId: product.documentId,
-        name: product.product_name,
-        price: product.product_price,
-        rating: product.product_rating,
-        imageId: imageId,
-        imageUrl: product.image && product.image.length > 0 
-          ? `http://localhost:1337${product.image[0].url}` 
-          : '',
-      };
-      
-      await addToWishlist(wishlistItem);
-    }
+  const handleWishlistToggle = async () => {
+    if (!product) return;
     
-    // No need for toast here as the context functions already show toasts
-  } catch (error) {
-    console.error('Error toggling wishlist status:', error);
-    toast.error('Failed to update wishlist');
-  } finally {
-    setWishlistLoading(false);
-  }
-};  
+    setWishlistLoading(true);
+    
+    const productInWishlist = isInWishlist(product.id);
+    
+    try {
+      if (productInWishlist) {
+        await removeFromWishlist(product.id);
+      } else {
+        const imageUrl = product.image && product.image.length > 0 
+          ? product.image[0].url 
+          : '';
+          
+        const imageId = product.image && product.image.length > 0 
+          ? product.image[0].id
+          : null;
+          
+        const wishlistItem = {
+          id: product.id,
+          product_documentId: product.documentId,
+          name: product.product_name,
+          price: product.product_price,
+          rating: product.product_rating,
+          imageId: imageId,
+          imageUrl: product.image && product.image.length > 0 
+            ? `http://localhost:1337${product.image[0].url}` 
+            : '',
+        };
+        
+        await addToWishlist(wishlistItem);
+      }
+    } catch (error) {
+      console.error('Error toggling wishlist status:', error);
+      toast.error('Failed to update wishlist');
+    } finally {
+      setWishlistLoading(false);
+    }
+  };
 
   if (loading) return <div className="container my-5 text-center"><div className="spinner-border" role="status"></div></div>;
   if (error) return <div className="container my-5 alert alert-danger">{error}</div>;
@@ -249,21 +200,24 @@ const handleWishlistToggle = async () => {
       <div className="container-sm product-content my-4">
         <div className="row">
           {/* Product Images - Left Side */}
-          <div className=" slider-img col-12 col-lg-7 mb-4">
-            {/* Image gallery code remains the same */}
+          <div className="slider-img col-12 col-lg-7 mb-4">
             <div className="product-gallery h-100">
               {product.image && product.image.length > 0 && (
                 <>
                   <Swiper
-                    loop={true}
+                    key={`main-${product.id}`} // Add unique key
+                    loop={product.image.length > 1} // Only enable loop if more than 1 image
                     modules={[Navigation, Pagination, Thumbs]}
-                    thumbs={{ swiper: thumbsSwiper }}
+                    thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : {}}
                     navigation
                     pagination={{ clickable: true }}
                     className="main-swiper mb-3"
+                    onSwiper={(swiper) => {
+                      // Store main swiper reference if needed
+                    }}
                   >
                     {product.image.map((img, index) => (
-                      <SwiperSlide key={index}>
+                      <SwiperSlide key={`main-slide-${index}`}>
                         <img 
                           src={`http://localhost:1337${img.url}`} 
                           alt={product.product_name} 
@@ -273,24 +227,34 @@ const handleWishlistToggle = async () => {
                     ))}
                   </Swiper>
                   
-                  <Swiper
-                    onSwiper={setThumbsSwiper}
-                    slidesPerView={4}
-                    spaceBetween={10}
-                    loop={true}
-                    modules={[Thumbs]}
-                    className="thumbs-swiper"
-                  >
-                    {product.image.map((img, index) => (
-                      <SwiperSlide key={index}>
-                        <img 
-                          src={`http://localhost:1337${img.url}`} 
-                          alt={`Thumbnail ${index + 1}`} 
-                          className="img-fluid rounded cursor-pointer"
-                        />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
+                  {/* Only show thumbs if more than 1 image */}
+                  {product.image.length > 1 && (
+                    <Swiper
+                      key={`thumbs-${product.id}`} // Add unique key
+                      onSwiper={(swiper) => {
+                        // Small delay to ensure DOM is ready
+                        setTimeout(() => {
+                          setThumbsSwiper(swiper);
+                        }, 100);
+                      }}
+                      slidesPerView={Math.min(4, product.image.length)}
+                      spaceBetween={10}
+                      loop={false} // Disable loop for thumbs
+                      modules={[Thumbs]}
+                      className="thumbs-swiper"
+                      watchSlidesProgress={true}
+                    >
+                      {product.image.map((img, index) => (
+                        <SwiperSlide key={`thumb-slide-${index}`}>
+                          <img 
+                            src={`http://localhost:1337${img.url}`} 
+                            alt={`Thumbnail ${index + 1}`} 
+                            className="img-fluid rounded cursor-pointer"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  )}
                 </>
               )}
             </div>
@@ -301,18 +265,18 @@ const handleWishlistToggle = async () => {
             <h3 className="productName mb-3 fw-bold">{product.product_name}</h3>
             
             <div className="d-flex align-items-start mb-3 gap-3">
-          <div className="product-rating mb-2">
-              <div className="d-flex align-items-center mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <Icon
-                    key={i}
-                    icon={i < Math.floor(product.product_rating) ? "mdi:star" : "mdi:star-outline"}
-                    className="text-warning me-1"
-                  />
-                ))}
-                <span>({product.product_rating})</span>
+              <div className="product-rating mb-2">
+                <div className="d-flex align-items-center mb-3">
+                  {[...Array(5)].map((_, i) => (
+                    <Icon
+                      key={i}
+                      icon={i < Math.floor(product.product_rating) ? "mdi:star" : "mdi:star-outline"}
+                      className="text-warning me-1"
+                    />
+                  ))}
+                  <span>({product.product_rating})</span>
+                </div>
               </div>
-          </div>
               <p className='viewAllReviews fw-bold'>VIEW ALL REVIEWS</p>
             </div>
             
@@ -371,8 +335,7 @@ const handleWishlistToggle = async () => {
                 {selectedSize && (
                   <small className="greenColor ">
                     {selectedSize.stock > 3
-                      ? `(${selectedSize.stock}) In stock
-                      `
+                      ? `(${selectedSize.stock}) In stock`
                       : `Only (${selectedSize.stock}) left!`}
                   </small>
                 )}
@@ -411,7 +374,6 @@ const handleWishlistToggle = async () => {
 
             <div className="container">
               <div className='add-btns row d-flex justify-content-between'>
-                {/* Add to Cart Button - Modified with onClick handler */}
                 <div className="mb-4 p-0 col-9 col-sm-10 add-cart-btn rounded-pill">
                   <button 
                     className="btn w-100 rounded-pill text-dark fw-bold add-cart-btn w-100 py-2"
@@ -422,7 +384,6 @@ const handleWishlistToggle = async () => {
                   </button>
                 </div>
                 
-                {/* Wishlist btn - Updated with wishlist toggle functionality */}
                 <div className="wishlistbtn col-3 col-sm-2 ">
                   <button 
                     className='wishlist-icon rounded-pill'
@@ -459,21 +420,24 @@ const handleWishlistToggle = async () => {
           </div>
         </div>
       </div>
+      
       <div>
-      <Descriptions/>
+        <Descriptions/>
       </div>
 
-
-
-
-            <div>
-              <CustReviews
-              />
-            </div>
+      <div>
+        <CustReviews/>
+      </div>
       
       {/* Pass the category name to the RelatedProducts component */}
-      {singleCategory && <RelatedProducts categoryName={singleCategory} />}
-      
+      {singleCategory && (
+        <RelatedProducts 
+          key={product.id} 
+          categoryName={singleCategory}
+          currentProductId={product.id}
+          currentProductDocumentId={product.documentId}
+        />
+      )}      
     </div>
   );
 }

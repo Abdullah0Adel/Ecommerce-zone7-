@@ -2,8 +2,9 @@ import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import BASE_URL from '../../Data/BASE_URL'
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, closeSearchBar }) {
   const [searchTerm, setSearchTerm] = useState("")
   const [searchResults, setSearchResults] = useState([])
   const [showResults, setShowResults] = useState(false)
@@ -16,7 +17,7 @@ function SearchBar({ onSearch }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:1337/api/products', {
+        const response = await axios.get(`${BASE_URL}products`, {
           params: {
             populate: "*"
           }
@@ -68,11 +69,16 @@ function SearchBar({ onSearch }) {
       onSearch(filteredProducts)
     }
     
+    if ( closeSearchBar){
+  closeSearchBar();
+  
     // Navigate to the ProductResults page with search term as query parameter
     navigate(`/productresults?search=${encodeURIComponent(searchTerm)}`)
     
     // Clear dropdown results after search submission
     setShowResults(false)
+
+  }
   }
 
   // Handle clicking outside of search component to close dropdown
@@ -88,6 +94,8 @@ function SearchBar({ onSearch }) {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+
+
 
   return (
     <div ref={searchRef} className="position-relative">
@@ -167,7 +175,9 @@ function SearchBar({ onSearch }) {
               <li className="list-group-item text-center py-2">
                 <button 
                   className="btn btn-sm btn-outline-primary w-100"
-                  onClick={handleSearchSubmit}
+                  onClick={handleSearchSubmit
+
+                  }
                 >
                   See all results
                 </button>

@@ -1,3 +1,9 @@
 *{
     font-family: 'jost';
+    /* outline: 1px solid red; */
+}
+
+html, body {
+  overflow-x: hidden;
+  padding-top: 0 !important;
 }

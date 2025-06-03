@@ -1,0 +1,31 @@
+.related-products {
+
+}
+.product-card:hover .quick-add-btn {
+  opacity: 1 !important;
+}
+
+.hover-shadow-lg:hover {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.175) !important;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+.card-img-top {
+  cursor: pointer;
+}
+.product-card .card {
+  cursor: pointer;
+}
+.related-wishlist-btn{
+    width: 40px;
+    height: 40px;
+    transition: 0.3s ease;
+    color: black;
+    border: none;
+}
+.related-wishlist-btn:hover {
+    color: white !important;
+    background-color: #024D46;
+}

@@ -1,7 +1,6 @@
 .specialty-section {
   padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  max-width: 100%;
   background: #f8f9fa;
 }
 
@@ -38,13 +37,14 @@
 .center-image {
   flex: 0 0 auto;
   opacity: 0;
+  height: 100% !important;
   transform: scale(0.8);
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .product-image {
   border-radius: 8px;
-  width: 200px;
+  width: 200px !important;
 }
 
 .specialty-item {

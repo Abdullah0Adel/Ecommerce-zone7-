@@ -1,0 +1,131 @@
+.newArrivalsCard {
+  border: none;
+}
+
+.newArrivalsTitle {
+  position: relative;
+  display: inline-block;
+}
+
+.newArrivalsTitle::after {
+  content: '';
+  position: absolute;
+  width: 106%;
+  height: 3px;
+  background-color: #000;
+  bottom: -10px;
+  left: -3%;
+  border-radius: 20px;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s ease;
+}
+
+.animate .newArrivalsTitle::after {
+  transform: scaleX(1);
+}
+
+.productCard {
+  /* any custom styles for product card */
+}
+
+.discountBadge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 50px;
+  height: 50px;
+}
+
+.productImage {
+  object-fit: cover;
+}
+
+.overlayButtons {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.overlayButtons {
+  opacity: 1 !important;
+}
+
+.overlayHidden {
+  opacity: 0 !important;
+}
+
+.productLink:hover {
+  color: #006158;
+}
+.imageWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.productImage {
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.imageWrapper:hover .productImage {
+  transform: scale(1.05); /* Focus zoom effect */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageWrapper:hover .overlay {
+  opacity: 1;
+}
+
+.wishlistBtn {
+  background-color: white;
+  align-self: end;
+  margin-bottom: 35px;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  transition:  0.3s ease-in-out;
+}
+
+.wishlistBtn:hover {
+  transform: scale(1.1);
+  color: white;
+  background-color: #004C45;
+}
+.quickViewBtn{
+  background-color: white;
+  border: none;
+  display: block;
+  font-size: 14px;
+  color: #004C45;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 7px ;
+  border: solid 1px #004c448d;
+  transition:  0.3s ease-in-out;
+}
+.quickViewBtn:hover{
+  background-color: #004C45;
+  color: white;
+  transform: scale(1.05);
+}
+@media screen and (max-width: 770px) {
+  .quickViewBtn{
+    display: none ;
+  }
+}

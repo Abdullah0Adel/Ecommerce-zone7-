@@ -204,7 +204,7 @@ const CheckoutPage = () => {
                   <div className="d-flex flex-column gap-2">
                     <div className="form-check border rounded p-3 d-flex align-items-center gap-4">
                       <input
-                        className="form-check-input"
+                        className="form-check-input custom-radio"
                         type="radio"
                         name="payment"
                         id="cashOnDelivery"
@@ -212,13 +212,13 @@ const CheckoutPage = () => {
                         checked={paymentMethod === "Cash on Delivery"}
                         onChange={() => setPaymentMethod("Cash on Delivery")}
                       />
-                      <label className="form-check-label w-100" htmlFor="cashOnDelivery">
+                      <label className="form-check-label w-100 " htmlFor="cashOnDelivery">
                         Cash on Delivery
                       </label>
                     </div>
                     <div className="form-check border rounded p-3 d-flex align-items-center gap-4">
                       <input
-                        className="form-check-input"
+                        className="form-check-input custom-radio"
                         type="radio"
                         name="payment"
                         id="creditCard"

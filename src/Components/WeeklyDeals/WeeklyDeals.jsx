@@ -135,7 +135,7 @@ useEffect(() => {
                 <img 
                   src={`http://localhost:1337${product.thumbnail?.url}`}
                   alt={product.product_name}
-                  className="img-fluid" 
+                  className="img-fluid rounded" 
                   style={{ maxHeight: '100%', objectFit: 'contain' }}
                 />
               </div>
@@ -157,14 +157,14 @@ useEffect(() => {
               )
               }
             {product.desc && (
-              <p className="text-muted mb-4">
+              <div className="text-muted mb-4">
                 <div
                   className="rich-text-preview"
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(marked(product.desc)),
                   }}
                 />
-                </p>
+                </div>
             )}
 
               <div className="mb-4">
