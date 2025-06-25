@@ -196,7 +196,7 @@ export default function SingleProducts() {
     : product.product_price;
 
   return (
-    <div>
+    <div className='pt-5 mt-5'>
       <div className="container-sm product-content my-4">
         <div className="row">
           {/* Product Images - Left Side */}

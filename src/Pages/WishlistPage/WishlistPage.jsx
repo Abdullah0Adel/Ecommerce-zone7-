@@ -45,7 +45,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className="container my-5">
+    <div className="container mt-5 pt-5">
       <h2 className="text-center mb-4">My Wishlist</h2>
       
       {wishlistItems.length === 0 ? (

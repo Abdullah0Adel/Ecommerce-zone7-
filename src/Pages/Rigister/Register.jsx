@@ -240,11 +240,11 @@ export default function Register() {
                       />
                       <label className="form-check-label" htmlFor="terms">
                         I agree to the{' '}
-                        <Link to="/terms" className="text-decoration-none">
+                        <Link to="#" className="text-decoration-none">
                           Terms & Conditions
                         </Link>{' '}
                         and{' '}
-                        <Link to="/privacy" className="text-decoration-none">
+                        <Link to="#" className="text-decoration-none">
                           Privacy Policy
                         </Link>
                       </label>

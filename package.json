@@ -23,6 +23,7 @@
     "lucide-react": "^0.482.0",
     "marked": "^15.0.8",
     "motion": "^12.5.0",
+    "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0",

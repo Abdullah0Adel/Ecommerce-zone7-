@@ -226,7 +226,7 @@ const getProductImageUrl = (item) => {
 
   return (
     <>
-      <div className="min-vh-100 py-5" style={{background: 'linear-gradient(135deg,rgb(243, 255, 250) 0%,rgb(235, 255, 250) 100%)'}}>
+      <div className="min-vh-100 py-5 mt-5" style={{background: 'linear-gradient(135deg,rgb(243, 255, 250) 0%,rgb(235, 255, 250) 100%)'}}>
         <div className="container">
           {/* Header */}
           <div className="text-center mb-5">
@@ -356,23 +356,24 @@ const getProductImageUrl = (item) => {
                               return (
                                 <div key={idx} className="col-12">
                                   <div className="item-card bg-white rounded-3 p-3">
-                                    <div className="d-flex justify-content-between align-items-center">
-                                      <div className="d-flex align-items-center">
+                                    <div className="d-flex flex-lg-row flex-column justify-content-between align-items-center">
+                                      <div className="d-flex justify-content-center flex-md-row  flex-column align-items-center">
                                         {imageUrl ? (
                                           <img 
                                             src={imageUrl} 
                                             alt={name}
-                                            className="product-image me-3"
+                                            className="product-image me-3 h-100"
                                             onError={(e) => {
                                               e.target.style.display = 'none';
                                               e.target.nextSibling.style.display = 'flex';
                                             }}
                                           />
-                                        ) : null}                                        <div className={`product-image-placeholder me-3 ${imageUrl ? 'd-none' : ''}`}>
+                                        ) : null}                                       
+                                        <div className={`product-image-placeholder me-3 ${imageUrl ? 'd-none' : ''}`}>
                                           <i className="bi bi-image text-muted"></i>
                                         </div>
-                                        <div>
-                                          <h6 className="fw-semibold text-dark mb-1">{name}</h6>
+                                        <div className="text-center text-md-start">
+                                          <h6 className="fw-semibold text-dark mb-1 text-center">{name}</h6>
                                           <small className="text-muted">Quantity: {quantity}</small>
                                         </div>
                                       </div>

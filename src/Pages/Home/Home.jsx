@@ -13,6 +13,7 @@ import Newsletter from '../../Components/NewsletterSignup/Newsletter'
 export default function Home() {
   return (
     <>
+    <div className='margin-cust'>
     <div>
     <HeroSection/>
     </div>
@@ -43,6 +44,7 @@ export default function Home() {
 
     <div>
       <Newsletter />
+    </div>
     </div>
     </>
   )

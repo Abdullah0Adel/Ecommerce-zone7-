@@ -187,7 +187,7 @@ export default function Shop() {
   });
 
   return (
-    <div>
+    <div className='mt-5'>
       <div className="breadcrumbs-img">
         <div>
           <h3>Shop</h3>

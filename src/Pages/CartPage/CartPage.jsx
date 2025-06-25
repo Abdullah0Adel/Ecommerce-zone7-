@@ -48,7 +48,7 @@ const grandTotal = totalPrice + actualShippingCost;
   const amountForFreeShipping = 1000 - totalPrice;
 
   return (
-    <div className="cart-page container my-5">
+    <div className="cart-page container my-5 pt-5">
       <h2 className="mb-4">Shopping Cart</h2>
       
       {cartItems.length === 0 ? (

@@ -119,7 +119,7 @@ function ProductResults() {
   }, []);
 
   return (
-    <div className="container my-4">
+    <div className="container my-5 pt-5">
       <h2>Search Results for "{searchTerm}"</h2>
       
       {loading ? (

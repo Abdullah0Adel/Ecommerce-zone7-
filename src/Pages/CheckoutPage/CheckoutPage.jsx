@@ -116,7 +116,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="container-fluid bg-light py-5">
+    <div className="container-fluid bg-light py-5 mt-5">
       <div className="container">
         {/* Header */}
         <div className="mb-4 text-center">
