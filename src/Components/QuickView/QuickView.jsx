@@ -13,6 +13,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
+import BASE_URL from '../../Data/BASE_URL';
 
 export default function QuickView({ productId, onClose }) {
   const [product, setProduct] = useState(null);
@@ -36,7 +37,7 @@ export default function QuickView({ productId, onClose }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:1337/api/products/${productId}?populate=*`);
+        const res = await axios.get(`${BASE_URL}products/${productId}?populate=*`);
         setProduct(res.data.data);
 
         if (res.data.data.sizes?.length > 0) {
@@ -98,7 +99,7 @@ export default function QuickView({ productId, onClose }) {
     imageId: imageId,
     // Keep a display URL for local use
     imageUrl: product.image && product.image.length > 0 
-      ? `http://localhost:1337${product.image[0].url}` 
+      ? `${BASE_URL}${product.image[0].url}` 
       : '',
     maxStock: selectedSize.stock,
   };

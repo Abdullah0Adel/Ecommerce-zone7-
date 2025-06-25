@@ -19,6 +19,7 @@ import { useWishlist } from '../../context/WishlistContext';
 import RelatedProducts from '../../Components/RelatedProducts/RelatedProducts';
 import Descriptions from '../../Components/Descriptions/Descriptions';
 import CustReviews from '../../Components/CustReviews/CustReviews';
+import BASE_URL from '../../Data/BASE_URL';
 
 export default function SingleProducts() {
   const { id } = useParams();
@@ -52,8 +53,8 @@ export default function SingleProducts() {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const domain = 'http://localhost:1337/';
-        const endPoint = `api/products/${id}`;
+        const domain = `${BASE_URL}`;
+        const endPoint = `products/${id}`;
         const url = domain + endPoint;
         
         const response = await axios.get(url, {
@@ -137,7 +138,7 @@ export default function SingleProducts() {
       size: selectedSize.size,
       imageId: imageId,
       imageUrl: product.image && product.image.length > 0 
-        ? `http://localhost:1337${product.image[0].url}` 
+        ? `${BASE_URL}${product.image[0].url}` 
         : '',
       maxStock: selectedSize.stock,
     };
@@ -173,7 +174,7 @@ export default function SingleProducts() {
           rating: product.product_rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `http://localhost:1337${product.image[0].url}` 
+            ? `${BASE_URL}${product.image[0].url}` 
             : '',
         };
         

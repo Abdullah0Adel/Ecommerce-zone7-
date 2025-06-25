@@ -8,6 +8,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import QuickView from '../QuickView/QuickView';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import BASE_URL from '../../Data/BASE_URL';
 
 
 export default function ProductCard({id,funId, img, category, thumbnail, productName, rating, productPrice, hasDiscount, discountValue, sizes}) {
@@ -50,7 +51,7 @@ export default function ProductCard({id,funId, img, category, thumbnail, product
     imageId: imageId,
     // Keep a display URL for local use
     imageUrl: product.image && product.image.length > 0 
-      ? `http://localhost:1337${product.image[0].url}` 
+      ? `${BASE_URL}${product.image[0].url}` 
       : '',
     maxStock: selectedSize.stock,
   };
@@ -90,7 +91,7 @@ const handleWishlistToggle = async () => {
         // Handle image safely - create an array with a single object containing url
         imageId: imageId,
         imageUrl: img && img.length > 0 
-          ? `http://localhost:1337${img[0].url}` 
+          ? `${BASE_URL}${img[0].url}` 
           : '',
       };
       

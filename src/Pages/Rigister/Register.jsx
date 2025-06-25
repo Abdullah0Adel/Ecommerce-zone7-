@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useCart } from '../../context/CartContext';
 import './Register.css';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import BASE_URL from '../../Data/BASE_URL';
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string()
@@ -39,7 +40,7 @@ export default function Register() {
 
   const handleRegister = async (values, { setSubmitting, resetForm }) => {
     setIsLoading(true);
-    const url = 'http://localhost:1337/api/auth/local/register';
+    const url = `${BASE_URL}auth/local/register`;
     
     try {
       const { username, email, password } = values;

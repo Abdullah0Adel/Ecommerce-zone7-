@@ -15,6 +15,7 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import { useWishlist } from '../../context/WishlistContext';
 import QuickView from '../QuickView/QuickView';
+import BASE_URL from '../../Data/BASE_URL';
 export default function NewArrivals() {
 
   const [products, setProducts] = useState([]);
@@ -34,7 +35,7 @@ export default function NewArrivals() {
     const fetchProduct = async() => {
       try{
         setLoading(true);
-        const url = `http://localhost:1337/api/products`;
+        const url = `${BASE_URL}products`;
         const response = await axios.get(url, {
           params: {
             populate: "*"
@@ -111,7 +112,7 @@ export default function NewArrivals() {
           rating: product.product_rating || product.rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `http://localhost:1337${product.image[0].url}` 
+            ? `${BASE_URL}${product.image[0].url}` 
             : '',
         };
         

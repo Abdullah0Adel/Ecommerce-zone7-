@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useCart } from '../../context/CartContext';
 import './Login.css';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import BASE_URL from '../../Data/BASE_URL';
 
 const LoginSchema = Yup.object().shape({
   identifier: Yup.string()
@@ -27,7 +28,7 @@ export default function Login() {
 
   const handleLogin = async (values, { setSubmitting, resetForm }) => {
     setIsLoading(true);
-    const url = `http://localhost:1337/api/auth/local`;
+    const url = `${BASE_URL}auth/local`;
     
     try {
       const { data } = await axios.post(url, values);

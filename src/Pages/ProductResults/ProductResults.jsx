@@ -6,6 +6,7 @@ import Aos from 'aos';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import QuickView from '../../Components/QuickView/QuickView';
 import toast from 'react-hot-toast';
+import BASE_URL from '../../Data/BASE_URL';
 
 function ProductResults() {
   const [searchParams] = useSearchParams();
@@ -21,7 +22,7 @@ function ProductResults() {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:1337/api/products', {
+        const response = await axios.get(`${BASE_URL}products`, {
           params: {
             populate: "*"
           }
@@ -96,7 +97,7 @@ function ProductResults() {
           rating: product.product_rating || product.rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `http://localhost:1337${product.image[0].url}` 
+            ? `${BASE_URL}${product.image[0].url}` 
             : '',
         };
         

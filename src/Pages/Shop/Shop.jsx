@@ -8,6 +8,7 @@ import './Shop.css'
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import BASE_URL from '../../Data/BASE_URL';
 
 
 export default function Shop() {
@@ -60,8 +61,8 @@ export default function Shop() {
   useEffect(() => {
     const getProducts = () => {
       try{
-        let domain = `http://localhost:1337/`;
-        let endPoint = `api/products`;
+        let domain = `${BASE_URL}`;
+        let endPoint = `products`;
         let url = domain + endPoint;
         axios
         .get(url,{
@@ -85,8 +86,8 @@ export default function Shop() {
   useEffect(() => {
     const getCategories = () => {
       try{
-        let domainCat = `http://localhost:1337/`;
-        let endPointCat = 'api/categories'; 
+        let domainCat = `${BASE_URL}`;
+        let endPointCat = 'categories'; 
         let urlCat = domainCat + endPointCat;
         axios.get(urlCat,{
           params: {

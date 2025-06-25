@@ -17,6 +17,7 @@ import 'swiper/css/pagination';
 import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
 import './RelatedProducts.css';
+import BASE_URL from '../../Data/BASE_URL';
 
 export default function RelatedProducts({ 
   categoryName, 
@@ -48,7 +49,7 @@ export default function RelatedProducts({
         setLoading(true);
         setError(null);
         
-        const BASE_URL = 'http://localhost:1337/api/';
+        const BASE_URL = `${process.env.REACT_APP_API_URL}/api/`;
         const relatedUrl = `${BASE_URL}products`;
         
         const response = await axios.get(relatedUrl, {
@@ -123,7 +124,7 @@ export default function RelatedProducts({
           rating: product.product_rating,
           imageId: product.image?.[0]?.id || null,
           imageUrl: product.image?.[0]?.url 
-            ? `http://localhost:1337${product.image[0].url}` 
+            ? `${BASE_URL}${product.image[0].url}` 
             : '',
         };
         await addToWishlist(wishlistItem);
@@ -160,7 +161,7 @@ export default function RelatedProducts({
         size: '',
         imageId: product.image?.[0]?.id || null,
         imageUrl: product.image?.[0]?.url 
-          ? `http://localhost:1337${product.image[0].url}` 
+          ? `${BASE_URL}${product.image[0].url}` 
           : '',
         maxStock: 999, // Default stock for products without sizes
       };

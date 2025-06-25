@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./YourOrder.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import BASE_URL from "../../Data/BASE_URL";
 
 const orderStages = ["Pending", "Processing", "Shipped", "Delivered"];
 
@@ -50,7 +51,7 @@ const YourOrder = () => {
 
         // Enhanced API call with deeper population to get product images and details
         const response = await axios.get(
-          `http://localhost:1337/api/orders?filters[users_permissions_user]=${userId}&populate`,
+          `${BASE_URL}orders?filters[users_permissions_user]=${userId}&populate`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -128,7 +129,7 @@ const YourOrder = () => {
 const getProductImageUrl = (item) => {
   const thumbnailUrl = item?.image?.formats?.thumbnail?.url || item?.image?.url;
   return thumbnailUrl 
-    ? (thumbnailUrl.startsWith("http") ? thumbnailUrl : `http://localhost:1337${thumbnailUrl}`) 
+    ? (thumbnailUrl.startsWith("http") ? thumbnailUrl : `${BASE_URL}${thumbnailUrl}`) 
     : null;
 };
 

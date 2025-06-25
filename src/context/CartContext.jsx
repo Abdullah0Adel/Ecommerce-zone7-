@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import BASE_URL from '../Data/BASE_URL';
 
 const CartContext = createContext();
 
@@ -47,7 +48,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:1337/api/carts`, {
+      const response = await axios.get(`${BASE_URL}carts`, {
         headers: {
           Authorization: token ? `Bearer ${token}` : undefined,
         },
@@ -132,7 +133,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
       };
 
       //  Check if item already exists in the cart
-      const response = await axios.get(`http://localhost:1337/api/carts`, {
+      const response = await axios.get(`${BASE_URL}carts`, {
         headers,
         params: {
           filters: {
@@ -168,7 +169,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
         }
 
         await axios.put(
-          `http://localhost:1337/api/carts/${existingId}`,
+          `${BASE_URL}carts/${existingId}`,
           { data: { quantity: newQuantity } },
           { headers }
         );
@@ -193,7 +194,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
           payload.data.image = newItem.imageId;
         }
 
-        await axios.post(`http://localhost:1337/api/carts`, payload, { headers });
+        await axios.post(`${BASE_URL}carts`, payload, { headers });
         await loadCart(); // Reload the cart after creation
         toast.success(`Added ${newItem.product_name} to your cart`);
       }
@@ -222,7 +223,7 @@ const updateCartItem = async (cartItemId, updates) => {
 
     // Update in Strapi
     const response = await axios.put(
-      `http://localhost:1337/api/carts/${cartItemId}`,
+      `${BASE_URL}carts/${cartItemId}`,
       {
         data: updates
       },
@@ -255,7 +256,7 @@ const updateCartItem = async (cartItemId, updates) => {
       if (!cartItemId) return;
       const token = getAuthToken();
 
-      await axios.delete(`http://localhost:1337/api/carts/${cartItemId}`, {
+      await axios.delete(`${BASE_URL}carts/${cartItemId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
