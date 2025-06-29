@@ -61,9 +61,8 @@ export default function Shop() {
   useEffect(() => {
     const getProducts = () => {
       try{
-        let domain = `${BASE_URL}`;
-        let endPoint = `products`;
-        let url = domain + endPoint;
+        let domain = `${BASE_URL}products`;
+        let url = domain;
         axios
         .get(url,{
           params: {
@@ -86,9 +85,8 @@ export default function Shop() {
   useEffect(() => {
     const getCategories = () => {
       try{
-        let domainCat = `${BASE_URL}`;
-        let endPointCat = 'categories'; 
-        let urlCat = domainCat + endPointCat;
+        let domainCat = `${BASE_URL}categories`;
+        let urlCat = domainCat;
         axios.get(urlCat,{
           params: {
             populate: "*"
