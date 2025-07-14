@@ -108,6 +108,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
     setTotalPrice(total);
   }, [cartItems]);
 
+  
   //  Add item to cart
   const addToCart = async (newItem) => {
     try {
