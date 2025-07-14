@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       { path: "/cartpage", element: <CartPage /> },
       { path: "/wishlist", element: <WishlistPage /> }, // Add WishlistPage route
       { path: "/checkout", element: <CheckoutPage /> },
-      { path: "/your-order", element: <YourOrder />},
+      { path: "/yourorder", element: <YourOrder />},
       { path: "/productresults", element: <ProductResults />},
       { path: "/profile", element: <Profile /> }
     ],

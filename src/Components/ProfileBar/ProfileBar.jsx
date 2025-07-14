@@ -62,7 +62,7 @@ export default function ProfileBar( closeProfileBar ) {
             </li>
         </Link>
 
-        <Link  onClick={handleCloseProfileBar} to={'/your-order'} className='prof-links text-decoration-none text-dark fw-bold'>
+        <Link  onClick={handleCloseProfileBar} to={'/yourorder'} className='prof-links text-decoration-none text-dark fw-bold'>
           <li>
               Your Order
           </li>

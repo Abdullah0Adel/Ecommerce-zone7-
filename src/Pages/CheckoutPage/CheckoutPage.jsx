@@ -104,7 +104,7 @@ const CheckoutPage = () => {
         
         toast.success("Order Placed Successfully!");
         //  Navigate to order confirmation page
-        navigate("/your-order");
+        navigate("/yourorder");
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);
