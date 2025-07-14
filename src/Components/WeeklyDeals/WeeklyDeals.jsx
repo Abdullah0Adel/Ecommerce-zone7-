@@ -133,7 +133,7 @@ useEffect(() => {
             <div className="position-relative h-100">
               <div className="bg-light h-100 d-flex align-items-center justify-content-center rounded-start" style={{ backgroundColor: '#e9f0e6' }}>
                 <img 
-                  src={`http://localhost:1337${product.thumbnail?.url}`}
+                  src={`https://zone7-strapi-backend.onrender.com${product.thumbnail?.url}`}
                   alt={product.product_name}
                   className="img-fluid rounded" 
                   style={{ maxHeight: '100%', objectFit: 'contain' }}

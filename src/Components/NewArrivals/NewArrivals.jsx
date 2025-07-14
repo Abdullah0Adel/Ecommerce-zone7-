@@ -174,7 +174,7 @@ export default function NewArrivals() {
                     </p>
                   )}
                   <img
-                    src={`http://localhost:1337${product.thumbnail?.url}`}
+                    src={`https://zone7-strapi-backend.onrender.com${product.thumbnail?.url}`}
                     className={styles.productImage}
                     alt={product.product_name}
                   />
