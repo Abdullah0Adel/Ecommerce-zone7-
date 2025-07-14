@@ -22,6 +22,10 @@ export default function ProductCard({id,funId, img, category, thumbnail, product
       threshold: 0.1,
     });
 
+    console.log("thumbnail",thumbnail);
+
+
+
   const finalPrice = hasDiscount
     ? productPrice - (productPrice * discountValue) / 100
     : productPrice;
@@ -121,7 +125,7 @@ const handleWishlistToggle = async () => {
           )}
 
           <img
-            src={`http://localhost:1337${thumbnail}`}
+            src={`https://zone7-strapi-backend.onrender.com${thumbnail}`}
             className="card-img-top h-100 img-hover-effect"
             alt={productName}
           />

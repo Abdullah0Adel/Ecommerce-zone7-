@@ -220,7 +220,7 @@ export default function SingleProducts() {
                     {product.image.map((img, index) => (
                       <SwiperSlide key={`main-slide-${index}`}>
                         <img 
-                          src={`http://localhost:1337${img.url}`} 
+                          src={`https://zone7-strapi-backend.onrender.com${img.url}`} 
                           alt={product.product_name} 
                           className="img-fluid rounded"
                         />
@@ -248,7 +248,7 @@ export default function SingleProducts() {
                       {product.image.map((img, index) => (
                         <SwiperSlide key={`thumb-slide-${index}`}>
                           <img 
-                            src={`http://localhost:1337${img.url}`} 
+                            src={`https://zone7-strapi-backend.onrender.com/${img.url}`} 
                             alt={`Thumbnail ${index + 1}`} 
                             className="img-fluid rounded cursor-pointer"
                           />

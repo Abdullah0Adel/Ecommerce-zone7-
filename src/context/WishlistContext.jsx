@@ -35,6 +35,9 @@ export const WishlistProvider = ({ children }) => {
   // Load wishlist data when component mounts
   const loadWishlist = async () => {
     setLoading(true);
+
+    // console.log(getUserId);
+    // console.log(getUserId);
     
     const userId = getUserId();
     const token = getAuthToken();
@@ -57,6 +60,7 @@ export const WishlistProvider = ({ children }) => {
           populate: '*'
         }
       });
+      console.log("wishlist response", response.data.data)
       
       if (response.data && response.data.data) {
         const wishlistData = response.data.data.map(item => {
@@ -69,7 +73,7 @@ export const WishlistProvider = ({ children }) => {
             product_documentId: item.product_documentId, // For links
             name:  item.product_name,
             price: item.price || 0,
-image: item.image && item.image.length > 0 ? item.image[0].url : '',            // Include other fields that might be needed by WishlistPage
+            image: item.image && item.image.length > 0 ? item.image[0].url : '',            // Include other fields that might be needed by WishlistPage
             rating: item?.rating || item.rating,
           };
         });

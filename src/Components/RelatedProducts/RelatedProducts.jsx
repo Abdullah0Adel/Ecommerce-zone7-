@@ -49,7 +49,7 @@ export default function RelatedProducts({
         setLoading(true);
         setError(null);
         
-        const BASE_URL = `${process.env.REACT_APP_API_URL}/api/`;
+
         const relatedUrl = `${BASE_URL}products`;
         
         const response = await axios.get(relatedUrl, {
