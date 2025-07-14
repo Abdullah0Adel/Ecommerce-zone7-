@@ -50,14 +50,15 @@ const YourOrder = () => {
         console.log("Fetching orders for user:", userId);
 
         // Enhanced API call with deeper population to get product images and details
-        const response = await axios.get(
-          `${BASE_URL}orders?filters[users_permissions_user]=${userId}&populate`,
-          {
+          const response = await axios.get(`${BASE_URL}orders`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
-        );
+            params: {
+              'filters[users_permissions_user]': userId,
+              populate: '*', // populate all relations; adjust as needed
+            },
+          });
 
         console.log("API Response:", response.data);
         

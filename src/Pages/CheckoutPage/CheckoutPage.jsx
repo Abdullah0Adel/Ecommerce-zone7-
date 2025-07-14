@@ -5,6 +5,7 @@ import { useCart } from "../../context/CartContext"; // Import useCart from your
 import './CheckoutPage.css'
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { toast } from 'react-hot-toast';
+import BASE_URL from "../../Data/BASE_URL";
 
 const egyptCities = [
   "Cairo", "Giza", "Alexandria", "Aswan", "Luxor",
@@ -88,7 +89,7 @@ const CheckoutPage = () => {
         status_O: "Pending",
       };
 
-      const response = await fetch("http://localhost:1337/api/orders", {
+      const response = await fetch(`${BASE_URL}orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
