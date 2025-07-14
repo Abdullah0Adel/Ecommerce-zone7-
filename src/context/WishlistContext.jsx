@@ -35,9 +35,6 @@ export const WishlistProvider = ({ children }) => {
   // Load wishlist data when component mounts
   const loadWishlist = async () => {
     setLoading(true);
-
-    // console.log(getUserId);
-    // console.log(getUserId);
     
     const userId = getUserId();
     const token = getAuthToken();
@@ -60,7 +57,6 @@ export const WishlistProvider = ({ children }) => {
           populate: '*'
         }
       });
-      console.log("wishlist response", response.data.data)
       
       if (response.data && response.data.data) {
         const wishlistData = response.data.data.map(item => {
