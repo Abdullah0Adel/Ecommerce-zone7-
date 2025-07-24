@@ -55,8 +55,9 @@ export default function ProductCard({id,funId, img, category, thumbnail, product
     imageId: imageId,
     // Keep a display URL for local use
     imageUrl: product.image && product.image.length > 0 
-      ? `${BASE_URL}${product.image[0].url}` 
+      ? `${product.image[0].url}` 
       : '',
+      //modified
     maxStock: selectedSize.stock,
   };
 
@@ -95,7 +96,8 @@ const handleWishlistToggle = async () => {
         // Handle image safely - create an array with a single object containing url
         imageId: imageId,
         imageUrl: img && img.length > 0 
-          ? `${BASE_URL}${img[0].url}` 
+          ? `${img[0].url}` 
+          //modified
           : '',
       };
       
@@ -125,7 +127,7 @@ const handleWishlistToggle = async () => {
           )}
 
           <img
-            src={`https://zone7-strapi-backend.onrender.com${thumbnail}`}
+            src={`${thumbnail}`}
             className="card-img-top h-100 img-hover-effect"
             alt={productName}
           />

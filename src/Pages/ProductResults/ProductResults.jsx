@@ -22,7 +22,7 @@ function ProductResults() {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${BASE_URL}products`, {
+        const response = await axios.get(`${BASE_URL}/api/products`, {
           params: {
             populate: "*"
           }
@@ -97,7 +97,8 @@ function ProductResults() {
           rating: product.product_rating || product.rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `${BASE_URL}${product.image[0].url}` 
+            ? `${product.image[0].url}` 
+            //modified
             : '',
         };
         
@@ -150,7 +151,8 @@ function ProductResults() {
                       )}
 
                       <img
-                        src={`http://localhost:1337${product.thumbnail?.url}`}
+                        src={`${product.thumbnail?.url}`}
+                        //modified
                         className="card-img-top h-100 img-hover-effect"
                         alt={product.product_name}
                       />

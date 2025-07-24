@@ -46,7 +46,7 @@ export const WishlistProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.get(`${BASE_URL}wishlists`, {
+      const response = await axios.get(`${BASE_URL}/api/wishlists`, {
         headers: {
           Authorization: token ? `Bearer ${token}` : undefined
         },
@@ -133,7 +133,7 @@ export const WishlistProvider = ({ children }) => {
       };
 
       // Make POST request to add to wishlist
-      await axios.post(`${BASE_URL}wishlists`, wishlistData, {headers});
+      await axios.post(`${BASE_URL}/api/wishlists`, wishlistData, {headers});
       await loadWishlist();
       toast.success(`Added ${product.product_name || product.name} to your wishlist`)      
 
@@ -183,7 +183,7 @@ export const WishlistProvider = ({ children }) => {
       }
       
       // Remove from API first
-      await axios.delete(`${BASE_URL}wishlists/${itemToRemove.wishlistItemId}`, {
+      await axios.delete(`${BASE_URL}/api/wishlists/${itemToRemove.wishlistItemId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -216,7 +216,7 @@ export const WishlistProvider = ({ children }) => {
       // Delete all wishlist items from API
       // We need to delete each item one by one
       const deletePromises = wishlistItems.map(item => 
-        axios.delete(`${BASE_URL}wishlists/${item.wishlistItemId}`, {
+        axios.delete(`${BASE_URL}/api/wishlists/${item.wishlistItemId}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

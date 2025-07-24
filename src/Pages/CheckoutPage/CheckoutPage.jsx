@@ -89,7 +89,7 @@ const CheckoutPage = () => {
         status_O: "Pending",
       };
 
-      const response = await fetch(`${BASE_URL}orders`, {
+      const response = await fetch(`/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -257,7 +257,8 @@ const CheckoutPage = () => {
                           typeof item.image === 'string'
                             ? item.image
                             : item.image?.url
-                              ? `http://localhost:1337${item.image.url}`
+                              ? `${item.image.url}`
+                              //modified
                               : '/images/placeholder.jpg'
                         }
                         alt={item.name}

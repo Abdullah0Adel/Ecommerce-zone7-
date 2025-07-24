@@ -16,7 +16,7 @@ const navigate = useNavigate();
     useEffect(() => {
         const fetchProducts = async () =>{
             try {
-                const response = await axios.get(`${BASE_URL}products`, {
+                const response = await axios.get(`${BASE_URL}/api/products`, {
                     params: {
                         populate: "*"
                     }

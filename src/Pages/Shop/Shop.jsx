@@ -61,7 +61,7 @@ export default function Shop() {
   useEffect(() => {
     const getProducts = () => {
       try{
-        let domain = `${BASE_URL}products`;
+        let domain = `${BASE_URL}/api/products`;
         let url = domain;
         axios
         .get(url,{
@@ -85,7 +85,7 @@ export default function Shop() {
   useEffect(() => {
     const getCategories = () => {
       try{
-        let domainCat = `${BASE_URL}categories`;
+        let domainCat = `${BASE_URL}/api/categories`;
         let urlCat = domainCat;
         axios.get(urlCat,{
           params: {

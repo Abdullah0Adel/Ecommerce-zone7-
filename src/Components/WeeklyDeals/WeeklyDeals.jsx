@@ -24,7 +24,7 @@ useEffect(() => {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const url = `${BASE_URL}products`;
+      const url = `${BASE_URL}/api/products`;
       const response = await axios.get(url, {
         params: {
           populate: "*"
@@ -133,7 +133,8 @@ useEffect(() => {
             <div className="position-relative h-100">
               <div className="bg-light h-100 d-flex align-items-center justify-content-center rounded-start" style={{ backgroundColor: '#e9f0e6' }}>
                 <img 
-                  src={`https://zone7-strapi-backend.onrender.com${product.thumbnail?.url}`}
+                  src={`${product.thumbnail?.url}`}
+                  //modified
                   alt={product.product_name}
                   className="img-fluid rounded" 
                   style={{ maxHeight: '100%', objectFit: 'contain' }}

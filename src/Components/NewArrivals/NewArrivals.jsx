@@ -35,7 +35,7 @@ export default function NewArrivals() {
     const fetchProduct = async() => {
       try{
         setLoading(true);
-        const url = `${BASE_URL}products`;
+        const url = `${BASE_URL}/api/products`;
         const response = await axios.get(url, {
           params: {
             populate: "*"
@@ -112,7 +112,7 @@ export default function NewArrivals() {
           rating: product.product_rating || product.rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `${BASE_URL}${product.image[0].url}` 
+            ? `${product.image[0].url}` 
             : '',
         };
         
@@ -174,7 +174,8 @@ export default function NewArrivals() {
                     </p>
                   )}
                   <img
-                    src={`https://zone7-strapi-backend.onrender.com${product.thumbnail?.url}`}
+                  //modified
+                    src={`${product.thumbnail.url}`}
                     className={styles.productImage}
                     alt={product.product_name}
                   />

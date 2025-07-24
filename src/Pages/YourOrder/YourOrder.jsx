@@ -50,7 +50,7 @@ const YourOrder = () => {
         console.log("Fetching orders for user:", userId);
 
         // Enhanced API call with deeper population to get product images and details
-          const response = await axios.get(`${BASE_URL}orders`, {
+          const response = await axios.get(`${BASE_URL}/api/orders`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -130,7 +130,7 @@ const YourOrder = () => {
 const getProductImageUrl = (item) => {
   const thumbnailUrl = item?.image?.formats?.thumbnail?.url || item?.image?.url;
   return thumbnailUrl 
-    ? (thumbnailUrl.startsWith("http") ? thumbnailUrl : `${BASE_URL}${thumbnailUrl}`) 
+    ? (thumbnailUrl.startsWith("http") ? thumbnailUrl : `${thumbnailUrl}`) 
     : null;
 };
 
@@ -288,10 +288,10 @@ const getProductImageUrl = (item) => {
                     <div className="card-body p-4 p-md-5">
                       {/* Progress Bar */}
                       <div className="mb-5">
-                        <div className="d-flex align-items-center justify-content-between mb-4">
+                        <div className="d-flex align-items-center justify-content-center mb-4">
                           {orderStages.map((stage, index) => (
                             <div key={stage} className="d-flex align-items-center flex-fill">
-                              <div className="d-flex flex-column align-items-center">
+                              <div className="d-flex flex-column align-items-center justify-content-center">
                                 <div className={`progress-circle ${index <= currentStatusIndex ? 'completed' : 'pending'}`}>
                                   {index <= currentStatusIndex ? (
                                     <Icon icon="clarity:success-line" width="20" height="20" />

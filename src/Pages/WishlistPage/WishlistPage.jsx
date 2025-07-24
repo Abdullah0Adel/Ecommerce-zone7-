@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useWishlist } from '../../context/WishlistContext';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import './WishlistPage.css';
+import BASE_URL from '../../Data/BASE_URL';
 
 export default function WishlistPage() {
   const [deletingItems, setDeletingItems] = useState({});
@@ -122,7 +123,8 @@ export default function WishlistPage() {
                           </p>
                         )}
                         <img
-                          src={`http://localhost:1337${product.image}`}
+                          src={`${product.image}`}
+                          //modified
                           className="card-img-top img-hover-effect"
                           alt={product.name}
                           onError={(e) => {

@@ -48,7 +48,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      const response = await axios.get(`${BASE_URL}carts`, {
+      const response = await axios.get(`${BASE_URL}/api/carts`, {
         headers: {
           Authorization: token ? `Bearer ${token}` : undefined,
         },
@@ -134,7 +134,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
       };
 
       //  Check if item already exists in the cart
-      const response = await axios.get(`${BASE_URL}carts`, {
+      const response = await axios.get(`${BASE_URL}/api/carts`, {
         headers,
         params: {
           filters: {
@@ -170,7 +170,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
         }
 
         await axios.put(
-          `${BASE_URL}carts/${existingId}`,
+          `${BASE_URL}/api/carts/${existingId}`,
           { data: { quantity: newQuantity } },
           { headers }
         );
@@ -195,7 +195,7 @@ localStorage.setItem("cartIds", JSON.stringify(cartIds));
           payload.data.image = newItem.imageId;
         }
 
-        await axios.post(`${BASE_URL}carts`, payload, { headers });
+        await axios.post(`${BASE_URL}/api/carts`, payload, { headers });
         await loadCart(); // Reload the cart after creation
         toast.success(`Added ${newItem.product_name} to your cart`);
       }
@@ -224,7 +224,7 @@ const updateCartItem = async (cartItemId, updates) => {
 
     // Update in Strapi
     const response = await axios.put(
-      `${BASE_URL}carts/${cartItemId}`,
+      `${BASE_URL}/api/carts/${cartItemId}`,
       {
         data: updates
       },
@@ -257,7 +257,7 @@ const updateCartItem = async (cartItemId, updates) => {
       if (!cartItemId) return;
       const token = getAuthToken();
 
-      await axios.delete(`${BASE_URL}carts/${cartItemId}`, {
+      await axios.delete(`${BASE_URL}/api/carts/${cartItemId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

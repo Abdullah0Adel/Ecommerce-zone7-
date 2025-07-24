@@ -40,7 +40,7 @@ export default function Register() {
 
   const handleRegister = async (values, { setSubmitting, resetForm }) => {
     setIsLoading(true);
-    const url = `${BASE_URL}auth/local/register`;
+    const url = `${BASE_URL}/api/auth/local/register`;
     
     try {
       const { username, email, password } = values;

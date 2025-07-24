@@ -37,7 +37,7 @@ export default function QuickView({ productId, onClose }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}products/${productId}?populate=*`);
+        const res = await axios.get(`${BASE_URL}/api/products/${productId}?populate=*`);
         setProduct(res.data.data);
 
         if (res.data.data.sizes?.length > 0) {
@@ -99,7 +99,8 @@ export default function QuickView({ productId, onClose }) {
     imageId: imageId,
     // Keep a display URL for local use
     imageUrl: product.image && product.image.length > 0 
-      ? `${BASE_URL}${product.image[0].url}` 
+      ? `${product.image[0].url}` 
+      //modified
       : '',
     maxStock: selectedSize.stock,
   };
@@ -155,7 +156,8 @@ export default function QuickView({ productId, onClose }) {
                     {product.image.map((img, index) => (
                       <SwiperSlide key={index}>
                         <img
-                          src={`http://localhost:1337${img.url}`}
+                          src={`${img.url}`}
+                          //modified
                           alt={product.product_name}
                           className="img-fluid rounded"
                         />

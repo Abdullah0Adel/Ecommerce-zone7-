@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import './CartPage.css';
 import { useNavigate } from 'react-router-dom';
+import BASE_URL from '../../Data/BASE_URL';
 
 export default function CartPage() {
 
@@ -104,7 +105,8 @@ const grandTotal = totalPrice + actualShippingCost;
                           typeof item.image === 'string'
                             ? item.image
                             : item.image?.url
-                              ? `http://localhost:1337${item.image.url}`
+                              ? `${item.image.url}`
+                              //modified
                               : '/images/placeholder.jpg'
                         }
                         alt={item.name}

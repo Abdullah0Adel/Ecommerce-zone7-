@@ -50,7 +50,7 @@ export default function RelatedProducts({
         setError(null);
         
 
-        const relatedUrl = `${BASE_URL}products`;
+        const relatedUrl = `${BASE_URL}/api/products`;
         
         const response = await axios.get(relatedUrl, {
           params: {
@@ -124,7 +124,8 @@ export default function RelatedProducts({
           rating: product.product_rating,
           imageId: product.image?.[0]?.id || null,
           imageUrl: product.image?.[0]?.url 
-            ? `${BASE_URL}${product.image[0].url}` 
+            ? `${product.image[0].url}` 
+            //modified
             : '',
         };
         await addToWishlist(wishlistItem);
@@ -161,7 +162,8 @@ export default function RelatedProducts({
         size: '',
         imageId: product.image?.[0]?.id || null,
         imageUrl: product.image?.[0]?.url 
-          ? `${BASE_URL}${product.image[0].url}` 
+          ? `${product.image[0].url}` 
+          //modified
           : '',
         maxStock: 999, // Default stock for products without sizes
       };
@@ -292,7 +294,8 @@ export default function RelatedProducts({
                   <div className="position-relative overflow-hidden">
                     {product.image && product.image.length > 0 ? (
                       <img
-                        src={`http://localhost:1337${product.image[0].url}`}
+                        src={`${product.image[0].url}`}
+                        //modified
                         alt={product.product_name}
                         className="card-img-top"
                         style={{ 

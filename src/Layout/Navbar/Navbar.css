@@ -466,3 +466,71 @@ body {
         width: 300px;
     }
 }
+/* Add these styles to your existing NavBar.css file */
+
+/* Default nav link styles */
+.nav-link-custom {
+  color: #6c757d !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+/* Hover effect for nav links */
+.nav-link-custom:hover {
+  color: #007bff !important;
+  transform: translateY(-2px);
+}
+
+/* Active state for nav links */
+.nav-link-custom.active {
+  color: #007bff !important;
+  font-weight: 700;
+}
+
+/* Add underline effect for active link */
+.nav-link-custom.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 3px;
+  background-color: #007bff;
+  border-radius: 2px;
+}
+
+/* Alternative: Add background highlight for active link */
+.nav-link-custom.active {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 6px;
+}
+
+/* For scrolled navbar state */
+.navbar-scrolled .nav-link-custom {
+  color: #495057 !important;
+}
+
+.navbar-scrolled .nav-link-custom.active {
+  color: #007bff !important;
+}
+
+.navbar-scrolled .nav-link-custom:hover {
+  color: #007bff !important;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .nav-link-custom.active::after {
+    display: none;
+  }
+  
+  .nav-link-custom.active {
+    background-color: rgba(0, 123, 255, 0.15);
+    border-radius: 6px;
+    margin: 2px 0;
+  }
+}

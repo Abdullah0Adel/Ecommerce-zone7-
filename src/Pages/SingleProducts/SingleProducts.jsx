@@ -54,7 +54,7 @@ export default function SingleProducts() {
       try {
         setLoading(true);
         const domain = `${BASE_URL}`;
-        const endPoint = `products/${id}`;
+        const endPoint = `/api/products/${id}`;
         const url = domain + endPoint;
         
         const response = await axios.get(url, {
@@ -138,7 +138,8 @@ export default function SingleProducts() {
       size: selectedSize.size,
       imageId: imageId,
       imageUrl: product.image && product.image.length > 0 
-        ? `${BASE_URL}${product.image[0].url}` 
+        ? `${product.image[0].url}` 
+        //modified
         : '',
       maxStock: selectedSize.stock,
     };
@@ -174,7 +175,8 @@ export default function SingleProducts() {
           rating: product.product_rating,
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
-            ? `${BASE_URL}${product.image[0].url}` 
+            ? `${product.image[0].url}` 
+            //modified
             : '',
         };
         
@@ -220,8 +222,8 @@ export default function SingleProducts() {
                     {product.image.map((img, index) => (
                       <SwiperSlide key={`main-slide-${index}`}>
                         <img 
-                          src={`https://zone7-strapi-backend.onrender.com${img.url}`} 
-                          alt={product.product_name} 
+                          src={img.url} 
+                          alt={`Thumbnail ${index + 1}`} 
                           className="img-fluid rounded"
                         />
                       </SwiperSlide>
@@ -248,7 +250,8 @@ export default function SingleProducts() {
                       {product.image.map((img, index) => (
                         <SwiperSlide key={`thumb-slide-${index}`}>
                           <img 
-                            src={`https://zone7-strapi-backend.onrender.com/${img.url}`} 
+                            src={`${img.url}`} 
+                            //modified
                             alt={`Thumbnail ${index + 1}`} 
                             className="img-fluid rounded cursor-pointer"
                           />

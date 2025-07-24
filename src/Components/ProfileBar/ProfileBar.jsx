@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './ProfileBar.css'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie';
+import Logout from '../../Pages/Logout/Logout';
 
 
 export default function ProfileBar( closeProfileBar ) {
@@ -67,6 +68,14 @@ export default function ProfileBar( closeProfileBar ) {
               Your Order
           </li>
         </Link>
+                {token &&(
+            <>
+            <Link  onClick={handleCloseProfileBar} to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>
+
+                <Logout/>
+            </Link>
+            </>
+        )}
       </ul>
     </div>
   )

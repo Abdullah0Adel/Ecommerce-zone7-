@@ -17,7 +17,7 @@ function SearchBar({ onSearch, closeSearchBar }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}products`, {
+        const response = await axios.get(`${BASE_URL}/api/products`, {
           params: {
             populate: "*"
           }
@@ -154,7 +154,8 @@ function SearchBar({ onSearch, closeSearchBar }) {
                   >
                     {product.thumbnail && (
                       <img 
-                        src={`http://localhost:1337${product.thumbnail.url}`} 
+                        src={`${product.thumbnail.url}`} 
+                        //modified
                         alt={product.product_name}
                         className="me-2" 
                         style={{ width: '40px', height: '40px', objectFit: 'cover' }}

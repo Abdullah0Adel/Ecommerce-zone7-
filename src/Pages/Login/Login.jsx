@@ -28,7 +28,7 @@ export default function Login() {
 
   const handleLogin = async (values, { setSubmitting, resetForm }) => {
     setIsLoading(true);
-    const url = `${BASE_URL}auth/local`;
+    const url = `${BASE_URL}/api/auth/local`;
     
     try {
       const { data } = await axios.post(url, values);
