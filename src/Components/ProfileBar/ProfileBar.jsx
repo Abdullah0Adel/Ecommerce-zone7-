@@ -73,6 +73,7 @@ export default function ProfileBar( closeProfileBar ) {
             <Link  onClick={handleCloseProfileBar} to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>
 
                 <Logout/>
+                
             </Link>
             </>
         )}

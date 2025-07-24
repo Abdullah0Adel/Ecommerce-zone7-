@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { toast } from 'react-hot-toast';
 import BASE_URL from "../../Data/BASE_URL";
 
+
 const egyptCities = [
   "Cairo", "Giza", "Alexandria", "Aswan", "Luxor",
   "Mansoura", "Zagazig", "Tanta", "Suez", "Port Said"
@@ -54,67 +55,62 @@ const CheckoutPage = () => {
   const userToken = getUserToken();
 
   //  Submit order function
-  const handleCheckout = async () => {
-    if (!phoneNumber || !shippingAddress) {
-      alert("Please fill in all required fields");
-      return;
-    }
 
-    setIsProcessing(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      toast.success("Order placed successfully!");
-      setIsProcessing(false);
-      // Would navigate or clear cart here in real implementation
-    }, 1500);
+const handleCheckout = async () => {
+  if (!phoneNumber || !shippingAddress) {
+    toast.error("Please fill in all required fields");
+    return;
+  }
 
-    
-    if (!userToken) {
-      alert("User is not authenticated! Please log in.");
-      return;
-    }
+  if (!userToken) {
+    toast.error("User is not authenticated! Please log in.");
+    return;
+  }
 
-    try {
-      const orderData = {
-        users_permissions_user: userId,
-        items: cartItems,
-        grandTotal,
-        phoneNumber,
-        shippingAddress,
-        country,
-        city,
-        paymentMethod,
-        custName,
-        status_O: "Pending",
-      };
+  setIsProcessing(true);
 
-      const response = await fetch(`/api/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userToken}`,
-        },
-        body: JSON.stringify({ data: orderData }),
-      });
-
-      if (response.ok) {
-        //  Clear cart using the context's clearCart function after successful order
-        await clearCart();
-        
-        toast.success("Order Placed Successfully!");
-        //  Navigate to order confirmation page
-        navigate("/yourorder");
-      } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
-        toast.error("Failed to place order. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred while processing your order.");
-    }
+  const orderData = {
+    users_permissions_user: userId,
+    items: cartItems,
+    grandTotal,
+    phoneNumber,
+    shippingAddress,
+    country,
+    city,
+    paymentMethod,
+    custName,
+    status_O: "Pending",
   };
+
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/api/orders`,
+      { data: orderData },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 200 || response.status === 201) {
+      await clearCart();
+      toast.success("Order Placed Successfully!");
+      navigate("/yourorder");
+    } else {
+      console.error("Order Error:", response);
+      toast.error("Failed to place order. Please try again.");
+    }
+
+  } catch (error) {
+    console.error("Axios Error:", error.response || error.message);
+    toast.error("An unexpected error occurred.");
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
 
   return (
     <div className="container-fluid bg-light py-5 mt-5">
