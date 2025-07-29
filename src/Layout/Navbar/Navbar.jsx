@@ -233,7 +233,7 @@ export default function Navbar() {
               </div>
             </div>
             <div className="col-6 d-flex justify-content-center align-items-center m-auto">
-              <Link to={'/'}><img className='canabuzz_mobileView' src="./images/Zone7-logoNav.png" alt="Logo" /></Link>
+              <Link to={'/'}><img className='canabuzz_mobileView' src="/images/Zone7-logoNav.png" alt="Logo" /></Link>
             </div>
             <div className="col-3 d-flex align-items-center justify-content-end">
               <Link to={"/cartpage"} className="text-dark">
