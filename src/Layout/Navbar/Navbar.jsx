@@ -111,6 +111,11 @@ export default function Navbar() {
     setCartOpen(!isCartOpen)
   }
 
+  const isActiveLink = (path) => {
+    return location.pathname === path;
+  };
+
+
   return (
     <>
     <div className="navbar-root-container">
@@ -198,7 +203,7 @@ export default function Navbar() {
             <ul className='nav_menu nav_menu_icons col-4 m-0 d-flex gap-4 justify-content-end'>
               <li onClick={handleSearchBar}><Icon className="searchIcon" icon="ic:sharp-search" width="24" height="24" fontSize={30} /></li> 
               <li onClick={handleProfileBar}><Icon icon="line-md:account" width="24" height="24" /></li>
-              <Link to={'/wishlist'} className="text-dark" >
+              <Link to={'/wishlist'} className={`text-dark ${isActiveLink("/wishlist")? "toggle-link-active" : "" }`} >
               <li>
                 <Icon icon="solar:heart-linear" width="24" height="24" />
                   {wishlistCount > 0 && (
@@ -208,7 +213,7 @@ export default function Navbar() {
             )}
               </li>
               </Link>
-              <Link to={"/cartpage"} className="text-dark">
+              <Link to={"/cartpage"} className={`text-dark ${isActiveLink("/cartpage")? "toggle-link-active" : "" }`}>
                 <li>
                   <Icon icon="solar:cart-large-2-broken" width="24" height="24" />
                   {cartCount > 0 && (

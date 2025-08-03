@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 
-export default function ContactUs(children) {
+export default function ContactUs() {
   const [messageRef, messageisInView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
@@ -62,7 +62,7 @@ export default function ContactUs(children) {
       initial={{ opacity: 0, x: 70 }}
       animate={socialisInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 1 }}
-      className='d-flex flex-column gap-3'>
+      className='d-flex flex-column gap-3 mb-4'>
         <p><span className='fw-bold'>Address:</span> 123 Suspendis matti, Visaosang Building VST District, NY Accums, North American</p>
         <p><span className='fw-bold'>Email:</span> support@domain.com</p>
         <p><span className='fw-bold'>Call Us:</span> (012)-345-67890</p>

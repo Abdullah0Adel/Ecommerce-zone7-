@@ -534,3 +534,9 @@ body {
     margin: 2px 0;
   }
 }
+
+.toggle-link-active{
+    background-color: #004c4452;
+    color: white;
+    border-radius: 50%;
+}
