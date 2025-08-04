@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion } from "framer-motion";
 import ProfileBar from "../../Components/ProfileBar/ProfileBar";
@@ -51,6 +51,8 @@ export default function Navbar() {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
+  const location = useLocation();
+
   
   // Improved scroll functionality
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -157,22 +159,31 @@ export default function Navbar() {
               onClick={()=>{
                 setIsMenuOpen(false);
               } }
-               className="toggle_link" to={'/'}><li className="">Home</li></Link>
+               className={`nav_link`} to={'/'}
+               >
+                <li className={`toggle_link ${isActiveLink("/") ? "nav-bottom-link-active" : ""}`}>Home</li>
+              </Link>
               <Link
               onClick={()=>{
                 setIsMenuOpen(false);
               } }
-              className="toggle_link" to={'/shop'}><li className="">Shop</li></Link>
+              className={`nav_link `} to={'/shop'}>
+                <li className={`toggle_link ${isActiveLink("/shop")? "nav-bottom-link-active" : "" }`}>Shop</li>
+              </Link>
               <Link 
               onClick={()=>{
                 setIsMenuOpen(false);
               } }
-              className="toggle_link" to={'/aboutus'}><li className="">About Us</li></Link>
+              className={`nav_link `} to={'/aboutus'}>
+                <li className={`toggle_link ${isActiveLink("/aboutus")? "nav-bottom-link-active" : "" }`}>About Us</li>
+              </Link>
               <Link 
               onClick={()=>{
                 setIsMenuOpen(false);
               } }
-              className="toggle_link" to={'/contactus'}><li className="">Contact Us</li></Link>
+              className={`nav_link `} to={'/contactus'}>
+                <li className={`toggle_link ${isActiveLink("/contactus")? "nav-bottom-link-active" : "" }`}>Contact Us</li>
+              </Link>
 
             </ul>
           </div>
@@ -193,16 +204,16 @@ export default function Navbar() {
 
             {/* Navbar Links */}
             <ul className='nav_menu col-4 d-flex justify-content-center gap-3'>
-              <li className='nav_item text-center'><Link className='nav_link' to={'/'}>Home</Link></li>
-              <li className='nav_item text-center'><Link className='nav_link' to={'/shop'}>Shop</Link></li>
-              <li className='nav_item text-center'><Link className='nav_link' to={'/aboutus'}>About Us</Link></li>
-              <li className='nav_item text-center'><Link className='nav_link' to={'/contactus'}>Contact Us</Link></li>
+              <li className={`nav_item text-center ${isActiveLink("/")? "toggle-link-main-active" : "" }`}><Link className='nav_link' to={'/'}>Home</Link></li>
+              <li className={`nav_item text-center ${isActiveLink("/shop")? "toggle-link-main-active" : "" }`}><Link className='nav_link' to={'/shop'}>Shop</Link></li>
+              <li className={`nav_item text-center ${isActiveLink("/aboutus")? "toggle-link-main-active" : "" }`}><Link className='nav_link' to={'/aboutus'}>About Us</Link></li>
+              <li className={`nav_item text-center ${isActiveLink("/contactus")? "toggle-link-main-active" : "" }`}><Link className='nav_link' to={'/contactus'}>Contact Us</Link></li>
             </ul>
 
             {/* Icons */}
             <ul className='nav_menu nav_menu_icons col-4 m-0 d-flex gap-4 justify-content-end'>
               <li onClick={handleSearchBar}><Icon className="searchIcon" icon="ic:sharp-search" width="24" height="24" fontSize={30} /></li> 
-              <li onClick={handleProfileBar}><Icon icon="line-md:account" width="24" height="24" /></li>
+              <li onClick={handleProfileBar} className={`text-dark ${isActiveLink("/profile")? "toggle-link-active" : "" }`}><Icon icon="line-md:account" width="24" height="24" /></li>
               <Link to={'/wishlist'} className={`text-dark ${isActiveLink("/wishlist")? "toggle-link-active" : "" }`} >
               <li>
                 <Icon icon="solar:heart-linear" width="24" height="24" />
@@ -241,7 +252,7 @@ export default function Navbar() {
               <Link to={'/'}><img className='canabuzz_mobileView' src="/images/Zone7-logoNav.png" alt="Logo" /></Link>
             </div>
             <div className="col-3 d-flex align-items-center justify-content-end">
-              <Link to={"/cartpage"} className="text-dark">
+              <Link to={"/cartpage"} className={`text-dark `}>
               <Icon icon="la:shopping-bag" width="25" height="25" />
                   {cartCount > 0 && (
                   <span className="position-absolute  bg-danger cart-count-mobile">
@@ -256,21 +267,15 @@ export default function Navbar() {
 
       <div className="container_nav_bottom">
         <div className="row">
-          <Link to={'/'} className="bottom_link col-3 gap-1 d-flex flex-column justify-content-center align-items-center">
+          <Link to={'/'} className={`bottom_link col-3 gap-1 d-flex flex-column justify-content-center align-items-center ${isActiveLink("/") ? "nav-bottom-link-active" : ""}`}>
             <Icon icon="tabler:home" width="24" height="24" />
-            <p>Home</p>
+            <p className={`${isActiveLink("/") ? "nav-bottom-link-active-p" : ""}`}>Home</p>
           </Link>
-          <Link to={'/shop'} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-layout-grid" width="26" height="26" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-              <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-              <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-              <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
-            </svg>
-            <p>Shopping</p>
+          <Link to={'/shop'} className={`bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center ${isActiveLink("/shop") ? "nav-bottom-link-active" : ""}`}>
+            <Icon icon="lsicon:shelf-outline" width="24" height="24" />            
+            <p className={`${isActiveLink("/shop") ? "nav-bottom-link-active-p" : ""}`}>Shopping</p>
           </Link>
-          <Link to={'/wishlist'} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
+          <Link to={'/wishlist'} className={`bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center ${isActiveLink("/wishlist") ? "nav-bottom-link-active" : ""}`}>
           <div className="position-relative pt-1 pe-1">
             <Icon icon="solar:heart-linear" width="24" height="24" />
             {wishlistCount > 0 && (
@@ -279,11 +284,11 @@ export default function Navbar() {
               </span>
             )}
           </div>
-            <p>Wishlist</p>
+            <p className={`${isActiveLink("/wishlist") ? "nav-bottom-link-active-p" : ""}`}>Wishlist</p>
           </Link>
-          <Link onClick={handleProfileBar} className="bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center">
+          <Link onClick={handleProfileBar} className={`bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center ${isActiveLink("/profile")? "nav-bottom-link-active" : "" }`}>
             <Icon icon="line-md:account" width="24" height="24" />
-            <p>Account</p>
+            <p className={`${isActiveLink("/profile") ? "nav-bottom-link-active-p" : ""}`}>Account</p>
           </Link>
         </div>
       </div>

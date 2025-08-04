@@ -107,3 +107,7 @@
           transform: translateY(-3px) !important;
           box-shadow: 0 5px 15px #333333b9 !important;
 }
+
+.loading-container{
+  margin-top: 70px;
+}

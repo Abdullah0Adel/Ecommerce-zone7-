@@ -20,6 +20,11 @@ export default function ProfileBar( closeProfileBar ) {
         closeProfileBar();
       }
     }
+
+  const isActiveLink = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <div className='profileBar'>
       <ul className='d-flex flex-column justify-content-between align-items-start gap-5'>
@@ -44,7 +49,7 @@ export default function ProfileBar( closeProfileBar ) {
         {token &&(
             <>
             <Link  onClick={handleCloseProfileBar} to={"/profile"} className='prof-links text-decoration-none text-dark fw-bold'>
-              <li>
+              <li className={`${isActiveLink("/profile")? "nav-profile-link-active" : "" }`}>
                 {userData.username}
               </li>
             </Link>
@@ -52,19 +57,19 @@ export default function ProfileBar( closeProfileBar ) {
         )}
 
         <Link  onClick={handleCloseProfileBar} to={'/wishlist'} className='prof-links text-decoration-none text-dark fw-bold'>
-          <li>
+          <li className={`${isActiveLink("/wishlist")? "nav-profile-link-active" : "" }`}>
               Wishlist
           </li>
         </Link>
 
         <Link  onClick={handleCloseProfileBar} to={'/checkout'} className='prof-links text-decoration-none text-dark fw-bold'>
-            <li>
+            <li className={`${isActiveLink("/checkout")? "nav-profile-link-active" : "" }`}>
                 Check out
             </li>
         </Link>
 
         <Link  onClick={handleCloseProfileBar} to={'/yourorder'} className='prof-links text-decoration-none text-dark fw-bold'>
-          <li>
+          <li className={`${isActiveLink("/yourorder")? "nav-profile-link-active" : "" }`}>
               Your Order
           </li>
         </Link>

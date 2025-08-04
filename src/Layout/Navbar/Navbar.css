@@ -18,6 +18,7 @@
     color: black;
     font-weight: 500;
     padding: 20px 0;
+    width: 100%;
 }
 .nav_item{
     font-weight: 500;
@@ -139,7 +140,7 @@
 }
 
 /* Mobile Menu */
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1177px) {
     .toggle {
         display: block;
     }
@@ -147,6 +148,17 @@
         display: none;
     }
 }
+.nav_item{
+    transition: 0.3s ease-in-out;
+}
+
+.nav_item:hover{
+    background-color: #004c444b;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+      border-radius: 7px;
+
+}
+
 
 .nav_menu_icons li {
     position: relative;
@@ -537,6 +549,19 @@ body {
 
 .toggle-link-active{
     background-color: #004c4452;
-    color: white;
+    color: white !important;
     border-radius: 50%;
+}
+.toggle-link-main-active{
+    /* border-bottom: solid 1px #004c45 !important; */
+    background-color: #004c444b !important;
+    border-radius: 7px;
+    transition: 0.5s ease-in-out;
+}
+.nav-bottom-link-active{
+    background-color: #004C45 !important;
+    color: white !important;
+}
+.nav-bottom-link-active-p{
+    color: white !important;
 }

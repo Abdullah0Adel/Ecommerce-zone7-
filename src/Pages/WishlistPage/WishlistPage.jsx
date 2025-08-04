@@ -38,8 +38,8 @@ export default function WishlistPage() {
 
   if (loading) {
     return (
-      <div className="container my-5 text-center">
-        <div className="spinner-border" role="status"></div>
+      <div className="container mt-5 loading-container  text-center">
+        <div className="spinner-border mt-5" role="status"></div>
         <p className="mt-2">Loading your wishlist...</p>
       </div>
     );
