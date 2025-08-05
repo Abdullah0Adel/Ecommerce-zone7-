@@ -48,6 +48,7 @@ export default function Register() {
       
       
       // Save user data in localStorage
+      Cookies.set('token', data.jwt, { expires: 7 });
       localStorage.setItem('user', JSON.stringify(data.user));
       localStorage.setItem('token', data.jwt);
 
