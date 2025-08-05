@@ -73,4 +73,7 @@
   .quick-view{
     display: none !important;
   }
+  .quick-view-btn {
+    display: none !important;
+  }
 }

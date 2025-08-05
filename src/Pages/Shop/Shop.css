@@ -29,6 +29,12 @@
     opacity: 0;
     transition: 0.5s ease-in-out;
 }
+@media screen and (max-width: 490px){
+    .filters-toggle{
+        width: 250px;
+        padding: 5px !important;
+    }
+} 
 .filter-toggle-active{
     left: 0;
     opacity: 1;

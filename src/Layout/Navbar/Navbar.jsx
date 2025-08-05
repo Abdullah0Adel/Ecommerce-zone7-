@@ -286,10 +286,10 @@ export default function Navbar() {
           </div>
             <p className={`${isActiveLink("/wishlist") ? "nav-bottom-link-active-p" : ""}`}>Wishlist</p>
           </Link>
-          <Link onClick={handleProfileBar} className={`bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center ${isActiveLink("/profile")? "nav-bottom-link-active" : "" }`}>
+          <div onClick={handleProfileBar} className={`bottom_link col-3 d-flex gap-1 flex-column justify-content-center align-items-center ${isActiveLink("/profile")? "nav-bottom-link-active" : "" }`}>
             <Icon icon="line-md:account" width="24" height="24" />
             <p className={`${isActiveLink("/profile") ? "nav-bottom-link-active-p" : ""}`}>Account</p>
-          </Link>
+          </div>
         </div>
       </div>
     </div>

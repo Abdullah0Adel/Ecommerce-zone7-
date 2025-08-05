@@ -187,9 +187,9 @@ const handleWishlistToggle = async () => {
             <p className="text-black fw-bold">EGP {productPrice}</p>
           )}
           
-          <button onClick={() => setQuickViewOpen(true)} className="quick-view-btn d-flex align-items-center gap-1">
+          <button onClick={() => setQuickViewOpen(true)} className="quick-view-btn align-items-center gap-1">
             <Icon icon="mdi:eye-outline" className="quick-view" />
-            <p className='quick-view mb-0'>Quick View</p>
+            <span className='quick-view mb-0 mx-1'>Quick View</span>
           </button>
           {isQuickViewOpen && (
             <>
