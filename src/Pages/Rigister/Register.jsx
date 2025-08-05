@@ -46,11 +46,11 @@ export default function Register() {
       const { username, email, password } = values;
       const { data } = await axios.post(url, { username, email, password });
       
-      // Set token in cookies
-      Cookies.set('token', data.jwt, { expires: 7 });
       
       // Save user data in localStorage
       localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.jwt);
+
       
       // Merge any items in local cart with the new user's cart
       if (mergeCartsOnLogin) {

@@ -76,7 +76,7 @@ const Footer = () => {
       <div className="position-fixed end-0 bottom-0 p-3" style={{ zIndex: 11 }}>
         <a 
           href="#top" 
-          className="bg-white text-dark rounded-circle d-flex align-items-center justify-content-center shadow"
+          className="to-top bg-white text-dark rounded-circle d-flex align-items-center justify-content-center shadow"
           style={{ width: '40px', height: '40px' }}
         >
           <FaArrowUp />

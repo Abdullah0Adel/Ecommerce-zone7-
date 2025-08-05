@@ -130,33 +130,44 @@ export default function Shop() {
   }, [categories, products]);
 
   // Simplified filtering logic without subcategories
-  useEffect(() => {
-    let filtered = [...products];
+useEffect(() => {
+  let filtered = [...products];
 
-    if (selectedCategories.length > 0) {
-      filtered = filtered.filter(
-        (p) =>
-          p.categories &&
-          p.categories.some(
-            (cat) => selectedCategories.includes(cat.category_name.toLowerCase())
-          )
-      );
-    }
-
-    if (inStockOnly) {
-      filtered = filtered.filter((p) => p.product_availability === 'in stock');
-    }
-
+  if (selectedCategories.length > 0) {
     filtered = filtered.filter(
       (p) =>
-        p.product_price >= priceRange[0] &&
-        p.product_price <= priceRange[1]
+        p.categories &&
+        p.categories.some(
+          (cat) => selectedCategories.includes(cat.category_name.toLowerCase())
+        )
     );
+  }
 
-    setFilteredProducts(filtered);
-    resetPagination(1)
-  }, 
-  [selectedCategories, inStockOnly, priceRange, products]);
+  // التحديث الجديد لفلتر المخزون
+  if (inStockOnly) {
+    filtered = filtered.filter((p) => {
+      // التحقق من وجود sizes array
+      if (!p.sizes || !Array.isArray(p.sizes)) {
+        return false; // لو مفيش sizes، متعرضوش
+      }
+      
+      // التحقق من إن في على الأقل size واحد فيه stock أكبر من 0
+      return p.sizes.some(size => size.stock && size.stock > 0);
+    });
+  }
+
+  filtered = filtered.filter(
+    (p) =>
+      p.product_price >= priceRange[0] &&
+      p.product_price <= priceRange[1]
+  );
+
+  setFilteredProducts(filtered);
+  resetPagination(1)
+}, 
+[selectedCategories, inStockOnly, priceRange, products]);
+
+
 
   // Calculate pagination variables
   const indexOfLastProduct = currentPage * productsPerPage;

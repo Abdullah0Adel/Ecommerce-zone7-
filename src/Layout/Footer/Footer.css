@@ -6,3 +6,11 @@
 .footer-logo{
     width: 150px;
 }
+
+.to-top{
+    transition: 0.5s;
+}
+.to-top:hover{
+    background-color: #004C45 !important;
+    color: aliceblue !important;
+}
