@@ -262,7 +262,6 @@ const updateCartItem = async (cartItemId, updates) => {
       });
 
       setCartItems(cartItems.filter((item) => item.cartItemId !== cartItemId));
-      toast.success('Item removed from cart');
     } catch (error) {
       console.error('Error removing from cart:', error);
       toast.error('Failed to remove item from cart');
