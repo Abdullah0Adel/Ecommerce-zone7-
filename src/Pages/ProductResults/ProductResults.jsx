@@ -7,6 +7,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import QuickView from '../../Components/QuickView/QuickView';
 import toast from 'react-hot-toast';
 import BASE_URL from '../../Data/BASE_URL';
+import './ProductResults.css';
 
 function ProductResults() {
   const [searchParams] = useSearchParams();
@@ -72,12 +73,11 @@ function ProductResults() {
       if (productInWishlist) {
         await removeFromWishlist(product.id);
       } else {
-        // Calculate final price for this specific product
+        // Calculate final price products
         const finalPrice = product.hasDiscount
           ? product.product_price - (product.product_price * product.discount_value) / 100
           : product.product_price;
 
-        // Prepare image object correctly
         const imageUrl = product.image && product.image.length > 0 
           ? product.image[0].url 
           : '';
@@ -86,9 +86,8 @@ function ProductResults() {
           ? product.image[0].id
           : null;
 
-        // Create wishlist item matching the format expected by WishlistContext
         const wishlistItem = {
-          id: product.id, // Add this for consistency
+          id: product.id, 
           product_id: product.id,
           product_documentId: product.documentId,
           product_name: product.product_name,
@@ -215,11 +214,10 @@ function ProductResults() {
                       
                       <button 
                         onClick={() => openQuickView(product.documentId)} 
-                        className="quick-view-btn d-flex align-items-center gap-1"
-                        type="button"
+                        className="quick-view-btn align-items-center gap-1"
                       >
                         <Icon icon="mdi:eye-outline" className="quick-view" />
-                        <p className='quick-view mb-0'>Quick View</p>
+                        <span className='quick-view mb-0'>Quick View</span>
                       </button>
                     </div>
                   </div>

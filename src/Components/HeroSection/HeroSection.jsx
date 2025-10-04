@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 
-// Import required Swiper modules
 import { FreeMode, Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
-// Import icons
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import styles from "./HeroSection.module.css";
@@ -14,7 +10,6 @@ import { Link } from 'react-router-dom';
 const HeroSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   
-  // Slider data
   const slides = [
     {
       id: 1,
@@ -23,7 +18,7 @@ const HeroSection = () => {
       subtitle: "Own the moment—on the pitch or in the stands",
       description: "Evokes the grand experience of the game, whether you're playing or watching.",
       buttonText: "Shop Now",
-      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", // dark green with opacity
+      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", 
     },
     {
       id: 2,
@@ -32,7 +27,7 @@ const HeroSection = () => {
       subtitle: "Engineered to move with you—no matter the pace.",
       description: "Motivational and personalized, perfect for fitness wear or running gear promotions.",
       buttonText: "Browse to level up",
-      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", // emerald with opacity
+      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", 
     },
     {
       id: 3,
@@ -41,7 +36,7 @@ const HeroSection = () => {
       subtitle: "Unleash your inner champion with elite gear worn by the best.",
       description: "Conveys elite, professional-level quality and aspiration by showing famous footballers.",
       buttonText: "See What's New",
-      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", // green with opacity
+      bgColor: "rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)", 
     }
   ];
 

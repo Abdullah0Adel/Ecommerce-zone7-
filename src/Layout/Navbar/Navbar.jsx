@@ -11,10 +11,6 @@ import { useCart } from '../../context/CartContext'; // Import cart context
 import ToggleSearch from "../../Components/ToggleSearch/ToggleSearch";
 
 export default function Navbar() {
-  const [isHover, toggleHover] = React.useState(false);
-  const toggleHoverMenu = () => {
-    toggleHover(!isHover);
-  };
   const { 
     cartItems, 
   } = useCart();
@@ -25,27 +21,6 @@ export default function Navbar() {
     } = useWishlist();
   const wishlistCount = wishlistItems.length; 
 
-  const subMenuAnimate = {
-    enter: {
-      opacity: 1,
-      rotateX: 0,
-      transition: {
-        duration: 0.5
-      },
-      display: "block"
-    },
-    exit: {
-      opacity: 0,
-      rotateX: -15,
-      transition: {
-        duration: 0.3,
-        delay: 0.3
-      },
-      transitionEnd: {
-        display: "none"
-      }
-    }
-  };
        
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
@@ -54,11 +29,11 @@ export default function Navbar() {
   const location = useLocation();
 
   
-  // Improved scroll functionality
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  // scroll functionality
+  const [prevScrollPos, setPrevScrollPos] = useState(0); //بيخزن ال Y offset
   const [visible, setVisible] = useState(true);
 
-  // Handle scroll event with debounce for better performance
+  // Handle scroll event to show/hide navbar
   useEffect(() => {
     let scrollTimer;
     
@@ -190,7 +165,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main Navbar - now with better scroll-based visibility class */}
+      {/* Main Navbar - with scroll-based visibility  */}
       <div className={`navbar-scroll-container ${visible ? "navbar-visible" : "navbar-hidden"}`}>
         <div className='container-nav'>
           <nav className='nav row w-100 d-flex align-items-center justify-content-round'>

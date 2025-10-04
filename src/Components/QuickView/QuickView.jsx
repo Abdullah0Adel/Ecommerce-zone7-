@@ -15,24 +15,25 @@ import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
 import BASE_URL from '../../Data/BASE_URL';
 
+
 export default function QuickView({ productId, onClose }) {
   const [product, setProduct] = useState(null);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  
 
 
-  useEffect(() => {
-    // Disable scroll on mount
-    document.body.classList.add('overflow-hidden');
-  
-    // Enable scroll when component unmounts
-    return () => {
-      document.body.classList.remove('overflow-hidden');
-    };
-  }, []);
-  
+useEffect(() => {
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+  return () => {
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.overflow = 'auto';
+  };
+}, []);
+
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -134,7 +135,7 @@ export default function QuickView({ productId, onClose }) {
       <motion.div
         className="bg-white p-4 rounded-3 shadow-lg position-relative"
         style={{ maxWidth: '900px', width: '95%', zIndex: 200 }}
-        initial={{ scale: 0.9 }}
+        initial={{ scale: 0.5 }}
         animate={{ scale: 1 }}
         
       >

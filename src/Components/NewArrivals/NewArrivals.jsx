@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 import styles from './NewArrivals.module.css';
-// import required modules
 import { FreeMode, Pagination } from 'swiper/modules';
 import axios from 'axios';
 import { Icon } from '@iconify/react/dist/iconify.js';
@@ -101,9 +98,8 @@ export default function NewArrivals() {
           ? product.image[0].id
           : null;
 
-        // Create wishlist item matching the format expected by WishlistContext
         const wishlistItem = {
-          id: product.id, // Add this for consistency
+          id: product.id, 
           product_id: product.id,
           product_documentId: product.documentId,
           product_name: product.product_name,
@@ -129,7 +125,7 @@ export default function NewArrivals() {
 
 
   if (loading) {
-    return <div className='text-center fw-bold'>!NO NEW PRODUCTS FOR NOW :(</div>
+    return <div className='text-center fw-bold'>!NO NEW PRODUCTS FOR NOW (Or Render back-end server trial has expired)</div>
   }
 
   return (
@@ -174,7 +170,6 @@ export default function NewArrivals() {
                     </p>
                   )}
                   <img
-                  //modified
                     src={`${product.thumbnail.url}`}
                     className={styles.productImage}
                     alt={product.product_name}
@@ -228,7 +223,7 @@ export default function NewArrivals() {
                 )}
                 <button
                   onClick={()=> openQuickView(product.documentId)}
-                  className={`${styles.quickViewBtn}  d-flex  align-items-center`}
+                  className={`${styles.quickViewBtn}   align-items-center`}
                   type='button'
                 >
                   <Icon icon="mdi:eye-outline" className="quick-view" />

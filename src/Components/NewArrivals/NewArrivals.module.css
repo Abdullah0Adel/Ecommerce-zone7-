@@ -25,10 +25,6 @@
   transform: scaleX(1);
 }
 
-.productCard {
-  /* any custom styles for product card */
-}
-
 .discountBadge {
   position: absolute;
   top: 8px;
@@ -110,7 +106,9 @@
 .quickViewBtn{
   background-color: white;
   border: none;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 14px;
   color: #004C45;
   cursor: pointer;
@@ -126,6 +124,7 @@
 }
 @media screen and (max-width: 770px) {
   .quickViewBtn{
-    display: none ;
+    display: none !important;
   }
+
 }

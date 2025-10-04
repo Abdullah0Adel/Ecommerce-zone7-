@@ -155,7 +155,6 @@ function SearchBar({ onSearch, closeSearchBar }) {
                     {product.thumbnail && (
                       <img 
                         src={`${product.thumbnail.url}`} 
-                        //modified
                         alt={product.product_name}
                         className="me-2" 
                         style={{ width: '40px', height: '40px', objectFit: 'cover' }}

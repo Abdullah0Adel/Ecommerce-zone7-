@@ -1,0 +1,24 @@
+.quick-view-btn{
+  background-color: white;
+  border: none;
+  display: block;
+  font-size: 14px;
+  color: #004C45;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 7px;
+  border: solid 1px #004c448d;
+  transition:  0.3s ease-in-out;
+}
+.quick-view{
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+
+@media screen and (max-width: 770px) {
+
+  .quick-view-btn {
+    display: none !important;
+  }
+}

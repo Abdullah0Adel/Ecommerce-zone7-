@@ -4,7 +4,8 @@ import axios from 'axios';
 import Breadcrumbs from '../../Components/Breadcrumbs/Breadcrumbs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Thumbs } from 'swiper/modules';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -31,14 +32,28 @@ export default function SingleProducts() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [wishlistLoading, setWishlistLoading] = useState(false);
   const [singleCategory, setSingleCategory] = useState('');
+  const [reviewsData, setReviewsData] = useState([]);
+
+  //Submitting Review
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [displayAllReviews, setDisplayAllReviews] = useState(false);
   
-  // Get cart and wishlist functions
+  const handleDisplayAllReviews = () => {
+
+    setDisplayAllReviews(!displayAllReviews);
+  }
+
+
+
+
+  
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  // Reset component state when ID changes
   useEffect(() => {
-    // Reset all states when navigating to a new product
     setProduct(null);
     setLoading(true);
     setError(null);
@@ -47,9 +62,11 @@ export default function SingleProducts() {
     setThumbsSwiper(null);
     setWishlistLoading(false);
     setSingleCategory('');
+    if (id) {
+      fetchProduct();
+    }
   }, [id]);
 
-  useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
@@ -59,17 +76,24 @@ export default function SingleProducts() {
         
         const response = await axios.get(url, {
           params: {
-            populate: "*"
-          }
+            populate: {
+              image: true,
+              categories: true,
+              sizes: true,
+              reviews: {
+                populate: ['users_permissions_user'], 
+              },
+            },
+          },
         });
         
         setProduct(response.data.data);
-        // If there are sizes, select the first one by default
+        console.log('single product:', response.data.data);
+        setReviewsData(response.data.data.reviews || []);
         if (response.data.data.sizes && response.data.data.sizes.length > 0) {
           setSelectedSize(response.data.data.sizes[0]);
         }
         
-        // Set the category if available
         if (response.data.data.categories && response.data.data.categories.length > 0) {
           setSingleCategory(response.data.data.categories[0].category_name);
         }
@@ -82,19 +106,15 @@ export default function SingleProducts() {
       }
     };
 
-    if (id) {
-      fetchProduct();
-    }
-  }, [id]);
 
-  // Clean up Swiper instances on unmount
-  useEffect(() => {
-    return () => {
-      if (thumbsSwiper && thumbsSwiper.destroy) {
-        thumbsSwiper.destroy(true, true);
-      }
-    };
-  }, [thumbsSwiper]);
+  // // Clean up Swiper instances on unmount
+  // useEffect(() => {
+  //   return () => {
+  //     if (thumbsSwiper && thumbsSwiper.destroy) {
+  //       thumbsSwiper.destroy(true, true);
+  //     }
+  //   };
+  // }, [thumbsSwiper]);
 
   const incrementQuantity = () => {
     if (selectedSize && quantity < selectedSize.stock) {
@@ -176,7 +196,6 @@ export default function SingleProducts() {
           imageId: imageId,
           imageUrl: product.image && product.image.length > 0 
             ? `${product.image[0].url}` 
-            //modified
             : '',
         };
         
@@ -198,6 +217,85 @@ export default function SingleProducts() {
     ? product.product_price - (product.product_price * product.discount_value) / 100
     : product.product_price;
 
+
+      const ratings = [
+        { stars: 5, count: 0 },
+        { stars: 4, count: 0 },
+        { stars: 3, count: 0 },
+        { stars: 2, count: 0 },
+        { stars: 1, count: 0 }
+      ];
+    
+      const renderStars = (rating, filled = false) => {
+        return [...Array(5)].map((_, index) => (
+          <span 
+            key={index} 
+            className={`${`star`} ${filled ? "filledStar" : "emptyStar"}`}
+          >
+            {index < rating ? '★' : '☆'}
+          </span>
+        ));
+      };
+
+    const getUserData = () => {
+    try {
+      const userData = localStorage.getItem('user');
+      const token = localStorage.getItem('token') || localStorage.getItem('authToken');
+      return userData ? { user: JSON.parse(userData), token } : { user: null, token: null };
+    } catch (error) {
+      console.error('Error getting user data:', error);
+      return { user: null, token: null };
+    }
+  };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (rating === 0){
+          toast.error('Please select a rating');
+          return;
+        }
+        if (comment.trim() === ''){
+          toast.error('Please write a comment');
+          return;
+        }
+        const {user, token} = getUserData();
+        if ( !token) {
+          toast.error('You must be logged in to submit a review');
+          return;
+        }
+        try {
+          setSubmitting(true);
+          const submitURL = await axios.post(`${BASE_URL}/api/reviews`, {
+            data: {
+              rating: rating,
+              comment: comment,
+              product: product.id,
+              users_permissions_user: user.id,
+            }
+          }, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log('Review submitted:', submitURL.data);
+          toast.success('Review submitted successfully');
+          setRating(0);
+          setComment('');
+          setReviewsData((prevReviews) => [...prevReviews, submitURL.data]);
+            if (thumbsSwiper) {
+      try { thumbsSwiper.destroy(true, true); } catch (err) { console.warn(err); }
+      setThumbsSwiper(null);
+    }
+          await fetchProduct();
+
+        } catch (error) {
+          console.error('Error submitting review:', error);
+          toast.error('Failed to submit review. Please try again later.');
+        } finally {
+          setSubmitting(false);
+        }
+      }
+
   return (
     <div className='pt-5 mt-5'>
       <div className="container-sm product-content my-4">
@@ -208,15 +306,15 @@ export default function SingleProducts() {
               {product.image && product.image.length > 0 && (
                 <>
                   <Swiper
-                    key={`main-${product.id}`} // Add unique key
-                    loop={product.image.length > 1} // Only enable loop if more than 1 image
+                    key={`main-${product.id}`} 
+                    loop={product.image.length > 1}
                     modules={[Navigation, Pagination, Thumbs]}
                     thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : {}}
                     navigation
                     pagination={{ clickable: true }}
                     className="main-swiper mb-3"
                     onSwiper={(swiper) => {
-                      // Store main swiper reference if needed
+                      
                     }}
                   >
                     {product.image.map((img, index) => (
@@ -233,9 +331,9 @@ export default function SingleProducts() {
                   {/* Only show thumbs if more than 1 image */}
                   {product.image.length > 1 && (
                     <Swiper
-                      key={`thumbs-${product.id}`} // Add unique key
+                      key={`thumbs-${product.id}`} 
                       onSwiper={(swiper) => {
-                        // Small delay to ensure DOM is ready
+                        
                         setTimeout(() => {
                           setThumbsSwiper(swiper);
                         }, 100);
@@ -429,10 +527,145 @@ export default function SingleProducts() {
         <Descriptions/>
       </div>
 
-      <div>
-        <CustReviews/>
-      </div>
-      
+            <div className={`containerReviews`}>
+              <div className={`reviewsSection_Reviews`}>
+                <h2 className={`title_Reviews`}>CUSTOMER REVIEWS</h2>
+                
+                {/* Overall Rating Display */}
+                {/* <div className={`overallRating_Reviews`}>
+                  <div className={`starsContainer_Reviews`}>
+                    {renderStars(0)}
+                  </div>
+                  <p className={`noReviewsText_Reviews`}>Be the first to write a review</p>
+                </div> */}
+        
+                {/* Rating Breakdown */}
+                {/* <div className={`ratingBreakdown_Reviews`}>
+                  {ratings.map((rating) => (
+                    <div key={rating.stars} className={`ratingRow_Reviews`}>
+                      <div className={`ratingStars_Reviews`}>
+                        {renderStars(rating.stars, true)}
+                      </div>
+                      <div className={`progressContainer_Reviews`}>
+                        <div className={`progressBar_Reviews`}>
+                          <div 
+                            className={`progressFill_Reviews`}
+                            style={{ width: `${rating.count}%` }}
+                          />
+                        </div>
+                      </div>
+                      <div className={`ratingCount_Reviews`}>
+                        {rating.count}
+                      </div>
+                    </div>
+                  ))}
+                </div> */}
+
+                
+        
+                {/* Write Review Button */}
+                <div className={`buttonContainer_Reviews`}>
+
+                  <form onSubmit={handleSubmit}>      
+                    <div className="mb-3">
+                      <label className="form-label fw-bold">Your Rating</label>
+                          <div className="d-flex gap-1">
+                           {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                key={star}
+                                type="button"
+                                className="btn p-0 border-0 bg-transparent"
+                                style={{ fontSize: '24px' }}
+                                onMouseEnter={() => setHoveredRating(star)}
+                                onMouseLeave={() => setHoveredRating(0)}
+                                onClick={() => setRating(star)}
+                              >
+                                <span 
+                                  className={
+                                    star <= (hoveredRating || rating) 
+                                      ? 'text-warning' 
+                                      : 'text-muted'
+                                  }
+                                >
+                                  ★
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                                        <span className="text-muted">
+                {rating > 0 ? `${rating}/5` : 'Click to rate'}
+              </span>
+
+                      {/* <div className="d-flex align-items-center gap-2">
+                        <InteractiveStarRating 
+                          rating={rating} 
+                          onRatingChange={setRating} 
+                        />
+                        <span className="text-muted">
+                          {rating > 0 ? `${rating}/5` : 'Click to rate'}
+                        </span>
+                      </div> */}
+                    </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="reviewComment" className="form-label fw-bold">
+                      Your Review
+                    </label>
+                    <textarea
+                      id="reviewComment"
+                      className="form-control"
+                      rows="4"
+                      placeholder="Write your review here..."
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                      disabled={submitting}
+                    />
+                  </div>
+
+             
+                  <button className={`writeReviewBtn_Reviews`} >
+                    WRITE A REVIEW
+                  </button>
+                  </form>
+                </div>
+
+
+
+              </div>
+
+
+              <div className='row'>
+                {
+                  displayAllReviews ?
+                  reviewsData.map((review) => (
+                    <div key={review.id} className='col-12 col-md-6'>
+                    <CustReviews   review={review} />
+                    </div>
+                ))
+                :
+              reviewsData.slice(0, 10).map((review) => (
+                  <div key={review.id} className='col-12 col-md-6'>
+                  <CustReviews   review={review} />
+                  </div>
+              ))
+                }
+              </div>
+
+              {
+              reviewsData.length > 10 && (
+                <div className='text-center my-4'>
+
+                  <button onClick={handleDisplayAllReviews} className='btn btn-outline-dark'>
+                    {
+                      displayAllReviews ? 'SHOW LESS' : 'LOAD MORE REVIEWS'
+                    }
+
+                    </button>
+                  <p className='small'>All Reviews {reviewsData.length}</p>
+                </div>
+                )}               
+            </div>
+
       {/* Pass the category name to the RelatedProducts component */}
       {singleCategory && (
         <RelatedProducts 

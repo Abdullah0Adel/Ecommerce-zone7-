@@ -129,8 +129,8 @@ export default function Shop() {
     }
   }, [categories, products]);
 
-  // Simplified filtering logic without subcategories
-useEffect(() => {
+
+useEffect( () => {
   let filtered = [...products];
 
   if (selectedCategories.length > 0) {
@@ -143,15 +143,12 @@ useEffect(() => {
     );
   }
 
-  // التحديث الجديد لفلتر المخزون
   if (inStockOnly) {
     filtered = filtered.filter((p) => {
-      // التحقق من وجود sizes array
       if (!p.sizes || !Array.isArray(p.sizes)) {
-        return false; // لو مفيش sizes، متعرضوش
+        return false; 
       }
       
-      // التحقق من إن في على الأقل size واحد فيه stock أكبر من 0
       return p.sizes.some(size => size.stock && size.stock > 0);
     });
   }
@@ -165,7 +162,8 @@ useEffect(() => {
   setFilteredProducts(filtered);
   resetPagination(1)
 }, 
-[selectedCategories, inStockOnly, priceRange, products]);
+[selectedCategories, inStockOnly, priceRange, products]
+);
 
 
 
@@ -189,7 +187,6 @@ useEffect(() => {
     marginBottom: isExpanded ? '1rem' : '0',
   });
 
-  // Animation for chevron rotation
   const chevronStyle = (isExpanded) => ({
     transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
     transition: 'transform 0.3s ease-in-out',
@@ -206,7 +203,6 @@ useEffect(() => {
       </div>
       <div
         onClick={() => {
-          // only close when it's already open
           if (openFilterToggle) handlerFilterToggle();
         }}
         className={`global-overlay ${openFilterToggle ? "overlay_appear" : ""}`}
@@ -223,7 +219,7 @@ useEffect(() => {
 
 
 
-      {/* Mobile Filters - with smooth animation */}
+      {/* Mobile Filters */}
       <div className={`filters-toggle ${openFilterToggle ? "filters-toggle-active" : ""}`} 
            style={{
              opacity: openFilterToggle ? 1 : 0,
@@ -304,7 +300,7 @@ useEffect(() => {
               </div>
               <hr className='mb-3' />
 
-              {/* Category Filter - Simplified without subcategories */}
+              {/* Category Filter */}
               <div className="filter-section mb-3">
                 <div 
                   className="filter-header d-flex justify-content-between align-items-center p-2"
@@ -492,7 +488,7 @@ useEffect(() => {
               </div>
               <hr className='mb-3' />
 
-              {/* Category Filter - Simplified without subcategories */}
+              {/* Category Filter */}
               <div className="filter-section mb-3">
                 <div 
                   className="filter-header d-flex justify-content-between align-items-center p-2"

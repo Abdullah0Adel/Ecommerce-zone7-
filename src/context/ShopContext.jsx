@@ -87,12 +87,10 @@ export const ShopProvider = ({ children }) => {
   };
 
   // Toggle section expansion
-  const toggleSection = (section) => {
-    setExpandedSections({
-      ...expandedSections,
-      [section]: !expandedSections[section]
-    });
-  };
+const toggleSection = (section) => {
+  setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
+};
+
 
   // Handle category selection
   const handleCategoryChange = (category) => {

@@ -7,8 +7,8 @@
 
 
 
-const BASE_URL = `https://zone7-strapi-backend.onrender.com`;
-export default BASE_URL;
+// const BASE_URL = `https://zone7-strapi-backend.onrender.com`;
+// export default BASE_URL;
 
 
 // // console.log("API_URL:", import.meta.env.VITE_API_URL);
@@ -16,9 +16,9 @@ export default BASE_URL;
 // // console.log("ENV:", import.meta.env);
 
 
-// const BASE_URL = 'http://localhost:1337';
+const BASE_URL = 'http://localhost:1337';
 
-// export default BASE_URL
+export default BASE_URL
 
 
 

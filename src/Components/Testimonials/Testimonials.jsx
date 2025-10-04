@@ -4,7 +4,6 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import { Icon } from '@iconify/react';
 import './Testimonials.css'
 
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
 

@@ -4,6 +4,6 @@
 }
 
 html, body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   padding-top: 0 !important;
 }

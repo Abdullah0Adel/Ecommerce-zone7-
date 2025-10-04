@@ -254,7 +254,6 @@ const handleCheckout = async () => {
                             ? item.image
                             : item.image?.url
                               ? `${item.image.url}`
-                              //modified
                               : '/images/placeholder.jpg'
                         }
                         alt={item.name}

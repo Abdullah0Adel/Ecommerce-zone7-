@@ -1,68 +1,22 @@
 import React from 'react';
 import styles from './CustReviews.module.css';
 
-const CustReviews = () => {
-  const ratings = [
-    { stars: 5, count: 0 },
-    { stars: 4, count: 0 },
-    { stars: 3, count: 0 },
-    { stars: 2, count: 0 },
-    { stars: 1, count: 0 }
-  ];
-
-  const renderStars = (rating, filled = false) => {
-    return [...Array(5)].map((_, index) => (
-      <span 
-        key={index} 
-        className={`${styles.star} ${filled ? styles.filledStar : styles.emptyStar}`}
-      >
-        {index < rating ? '★' : '☆'}
-      </span>
-    ));
-  };
+const CustReviews = ({productId, review}) => {
 
   return (
-    <div className={styles.container}>
-      <div className={styles.reviewsSection}>
-        <h2 className={styles.title}>CUSTOMER REVIEWS</h2>
-        
-        {/* Overall Rating Display */}
-        <div className={styles.overallRating}>
-          <div className={styles.starsContainer}>
-            {renderStars(0)}
-          </div>
-          <p className={styles.noReviewsText}>Be the first to write a review</p>
+    <div className='container'>
+      <div className='d-flex align-items-center gap-3 mb-2'>
+        <div className="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white" style={{ width: '40px', height: '40px', minWidth: '40px' }}>
+          {review.users_permissions_user?.username?.charAt(0) || 'U'}
         </div>
-
-        {/* Rating Breakdown */}
-        <div className={styles.ratingBreakdown}>
-          {ratings.map((rating) => (
-            <div key={rating.stars} className={styles.ratingRow}>
-              <div className={styles.ratingStars}>
-                {renderStars(rating.stars, true)}
-              </div>
-              <div className={styles.progressContainer}>
-                <div className={styles.progressBar}>
-                  <div 
-                    className={styles.progressFill}
-                    style={{ width: `${rating.count}%` }}
-                  />
-                </div>
-              </div>
-              <div className={styles.ratingCount}>
-                {rating.count}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Write Review Button */}
-        <div className={styles.buttonContainer}>
-          <button className={styles.writeReviewBtn}>
-            WRITE A REVIEW
-          </button>
-        </div>
+        <h6> {review.users_permissions_user?.username} </h6>
       </div>
+        <p>
+          {[...Array(5)].map((_, i) => (
+            <span key={i} className={i < (review.customer_rating || review.rating) ? 'text-warning' : 'text-muted'}>★</span>
+          ))}
+        </p>
+        <p>{review.comment}</p>
     </div>
   );
 };

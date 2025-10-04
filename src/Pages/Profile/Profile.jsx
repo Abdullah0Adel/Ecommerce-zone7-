@@ -9,7 +9,6 @@ const Profile = () => {
     }
     const user = getUserData();
     if (!user) {   
-        // Redirect to login page if user data is not found
         window.location.href = '/login';
         return null;
     }
