@@ -56,7 +56,7 @@ export default function Login() {
   };
 
   return (
-    <div className="login-page">
+    <div className="login-page ">
       <div className="container-fluid h-100">
         <div className="row h-100">
           {/* Left Side - Form */}

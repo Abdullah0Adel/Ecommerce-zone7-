@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 const Footer = () => {
   return (
-    <footer className="footerImg text-white pb-5">
+    <footer className="footerImg text-white">
       <Container fluid className="px-4 py-5">
         <Row className="mb-5">
           {/* Logo and About */}
